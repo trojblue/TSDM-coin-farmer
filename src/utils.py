@@ -6,7 +6,7 @@ import os
 login_page = 'https://www.tsdm39.net/member.php?mod=logging&action=login'
 
 USERNAME = '独看流云'
-PASSWORD = 'FqC34HhQjuh`@By~'
+PASSWORD = ''
 SAVE_PATH = '../bin'
 FILENAME = 'cookies.pickle'
 
