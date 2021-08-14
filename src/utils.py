@@ -1,10 +1,15 @@
-from farmer import *
 from selenium import webdriver
 from typing import List
 import pickle
 import time
 import os
 
+sign_page = 'https://www.tsdm39.net/plugin.php?id=dsu_paulsign:sign'
+work_page = 'https://www.tsdm39.net/plugin.php?id=np_cliworkdz:work'
+login_page = 'https://www.tsdm39.net/member.php?mod=logging&action=login'
+
+SAVE_PATH = '../bin'
+FILENAME = 'cookies.pickle'
 
 
 def get_cookie(username:str, password:str):
@@ -27,9 +32,9 @@ def get_cookie(username:str, password:str):
 
     print("start dumping cookies")
     new_cookie = browser.get_cookies()
-
     browser.quit()
-    save_cookies(new_cookie, username)
+
+    add_cookie(new_cookie, username)
     return new_cookie
 
 def read_cookies():
@@ -37,13 +42,17 @@ def read_cookies():
     { username: [cookie] }
     """
     output_path = os.path.join(SAVE_PATH, FILENAME)
-    f = open(output_path, 'rb')
-    cookies = pickle.load(f)
-    f.close()
+    try:
+        f = open(output_path, 'rb')
+        cookies = pickle.load(f)
+        f.close()
+        return cookies
 
-    return cookies
+    except FileNotFoundError: # 文件不存在
+        return {}
 
-def save_cookies(new_cookie:List, username:str) -> None:
+
+def add_cookie(new_cookie:List, username:str) -> None:
     """向cookie文件写入新的用户cookie
     { username: [cookie] }
     """
@@ -61,7 +70,7 @@ def save_cookies(new_cookie:List, username:str) -> None:
     print("write done")
 
 
-def load_cookies(driver) -> None:
+def load_cookies() -> None:
     """获取cookie, 并且载入浏览器
     """
     directory = os.path.dirname(SAVE_PATH)
@@ -71,6 +80,5 @@ def load_cookies(driver) -> None:
     else:
         print("读取cookie....")
         cookies = read_cookies()
-    for cookie in cookies:
-        driver.add_cookie(cookie)
+
     return

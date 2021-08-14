@@ -1,16 +1,7 @@
 from selenium import webdriver
 import time
-from utils import load_cookies
+from utils import *
 from credentials import TSDM_credentials
-
-sign_page = 'https://www.tsdm39.net/plugin.php?id=dsu_paulsign:sign'
-work_page = 'https://www.tsdm39.net/plugin.php?id=np_cliworkdz:work'
-login_page = 'https://www.tsdm39.net/member.php?mod=logging&action=login'
-
-
-SAVE_PATH = '../bin'
-FILENAME = 'cookies.pickle'
-
 
 
 def sign():
@@ -59,14 +50,16 @@ def work_single_click(driver, eleement):
     driver.close()
     driver.switch_to.window(og)
 
-def work():
+def work_single(cookies):
     """签到主程序
-    从文件读取cookie, 然后用selenium模拟点击签到
+    恢复单个cookies系列, 然后用selenium模拟点击签到
     """
     driver = webdriver.Chrome()
 
     driver.get(work_page) # selenium: 必须先访问一次来获取cookie domain
-    load_cookies(driver)
+    for cookie in cookies:
+        driver.add_cookie(cookie)
+
     driver.get(work_page) # 回到打工页
     print("返回打工页....")
     time.sleep(0.5)
@@ -83,5 +76,7 @@ def work():
     driver.find_element_by_xpath('//*[@id="stopad"]/a').click()   # TODO: 容易失效, 更新成post
     time.sleep(2)
 
-    print("签到完成")
-    return
+    print("打工完成")
+    driver.quit()
+
+    return # TODO: 添加成功与否查询
