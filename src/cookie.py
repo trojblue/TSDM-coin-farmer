@@ -1,8 +1,11 @@
-from selenium import webdriver
-from typing import List
+import os
 import pickle
 import time
-import os
+from typing import List
+
+from selenium import webdriver
+
+from credentials import TSDM_credentials
 
 sign_page = 'https://www.tsdm39.net/plugin.php?id=dsu_paulsign:sign'
 work_page = 'https://www.tsdm39.net/plugin.php?id=np_cliworkdz:work'
@@ -23,7 +26,7 @@ def get_cookie(username: str, password: str):
 
     man_verify_code = input("input verification：")
 
-    if man_verify_code: # 没输入默认手动填好了
+    if man_verify_code:  # 没输入默认手动填好了
         browser.find_element_by_name("tsdm_verify").send_keys(man_verify_code)
         browser.find_element_by_name("loginsubmit").click()
         time.sleep(1)
@@ -80,4 +83,29 @@ def load_cookies() -> None:
         print("读取cookie....")
         cookies = read_cookies()
 
+    return
+
+
+def get_multiple_cookie(credentials):
+    """从credentials获取所有cookie
+    用之前记得删掉原有的cookies.pickle
+    """
+    for i in credentials:
+        get_cookie(i[0], i[1])
+    return
+
+
+def update_new_accounts():
+    """根据TSDM_credentials,
+    添加新的cookie, 但是不刷新老账户
+    """
+    usernames = read_cookies().keys()
+    new_cred = []
+
+    for cred in TSDM_credentials:
+        if cred[0] not in usernames:
+            new_cred.append(cred)
+
+    print("添加", len(new_cred), "个新账户:")
+    get_multiple_cookie(new_cred)
     return
