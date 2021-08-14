@@ -3,7 +3,6 @@ from cookie import *
 
 def sign_single(cookies):
     """签到主程序
-    从文件读取cookie, 然后用selenium模拟点击签到
     """
     driver = webdriver.Chrome()
 
@@ -52,8 +51,7 @@ def work_single_click(driver, eleement):
 
 
 def work_single(cookies):
-    """签到主程序
-    恢复单个cookies系列, 然后用selenium模拟点击签到
+    """打工主程序
     """
     driver = webdriver.Chrome()
 

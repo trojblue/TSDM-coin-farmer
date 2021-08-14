@@ -2,9 +2,7 @@ import os
 import pickle
 import time
 from typing import List
-
 from selenium import webdriver
-
 from credentials import TSDM_credentials
 
 sign_page = 'https://www.tsdm39.net/plugin.php?id=dsu_paulsign:sign'
@@ -26,7 +24,7 @@ def get_cookie(username: str, password: str):
 
     man_verify_code = input("input verification：")
 
-    if man_verify_code:  # 没输入默认手动填好了
+    if man_verify_code:  # 没输入, 默认手动填好了
         browser.find_element_by_name("tsdm_verify").send_keys(man_verify_code)
         browser.find_element_by_name("loginsubmit").click()
         time.sleep(1)
@@ -70,20 +68,6 @@ def add_cookie(new_cookie: List, username: str) -> None:
     pickle.dump(cookies, f)
     f.close()
     print("write done")
-
-
-def load_cookies() -> None:
-    """获取cookie, 并且载入浏览器
-    """
-    directory = os.path.dirname(SAVE_PATH)
-    if not os.path.exists(directory):
-        print("文件夹不存在, 获取cookie...")  # TODO: 自动获取cookie
-        return
-    else:
-        print("读取cookie....")
-        cookies = read_cookies()
-
-    return
 
 
 def get_multiple_cookie(credentials):
