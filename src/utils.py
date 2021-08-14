@@ -12,10 +12,9 @@ SAVE_PATH = '../bin'
 FILENAME = 'cookies.pickle'
 
 
-def get_cookie(username:str, password:str):
+def get_cookie(username: str, password: str):
     """selenium获取cookie
     """
-
     browser = webdriver.Chrome()
     browser.get(login_page)
 
@@ -24,11 +23,10 @@ def get_cookie(username:str, password:str):
 
     man_verify_code = input("input verification：")
 
-    if man_verify_code:
+    if man_verify_code: # 没输入默认手动填好了
         browser.find_element_by_name("tsdm_verify").send_keys(man_verify_code)
-
-    browser.find_element_by_name("loginsubmit").click()
-    time.sleep(1)
+        browser.find_element_by_name("loginsubmit").click()
+        time.sleep(1)
 
     print("start dumping cookies")
     new_cookie = browser.get_cookies()
@@ -36,6 +34,7 @@ def get_cookie(username:str, password:str):
 
     add_cookie(new_cookie, username)
     return new_cookie
+
 
 def read_cookies():
     """从文件读取cookies
@@ -48,11 +47,11 @@ def read_cookies():
         f.close()
         return cookies
 
-    except FileNotFoundError: # 文件不存在
+    except FileNotFoundError:  # 文件不存在
         return {}
 
 
-def add_cookie(new_cookie:List, username:str) -> None:
+def add_cookie(new_cookie: List, username: str) -> None:
     """向cookie文件写入新的用户cookie
     { username: [cookie] }
     """
@@ -75,7 +74,7 @@ def load_cookies() -> None:
     """
     directory = os.path.dirname(SAVE_PATH)
     if not os.path.exists(directory):
-        print("文件夹不存在, 获取cookie...") # TODO: 自动获取cookie
+        print("文件夹不存在, 获取cookie...")  # TODO: 自动获取cookie
         return
     else:
         print("读取cookie....")
