@@ -1,9 +1,16 @@
 from selenium import webdriver
 import time
 from utils import load_cookies
+from credentials import TSDM_credentials
 
 sign_page = 'https://www.tsdm39.net/plugin.php?id=dsu_paulsign:sign'
 work_page = 'https://www.tsdm39.net/plugin.php?id=np_cliworkdz:work'
+login_page = 'https://www.tsdm39.net/member.php?mod=logging&action=login'
+
+
+SAVE_PATH = '../bin'
+FILENAME = 'cookies.pickle'
+
 
 
 def sign():

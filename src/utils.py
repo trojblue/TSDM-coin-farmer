@@ -1,56 +1,62 @@
+from farmer import *
 from selenium import webdriver
+from typing import List
 import pickle
 import time
 import os
 
-login_page = 'https://www.tsdm39.net/member.php?mod=logging&action=login'
 
-USERNAME = '独看流云'
-PASSWORD = ''
-SAVE_PATH = '../bin'
-FILENAME = 'cookies.pickle'
 
-def get_cookie():
+def get_cookie(username:str, password:str):
     """selenium获取cookie
     """
+
     browser = webdriver.Chrome()
     browser.get(login_page)
 
-    browser.find_element_by_xpath("//*[starts-with(@id,'username_')]").send_keys(USERNAME)
-    browser.find_element_by_xpath("//*[starts-with(@id,'password3_')]").send_keys(PASSWORD)
+    browser.find_element_by_xpath("//*[starts-with(@id,'username_')]").send_keys(username)
+    browser.find_element_by_xpath("//*[starts-with(@id,'password3_')]").send_keys(password)
 
     man_verify_code = input("input verification：")
 
-    browser.find_element_by_name("tsdm_verify").send_keys(man_verify_code)
+    if man_verify_code:
+        browser.find_element_by_name("tsdm_verify").send_keys(man_verify_code)
+
     browser.find_element_by_name("loginsubmit").click()
     time.sleep(1)
 
     print("start dumping cookies")
-    tsdm_cookies = browser.get_cookies()
+    new_cookie = browser.get_cookies()
 
     browser.quit()
-    save_cookies(tsdm_cookies)
-    return tsdm_cookies
+    save_cookies(new_cookie, username)
+    return new_cookie
 
 def read_cookies():
-    """从文件读取cookie
+    """从文件读取cookies
+    { username: [cookie] }
     """
     output_path = os.path.join(SAVE_PATH, FILENAME)
     f = open(output_path, 'rb')
-    tsdm_cookies = pickle.load(f)
+    cookies = pickle.load(f)
     f.close()
 
-    return tsdm_cookies
+    return cookies
 
-def save_cookies(tsdm_cookies) -> None:
-    """写入cookie到文件
+def save_cookies(new_cookie:List, username:str) -> None:
+    """向cookie文件写入新的用户cookie
+    { username: [cookie] }
     """
     directory = os.path.dirname(SAVE_PATH)
     if not os.path.exists(directory):
         os.makedirs(directory)
     output_path = os.path.join(SAVE_PATH, FILENAME)
+
+    cookies = read_cookies()
+    cookies[username] = new_cookie
+
     f = open(output_path, 'wb')
-    pickle.dump(tsdm_cookies, f)
+    pickle.dump(cookies, f)
     f.close()
     print("write done")
 
@@ -60,8 +66,8 @@ def load_cookies(driver) -> None:
     """
     directory = os.path.dirname(SAVE_PATH)
     if not os.path.exists(directory):
-        print("文件夹不存在, 获取cookie...")
-        cookies = get_cookie()
+        print("文件夹不存在, 获取cookie...") # TODO: 自动获取cookie
+        return
     else:
         print("读取cookie....")
         cookies = read_cookies()

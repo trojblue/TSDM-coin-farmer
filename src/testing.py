@@ -5,7 +5,8 @@ from farmer import *
 
 
 if __name__ == '__main__':
-    work()
+    # work()
+    c =read_cookies()
 
 
 
