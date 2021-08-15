@@ -18,7 +18,7 @@ def sign_all():
 
 
 if __name__ == '__main__':
-    print("正在运行计划任务:")
+    print("正在运行计划任务: heartbeat=30min")
     schedule.every(30).minutes.do(heartbeat)
     schedule.every(365).minutes.do(work_all)  # 6hr + 5min
     schedule.every().day.at("10:30").do(sign_all)  # 每天 10:30 签到

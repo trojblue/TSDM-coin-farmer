@@ -10,7 +10,7 @@ work_page = 'https://www.tsdm39.net/plugin.php?id=np_cliworkdz:work'
 login_page = 'https://www.tsdm39.net/member.php?mod=logging&action=login'
 
 SAVE_PATH = '../bin'
-FILENAME = 'cookies.pickle'
+COOKIE_FILE = 'cookies.pickle'
 
 
 def get_cookie(username: str, password: str):
@@ -41,7 +41,7 @@ def read_cookies():
     """从文件读取cookies
     { username: [cookie] }
     """
-    output_path = os.path.join(SAVE_PATH, FILENAME)
+    output_path = os.path.join(SAVE_PATH, COOKIE_FILE)
     try:
         f = open(output_path, 'rb')
         cookies = pickle.load(f)
@@ -59,7 +59,7 @@ def add_cookie(new_cookie: List, username: str) -> None:
     directory = os.path.dirname(SAVE_PATH)
     if not os.path.exists(directory):
         os.makedirs(directory)
-    output_path = os.path.join(SAVE_PATH, FILENAME)
+    output_path = os.path.join(SAVE_PATH, COOKIE_FILE)
 
     cookies = read_cookies()
     cookies[username] = new_cookie

@@ -23,3 +23,9 @@ TSDM_credentials = [ ['user1', 'pswd1'],
 2. 运行`cookies.py`中`get_multiple_cookie()`获取cookie
 3. 运行`work_multiple()`进行手动签到, 或者运行`farmer.py`定时任务
 
+
+
+## 其他
+request版本需要urllib3==1.25.11, 因为这个bug: https://stackoverflow.com/questions/66642705/why-requests-raise-this-exception-check-hostname-requires-server-hostname
+
+

@@ -1,5 +1,9 @@
 from cookie import *
 
+"""
+selenium方式的签到/打工
+"""
+
 
 def sign_single(cookies):
     """签到主程序

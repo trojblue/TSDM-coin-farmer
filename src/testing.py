@@ -13,11 +13,19 @@ if __name__ == '__main__':
     # work_multiple
 
     # sign_multiple()
-    print(datetime.now())
+    # print(datetime.now())
     # schedule.every(3).seconds.do(do_print)
     #
     # while True:
     #     schedule.run_pending()
-    #     time.sleep(1)
+    #     time.sleep
+
+    from time import sleep
+
+    N = 12
+
+    for i in range(N):
+        sleep(0.5)
+        print(f"{i / N * 100:.1f} %", end="\r")
 
 
