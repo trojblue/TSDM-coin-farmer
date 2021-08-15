@@ -9,10 +9,12 @@ from cookie import *
 
 
 
-def work_single(cookie:List):
+def work_single_post(cookie:List):
     """用post方式为一个账户打工
     cookie: List[Dict]
     """
+
+    # 登录只需要3个cookie: sid, saltkey, auth
     cookie_serialized = "; ".join([i['name']+"="+i['value'] for i in cookie])
 
     # 必须要这个content-type, 否则没法接收
@@ -25,17 +27,21 @@ def work_single(cookie:List):
         'content-type': 'application/x-www-form-urlencoded'
     }
 
-    for i in range (6):
+    r1 = requests.post(work_page, data="act=clickad", headers=headers)
+    if "必须与上一次间隔" in r1.text:
+        print("该账户已经打工过")
+        return
+
+    for i in range (5): # 总共6次打工, 还剩5次
         requests.post(work_page, data="act=clickad", headers=headers)
         time.sleep(0.1)
         print("点击广告: ", i+1, end="\r")
 
-    response = requests.post(work_page, data="act=getcre", headers=headers)
+    r2 = requests.post(work_page, data="act=getcre", headers=headers)
 
-    if "您已经成功领取了奖励天使币" in response.text:
+    if "您已经成功领取了奖励天使币" in r2.text:
         print("打工成功")
-    elif "必须与上一次间隔" in response.text:
-        print("该账户已经打工过")
+
     else:
         print("======未知原因打工失败=======")
 
@@ -43,18 +49,18 @@ def work_single(cookie:List):
     return
 
 
-def work_multi():
+def work_multi_post():
     all_cookies = list(read_cookies().values())
 
     for i in all_cookies:
-        work_single(i)
+        work_single_post(i)
 
     print("POST方式: 全部打工完成")
     return
 
 
 if __name__ == '__main__':
-    work_multi()
+    work_multi_post()
 
 
 

@@ -1,6 +1,5 @@
-import os
-import pickle
 import time
+import json
 from typing import List
 from selenium import webdriver
 from credentials import TSDM_credentials
@@ -9,7 +8,6 @@ sign_page = 'https://www.tsdm39.net/plugin.php?id=dsu_paulsign:sign'
 work_page = 'https://www.tsdm39.net/plugin.php?id=np_cliworkdz:work'
 login_page = 'https://www.tsdm39.net/member.php?mod=logging&action=login'
 
-SAVE_PATH = '../bin'
 COOKIE_FILE = 'cookies.pickle'
 
 
@@ -33,7 +31,7 @@ def get_cookie(username: str, password: str):
     new_cookie = browser.get_cookies()
     browser.quit()
 
-    add_cookie(new_cookie, username)
+    write_new_cookie(new_cookie, username)
     return new_cookie
 
 
@@ -41,36 +39,44 @@ def read_cookies():
     """从文件读取cookies
     { username: [cookie] }
     """
-    output_path = os.path.join(SAVE_PATH, COOKIE_FILE)
     try:
-        f = open(output_path, 'rb')
-        cookies = pickle.load(f)
-        f.close()
-        return cookies
+        with open('cookies.json', 'r', encoding='utf-8') as json_file:
+            data = json.load(json_file)
+            return data
 
     except FileNotFoundError:  # 文件不存在
         return {}
 
 
-def add_cookie(new_cookie: List, username: str) -> None:
+def write_new_cookie(new_cookie: List, username: str) -> None:
     """向cookie文件写入新的用户cookie
     { username: [cookie] }
     """
-    directory = os.path.dirname(SAVE_PATH)
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-    output_path = os.path.join(SAVE_PATH, COOKIE_FILE)
 
+    simplified_new_cookie = simplify_cookie(new_cookie)
     cookies = read_cookies()
-    cookies[username] = new_cookie
+    cookies[username] = simplified_new_cookie
 
-    f = open(output_path, 'wb')
-    pickle.dump(cookies, f)
-    f.close()
+    with open ('cookies.json', 'w', encoding='utf-8') as json_file:
+        json.dump(cookies, json_file, ensure_ascii=False, indent=4)
+
     print("write done")
 
 
-def get_multiple_cookie(credentials):
+def simplify_cookie(cookie):
+    """只留下登录所需的3个cookie
+    登录只需要3个cookie: sid, saltkey, auth
+    """
+    simplified_cookie = []
+    login_word = ['_saltkey', '_sid', '_auth']
+    for i in cookie:
+        if any (word in i['name'] for word in login_word):
+            simplified_cookie.append(i)
+
+    return simplified_cookie
+
+
+def refresh_all_cookies(credentials):
     """从credentials获取所有cookie
     用之前记得删掉原有的cookies.pickle
     """
@@ -91,5 +97,5 @@ def update_new_accounts():
             new_cred.append(cred)
 
     print("添加", len(new_cred), "个新账户:")
-    get_multiple_cookie(new_cred)
+    refresh_all_cookies(new_cred)
     return

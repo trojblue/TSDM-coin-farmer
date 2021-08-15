@@ -1,15 +1,24 @@
 from actions import *
+from v2_request import *
 from datetime import datetime
 import schedule
+import json
 
 def do_print():
     print(time.time())
 
 
 
+def change_format():
+    c = read_cookies()
+    c_json = json.dumps(c, ensure_ascii=False)
+
+    print("D")
+
+
 if __name__ == '__main__':
     # update_new_accounts()
-    # get_multiple_cookie(TSDM_credentials)
+    # refresh_all_cookies(TSDM_credentials)
     # work_multiple
 
     # sign_multiple()
@@ -20,12 +29,13 @@ if __name__ == '__main__':
     #     schedule.run_pending()
     #     time.sleep
 
-    from time import sleep
+    # change_format
+    # all_cookies = list(read_cookies().values())
+    work_multi_post()
+    # refresh_all_cookies
+    # c = read_cookies()
+    # print("D")
 
-    N = 12
 
-    for i in range(N):
-        sleep(0.5)
-        print(f"{i / N * 100:.1f} %", end="\r")
 
 
