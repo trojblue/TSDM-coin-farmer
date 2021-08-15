@@ -1,10 +1,9 @@
 """
 尝试用requests方式完成签到
 """
+from datetime import datetime
 
 import requests
-import sys
-import traceback
 from cookie import *
 
 
@@ -50,10 +49,11 @@ def work_single_post(cookie:List):
 
 
 def work_multi_post():
-    all_cookies = list(read_cookies().values())
+    cookies = read_cookies()
 
-    for i in all_cookies:
-        work_single_post(i)
+    for user in cookies.keys():
+        print(datetime.now(), "正在打工: ", user)
+        work_single_post(cookies[user])
 
     print("POST方式: 全部打工完成")
     return

@@ -95,6 +95,7 @@ def sign_multiple():
 
 
 def work_multiple():
+    print(time.time(), "正在打工, 使用selenium方式.......")
     all_cookies = read_cookies()
     for account in all_cookies.keys():
         print("正在打工账号: ", account)
