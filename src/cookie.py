@@ -1,7 +1,9 @@
-import time
 import json
+import time
 from typing import List
+
 from selenium import webdriver
+
 from credentials import TSDM_credentials
 
 sign_page = 'https://www.tsdm39.net/plugin.php?id=dsu_paulsign:sign'
@@ -57,7 +59,7 @@ def write_new_cookie(new_cookie: List, username: str) -> None:
     cookies = read_cookies()
     cookies[username] = simplified_new_cookie
 
-    with open ('cookies.json', 'w', encoding='utf-8') as json_file:
+    with open('cookies.json', 'w', encoding='utf-8') as json_file:
         json.dump(cookies, json_file, ensure_ascii=False, indent=4)
 
     print("write done")
@@ -70,7 +72,7 @@ def simplify_cookie(cookie):
     simplified_cookie = []
     login_word = ['_saltkey', '_sid', '_auth']
     for i in cookie:
-        if any (word in i['name'] for word in login_word):
+        if any(word in i['name'] for word in login_word):
             simplified_cookie.append(i)
 
     return simplified_cookie

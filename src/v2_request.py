@@ -2,19 +2,17 @@
 尝试用requests方式完成签到
 """
 from datetime import datetime
-
 import requests
 from cookie import *
 
 
-
-def work_single_post(cookie:List):
+def work_single_post(cookie: List):
     """用post方式为一个账户打工
     cookie: List[Dict]
     """
 
     # 登录只需要3个cookie: sid, saltkey, auth
-    cookie_serialized = "; ".join([i['name']+"="+i['value'] for i in cookie])
+    cookie_serialized = "; ".join([i['name'] + "=" + i['value'] for i in cookie])
 
     # 必须要这个content-type, 否则没法接收
     headers = {
@@ -31,10 +29,10 @@ def work_single_post(cookie:List):
         print("该账户已经打工过")
         return
 
-    for i in range (5): # 总共6次打工, 还剩5次
+    for i in range(5):  # 总共6次打工, 还剩5次
         requests.post(work_page, data="act=clickad", headers=headers)
         time.sleep(0.1)
-        print("点击广告: ", i+1, end="\r")
+        print("点击广告: ", i + 1, end="\r")
 
     r2 = requests.post(work_page, data="act=getcre", headers=headers)
 
@@ -61,6 +59,3 @@ def work_multi_post():
 
 if __name__ == '__main__':
     work_multi_post()
-
-
-

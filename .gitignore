@@ -1,3 +1,5 @@
 bin/
 .idea/
+src/__pycache__
 src/credentials.py
+src/cookies.json
