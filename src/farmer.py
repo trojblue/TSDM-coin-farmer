@@ -25,8 +25,7 @@ def do_parse():
     parser = argparse.ArgumentParser()
     action_group = parser.add_mutually_exclusive_group()
 
-    action_group.add_argument("-s", "--selenium", help="运行: 使用selenium模式(默认使用POST)", action="store_true")
-    action_group.add_argument("-p", "--post", help="运行: 使用post模式", action="store_true")
+    action_group.add_argument("-s", "--selenium", help="运行: 使用selenium模式(不填默认用post模式)", action="store_true")
     action_group.add_argument("-r", "--reset", help="刷新cookie", action="store_true")
 
     parser.add_argument("-n", "--now", help="立刻运行打工和签到", action="store_true")

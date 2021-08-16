@@ -3,7 +3,8 @@ import time
 from typing import List
 
 from selenium import webdriver
-
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from credentials import TSDM_credentials
 
 sign_page = 'https://www.tsdm39.net/plugin.php?id=dsu_paulsign:sign'
@@ -16,22 +17,27 @@ COOKIE_FILE = 'cookies.pickle'
 def get_cookie(username: str, password: str):
     """selenium获取cookie
     """
-    browser = webdriver.Chrome()
-    browser.get(login_page)
+    driver = webdriver.Chrome()
+    driver.get(login_page)
 
-    browser.find_element_by_xpath("//*[starts-with(@id,'username_')]").send_keys(username)
-    browser.find_element_by_xpath("//*[starts-with(@id,'password3_')]").send_keys(password)
+    driver.find_element_by_xpath("//*[starts-with(@id,'username_')]").send_keys(username)
+    driver.find_element_by_xpath("//*[starts-with(@id,'password3_')]").send_keys(password)
+    driver.find_element_by_xpath("//*[starts-with(@id,'cookietime_')]").click()
 
-    man_verify_code = input("input verification：")
+    print("等待浏览器里填写验证码并登录:")
+    wait = WebDriverWait(driver, 10)
+    wait.until(EC.title_contains("提示信息 - "))
 
-    if man_verify_code:  # 没输入, 默认手动填好了
-        browser.find_element_by_name("tsdm_verify").send_keys(man_verify_code)
-        browser.find_element_by_name("loginsubmit").click()
-        time.sleep(1)
+    # man_verify_code = input("input verification：")
+    #
+    # if man_verify_code:  # 没输入, 默认手动填好了
+    #     driver.find_element_by_name("tsdm_verify").send_keys(man_verify_code)
+    #     driver.find_element_by_name("loginsubmit").click()
+    #     time.sleep(1)
 
-    print("start dumping cookies")
-    new_cookie = browser.get_cookies()
-    browser.quit()
+    # print("start dumping cookies")
+    new_cookie = driver.get_cookies()
+    driver.quit()
 
     write_new_cookie(new_cookie, username)
     return new_cookie
@@ -57,7 +63,8 @@ def write_new_cookie(new_cookie: List, username: str) -> None:
 
     simplified_new_cookie = simplify_cookie(new_cookie)
     cookies = read_cookies()
-    cookies[username] = simplified_new_cookie
+    # cookies[username] = simplified_new_cookie
+    cookies[username] = new_cookie
 
     with open('cookies.json', 'w', encoding='utf-8') as json_file:
         json.dump(cookies, json_file, ensure_ascii=False, indent=4)
@@ -68,6 +75,7 @@ def write_new_cookie(new_cookie: List, username: str) -> None:
 def simplify_cookie(cookie):
     """只留下登录所需的3个cookie
     登录只需要3个cookie: sid, saltkey, auth
+    签到需要的可能不一样
     """
     simplified_cookie = []
     login_word = ['_saltkey', '_sid', '_auth']
@@ -101,3 +109,6 @@ def update_new_accounts():
     print("添加", len(new_cred), "个新账户:")
     refresh_all_cookies(new_cred)
     return
+
+if __name__ == '__main__':
+    refresh_all_cookies(TSDM_credentials)

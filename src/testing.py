@@ -6,4 +6,4 @@ def do_print():
 
 
 if __name__ == '__main__':
-    pass
+    refresh_all_cookies(TSDM_credentials)
