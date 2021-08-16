@@ -2,13 +2,14 @@ from actions import *
 
 """
 selenium方式的签到/打工
+没有成功与否查询
 """
 
 
 def sign_single(cookies):
     """签到主程序
     """
-    driver = webdriver.Chrome()
+    driver = get_webdriver()
 
     driver.get(sign_url)  # selenium: 必须先访问一次来获取cookie domain
     for cookie in cookies:
@@ -37,7 +38,6 @@ def sign_single(cookies):
     driver.find_element_by_xpath('//*[@id="qiandao"]/table[1]/tbody/tr/td/div/a[1]').click()  # 提交
     # 如果失效了这样更新: https://stackoverflow.com/questions/39864280/xpath-for-elements-using-chrome
 
-    # TODO: 添加签到成功验证
     print("签到完成")
     return
 
@@ -45,7 +45,6 @@ def sign_single(cookies):
 def work_single_click(driver, eleement):
     """点击单个广告, 然后返回签到页
     """
-    # driver.find_element_by_id(element_id).click()
     eleement.click()
     time.sleep(0.2)
     og, popup = driver.window_handles[0], driver.window_handles[1]
@@ -57,7 +56,7 @@ def work_single_click(driver, eleement):
 def work_single(cookies):
     """打工主程序
     """
-    driver = webdriver.Chrome()
+    driver = get_webdriver()
 
     driver.get(work_url)  # selenium: 必须先访问一次来获取cookie domain
     for cookie in cookies:
@@ -76,16 +75,16 @@ def work_single(cookies):
     for i in driver.find_elements_by_xpath("//*[starts-with(@id,'np_advid')]"):
         work_single_click(driver, i)
 
-    driver.find_element_by_xpath('//*[@id="stopad"]/a').click()  # TODO: 容易失效, 更新成post
+    driver.find_element_by_xpath('//*[@id="stopad"]/a').click()
     time.sleep(2)
 
     print("打工完成")
     driver.quit()
 
-    return  # TODO: 添加成功与否查询
+    return
 
 
-def sign_multiple():
+def sign_multi_selenium():
     all_cookies = read_cookies()
     for account in all_cookies.keys():
         print("正在签到账号: ", account)
@@ -94,7 +93,7 @@ def sign_multiple():
     print("全部账号签到完成")
 
 
-def work_multiple():
+def work_multi_selenium():
     print(time.time(), "正在打工, 使用selenium方式.......")
     all_cookies = read_cookies()
     for account in all_cookies.keys():

@@ -1,18 +1,15 @@
 """
 尝试用requests方式完成签到
 """
-from datetime import datetime
 import requests
-from actions import *
 
+from actions import *
 
 
 def work_single_post(cookie: List):
     """用post方式为一个账户打工
     cookie: List[Dict]
     """
-
-    # 登录只需要3个cookie: sid, saltkey, auth
     cookie_serialized = "; ".join([i['name'] + "=" + i['value'] for i in cookie])
 
     # 必须要这个content-type, 否则没法接收
@@ -79,10 +76,10 @@ def sign_single_post_v2(cookie):
     s = requests.session()
     sign_response = s.get(sign_url, headers=headers).text
 
-    form_start = sign_response.find("formhash=")+9 # 此处9个字符
-    formhash = sign_response[form_start:form_start+8] # formhash 8位,
+    form_start = sign_response.find("formhash=") + 9  # 此处9个字符
+    formhash = sign_response[form_start:form_start + 8]  # formhash 8位
 
-    sign_data = "formhash="+formhash+"&qdxq=wl&qdmode=3&todaysay=&fastreply=1" # formhash, 签到心情, 签到模式(不发言)
+    sign_data = "formhash=" + formhash + "&qdxq=wl&qdmode=3&todaysay=&fastreply=1"  # formhash, 签到心情, 签到模式(不发言)
 
     sign_response = s.post(sign_page_with_param, data=sign_data, headers=headers)
 
@@ -98,7 +95,6 @@ def sign_single_post_v2(cookie):
         write_error("签到", sign_response.text)
 
     return
-
 
 
 def sign_multi_post():

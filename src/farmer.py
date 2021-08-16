@@ -18,7 +18,7 @@ def work_all_post():
 
 def sign_all():
     print(time.time(), "正在签到.......")
-    sign_multiple()
+    sign_multi_selenium()
 
 
 def do_parse():
@@ -32,34 +32,40 @@ def do_parse():
 
     args = parser.parse_args()
 
-    if args.selenium:
-        print("使用selenium模式运行")
-        schedule.every(362).minutes.do(work_multiple)
-
-    elif args.reset:
+    if args.reset:
         print("刷新cookie")
         refresh_all_cookies(TSDM_credentials)
         print("所有cookie刷新完毕")
         sys.exit()
 
+    elif args.selenium:
+        print("使用selenium模式运行")
+        schedule.every(362).minutes.do(work_multi_selenium)
+        schedule.every().day.at("10:30").do(sign_multi_selenium)    # 每天 10:30 签到
+
     else:
         print("默认: 使用post模式运行")
         schedule.every(362).minutes.do(work_multi_post)
+        schedule.every().day.at("10:30").do(sign_multi_post)
 
     if args.now:
-        print("立即进行打工和签到:")
-        if args.selenium:
-            work_multiple()
+        print("[-n] 立即进行:")
+        if args.reset:
+            print("刷新cookie时-n选项无效")
+            pass
+        elif args.selenium:
+            work_multi_selenium()
+            sign_multi_selenium()
         else:
             work_multi_post()
+            sign_multi_post()
 
-        sign_multiple()  # todo: 做post版的签到
+
 
 
 def do_schedule():
-    print("正在运行计划任务: 每30分钟确认一次")
+    print("正在运行计划任务, 每30分钟确认一次")
     schedule.every(30).minutes.do(heartbeat)
-    schedule.every().day.at("10:30").do(sign_all)  # 每天 10:30 签到
 
     while True:
         schedule.run_pending()  # 运行所有可以运行的任务

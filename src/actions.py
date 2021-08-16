@@ -15,29 +15,31 @@ login_url = 'https://www.tsdm39.net/member.php?mod=logging&action=login'
 
 COOKIE_FILE = 'cookies.pickle'
 
+def get_webdriver():
+    """返回设置好参数的webdriver
+    """
+    options = webdriver.ChromeOptions()
+    options.add_argument('--ignore-certificate-errors')
+    options.add_argument('--ignore-ssl-errors')
+    driver = webdriver.Chrome(chrome_options=options)
+    return driver
+
 
 def get_cookie(username: str, password: str):
     """selenium获取cookie
     """
-    driver = webdriver.Chrome()
+    driver = get_webdriver()
     driver.get(login_url)
 
     driver.find_element_by_xpath("//*[starts-with(@id,'username_')]").send_keys(username)
     driver.find_element_by_xpath("//*[starts-with(@id,'password3_')]").send_keys(password)
     driver.find_element_by_xpath("//*[starts-with(@id,'cookietime_')]").click()
+    driver.find_element_by_name("tsdm_verify").click()
 
     print("等待浏览器里填写验证码并登录:")
-    wait = WebDriverWait(driver, 10)
+    wait = WebDriverWait(driver, 100)
     wait.until(EC.title_contains("提示信息 - "))
 
-    # man_verify_code = input("input verification：")
-    #
-    # if man_verify_code:  # 没输入, 默认手动填好了
-    #     driver.find_element_by_name("tsdm_verify").send_keys(man_verify_code)
-    #     driver.find_element_by_name("loginsubmit").click()
-    #     time.sleep(1)
-
-    # print("start dumping cookies")
     new_cookie = driver.get_cookies()
     driver.quit()
 
@@ -65,8 +67,8 @@ def write_new_cookie(new_cookie: List, username: str) -> None:
 
     simplified_new_cookie = simplify_cookie(new_cookie)
     cookies = read_cookies()
-    # cookies[username] = simplified_new_cookie
-    cookies[username] = new_cookie
+    cookies[username] = simplified_new_cookie
+    # cookies[username] = new_cookie
 
     with open('cookies.json', 'w', encoding='utf-8') as json_file:
         json.dump(cookies, json_file, ensure_ascii=False, indent=4)
@@ -80,7 +82,8 @@ def simplify_cookie(cookie):
     签到需要的可能不一样
     """
     simplified_cookie = []
-    login_word = ['_saltkey', '_sid', '_auth']
+    # login_word = ['_saltkey', '_sid', '_auth']
+    login_word = ['_saltkey', '_auth']
     for i in cookie:
         if any(word in i['name'] for word in login_word):
             simplified_cookie.append(i)
