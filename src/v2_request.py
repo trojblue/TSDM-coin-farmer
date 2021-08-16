@@ -106,7 +106,3 @@ def sign_multi_post():
 
     print("POST方式: 全部签到完成")
     return
-
-
-if __name__ == '__main__':
-    sign_multi_post()

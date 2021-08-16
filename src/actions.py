@@ -57,6 +57,7 @@ def read_cookies():
             return data
 
     except FileNotFoundError:  # 文件不存在
+        print("cookies.json不存在")
         return {}
 
 
@@ -64,7 +65,6 @@ def write_new_cookie(new_cookie: List, username: str) -> None:
     """向cookie文件写入新的用户cookie
     { username: [cookie] }
     """
-
     simplified_new_cookie = simplify_cookie(new_cookie)
     cookies = read_cookies()
     cookies[username] = simplified_new_cookie
@@ -101,8 +101,7 @@ def refresh_all_cookies(credentials):
 
 
 def update_new_accounts():
-    """根据TSDM_credentials,
-    添加新的cookie, 但是不刷新老账户
+    """添加新的cookie, 但是不刷新老账户
     """
     usernames = read_cookies().keys()
     new_cred = []
@@ -122,7 +121,3 @@ def write_error(prefix:str, content:str):
     """
     with open(prefix + str(datetime.now()) + '.txt', 'w') as f:
         f.write(content)
-
-
-if __name__ == '__main__':
-    refresh_all_cookies(TSDM_credentials)
