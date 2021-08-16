@@ -1,104 +1,125 @@
-from cookie import *
+import json
+import time
+from typing import List
 
-"""
-selenium方式的签到/打工
-"""
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from credentials import TSDM_credentials
+from datetime import datetime
 
 
-def sign_single(cookies):
-    """签到主程序
+sign_url = 'https://www.tsdm39.net/plugin.php?id=dsu_paulsign:sign'
+work_url = 'https://www.tsdm39.net/plugin.php?id=np_cliworkdz:work'
+login_url = 'https://www.tsdm39.net/member.php?mod=logging&action=login'
+
+COOKIE_FILE = 'cookies.pickle'
+
+
+def get_cookie(username: str, password: str):
+    """selenium获取cookie
     """
     driver = webdriver.Chrome()
+    driver.get(login_url)
 
-    driver.get(sign_page)  # selenium: 必须先访问一次来获取cookie domain
-    for cookie in cookies:
-        driver.add_cookie(cookie)
+    driver.find_element_by_xpath("//*[starts-with(@id,'username_')]").send_keys(username)
+    driver.find_element_by_xpath("//*[starts-with(@id,'password3_')]").send_keys(password)
+    driver.find_element_by_xpath("//*[starts-with(@id,'cookietime_')]").click()
 
-    driver.get(sign_page)  # 回到签到页
-    print("返回签到页....")
-    time.sleep(0.5)
+    print("等待浏览器里填写验证码并登录:")
+    wait = WebDriverWait(driver, 10)
+    wait.until(EC.title_contains("提示信息 - "))
 
+    # man_verify_code = input("input verification：")
+    #
+    # if man_verify_code:  # 没输入, 默认手动填好了
+    #     driver.find_element_by_name("tsdm_verify").send_keys(man_verify_code)
+    #     driver.find_element_by_name("loginsubmit").click()
+    #     time.sleep(1)
+
+    # print("start dumping cookies")
+    new_cookie = driver.get_cookies()
+    driver.quit()
+
+    write_new_cookie(new_cookie, username)
+    return new_cookie
+
+
+def read_cookies():
+    """从文件读取cookies
+    { username: [cookie] }
+    """
     try:
-        silent_btn = driver.find_elements_by_name("qdmode")[1]
-    except Exception:
-        print("未找到按钮, 可能已经签过到")
-        driver.quit()
-        return
+        with open('cookies.json', 'r', encoding='utf-8') as json_file:
+            data = json.load(json_file)
+            return data
 
-    # 没签过到
-    silent_btn.click()  # 不填写签到留言
-    time.sleep(0.5)
+    except FileNotFoundError:  # 文件不存在
+        return {}
 
-    driver.find_element_by_id('kx').click()  # 签到心情: 开心
-    pages = driver.window_handles
-    driver.switch_to.window(pages[0])
-    time.sleep(0.5)
 
-    driver.find_element_by_xpath('//*[@id="qiandao"]/table[1]/tbody/tr/td/div/a[1]').click()  # 提交
-    # 如果失效了这样更新: https://stackoverflow.com/questions/39864280/xpath-for-elements-using-chrome
+def write_new_cookie(new_cookie: List, username: str) -> None:
+    """向cookie文件写入新的用户cookie
+    { username: [cookie] }
+    """
 
-    # TODO: 添加签到成功验证
-    print("签到完成")
+    simplified_new_cookie = simplify_cookie(new_cookie)
+    cookies = read_cookies()
+    # cookies[username] = simplified_new_cookie
+    cookies[username] = new_cookie
+
+    with open('cookies.json', 'w', encoding='utf-8') as json_file:
+        json.dump(cookies, json_file, ensure_ascii=False, indent=4)
+
+    print("write done")
+
+
+def simplify_cookie(cookie):
+    """只留下登录所需的3个cookie
+    登录只需要3个cookie: sid, saltkey, auth
+    签到需要的可能不一样
+    """
+    simplified_cookie = []
+    login_word = ['_saltkey', '_sid', '_auth']
+    for i in cookie:
+        if any(word in i['name'] for word in login_word):
+            simplified_cookie.append(i)
+
+    return simplified_cookie
+
+
+def refresh_all_cookies(credentials):
+    """从credentials获取所有cookie
+    用之前记得删掉原有的cookies.pickle
+    """
+    for i in credentials:
+        get_cookie(i[0], i[1])
     return
 
 
-def work_single_click(driver, eleement):
-    """点击单个广告, 然后返回签到页
+def update_new_accounts():
+    """根据TSDM_credentials,
+    添加新的cookie, 但是不刷新老账户
     """
-    # driver.find_element_by_id(element_id).click()
-    eleement.click()
-    time.sleep(0.2)
-    og, popup = driver.window_handles[0], driver.window_handles[1]
-    driver.switch_to.window(popup)
-    driver.close()
-    driver.switch_to.window(og)
+    usernames = read_cookies().keys()
+    new_cred = []
+
+    for cred in TSDM_credentials:
+        if cred[0] not in usernames:
+            new_cred.append(cred)
+
+    print("添加", len(new_cred), "个新账户:")
+    refresh_all_cookies(new_cred)
+    return
 
 
-def work_single(cookies):
-    """打工主程序
+def write_error(prefix:str, content:str):
+    """prefix: 文件名前缀
+    content: 错误日志内容
     """
-    driver = webdriver.Chrome()
-
-    driver.get(work_page)  # selenium: 必须先访问一次来获取cookie domain
-    for cookie in cookies:
-        driver.add_cookie(cookie)
-
-    driver.get(work_page)  # 回到打工页
-    time.sleep(0.5)
-
-    try:
-        driver.find_element_by_id("np_advid1")
-    except Exception:
-        print("未找到按钮, 可能已经打工过")
-        driver.quit()
-        return
-
-    for i in driver.find_elements_by_xpath("//*[starts-with(@id,'np_advid')]"):
-        work_single_click(driver, i)
-
-    driver.find_element_by_xpath('//*[@id="stopad"]/a').click()  # TODO: 容易失效, 更新成post
-    time.sleep(2)
-
-    print("打工完成")
-    driver.quit()
-
-    return  # TODO: 添加成功与否查询
+    with open(prefix + str(datetime.now()) + '.txt', 'w') as f:
+        f.write(content)
 
 
-def sign_multiple():
-    all_cookies = read_cookies()
-    for account in all_cookies.keys():
-        print("正在签到账号: ", account)
-        sign_single(all_cookies[account])
-
-    print("全部账号签到完成")
-
-
-def work_multiple():
-    print(time.time(), "正在打工, 使用selenium方式.......")
-    all_cookies = read_cookies()
-    for account in all_cookies.keys():
-        print("正在打工账号: ", account)
-        work_single(all_cookies[account])
-
-    print("全部账号打工完成")
+if __name__ == '__main__':
+    refresh_all_cookies(TSDM_credentials)
