@@ -5,3 +5,4 @@ src/credentials.py
 src/testing.py
 src/cookies.json
 *.txt
+*.log
