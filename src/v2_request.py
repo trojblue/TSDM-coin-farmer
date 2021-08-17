@@ -32,16 +32,21 @@ def work_single_post(cookie: List):
 
     for i in range(7):  # 总共6次打工, 实际打工8次保险
         ad_feedback = requests.post(work_url, data="act=clickad", headers=headers)
-        time.sleep(random.uniform(1, 2))
-        print("点击广告: 第", i + 2, '次, 服务器标识:', ad_feedback.text, end="\r")
+
+        wait_time = random.uniform(1.5, 4)
+        print("点击广告: 第%s次, 等待%s秒, 服务器标识:%s"%(i+2, wait_time, ad_feedback.text), end="\r")
+        time.sleep(wait_time)
 
         if int(ad_feedback.text) > 1629134400:
-            print("检测到作弊判定: ", ad_feedback.text, '  尝试规避')
-            time.sleep(random.uniform(4, 5))
+            evade_time = random.uniform(10, 12)
+            print("检测到作弊判定, 暂停%s秒"%(evade_time))
+            time.sleep(evade_time)
             # todo: 延时, 重试
             break
         elif int(ad_feedback.text) >= 6:    # 已点击6次, 停止
             break
+        else:
+            continue
 
     getcre_response = requests.post(work_url, data="act=getcre", headers=headers)
 

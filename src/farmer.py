@@ -51,10 +51,10 @@ def do_parse():
 
 
 def do_schedule():
-    print("正在运行计划任务, 每30分钟确认一次")
-    schedule.every(30).minutes.do(heartbeat)
+    print("正在运行计划任务, 每6小时签到一次")
 
     while True:
+        print("距离下一次任务的时间: {:.1f}分钟".format(schedule.idle_seconds()/60), end='\r')
         schedule.run_pending()  # 运行所有可以运行的任务
         time.sleep(10)
 
