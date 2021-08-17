@@ -1,11 +1,9 @@
 import json
-import time
 from typing import List
 
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from credentials import TSDM_credentials
 from datetime import datetime
 
 
@@ -19,8 +17,8 @@ def get_webdriver():
     """返回设置好参数的webdriver
     """
     options = webdriver.ChromeOptions()
-    options.add_argument('--ignore-certificate-errors')
-    options.add_argument('--ignore-ssl-errors')
+    options.add_argument("disable-software-rasterizer")
+    options.add_argument("log-level=3")
     driver = webdriver.Chrome(chrome_options=options)
     return driver
 
@@ -41,7 +39,7 @@ def get_cookie(username: str, password: str):
     wait.until(EC.title_contains("提示信息 - "))
 
     new_cookie = driver.get_cookies()
-    driver.quit()
+    driver.close()
 
     write_new_cookie(new_cookie, username)
     return new_cookie
@@ -68,7 +66,6 @@ def write_new_cookie(new_cookie: List, username: str) -> None:
     simplified_new_cookie = simplify_cookie(new_cookie)
     cookies = read_cookies()
     cookies[username] = simplified_new_cookie
-    # cookies[username] = new_cookie
 
     with open('cookies.json', 'w', encoding='utf-8') as json_file:
         json.dump(cookies, json_file, ensure_ascii=False, indent=4)
@@ -77,12 +74,9 @@ def write_new_cookie(new_cookie: List, username: str) -> None:
 
 
 def simplify_cookie(cookie):
-    """只留下登录所需的3个cookie
-    登录只需要3个cookie: sid, saltkey, auth
-    签到需要的可能不一样
+    """只保存登录需要的2个cookie: saltkey, auth
     """
     simplified_cookie = []
-    # login_word = ['_saltkey', '_sid', '_auth']
     login_word = ['_saltkey', '_auth']
     for i in cookie:
         if any(word in i['name'] for word in login_word):
@@ -92,32 +86,19 @@ def simplify_cookie(cookie):
 
 
 def refresh_all_cookies(credentials):
-    """从credentials获取所有cookie
-    用之前记得删掉原有的cookies.pickle
+    """从credentials重新获取所有cookie
     """
     for i in credentials:
         get_cookie(i[0], i[1])
     return
 
 
-def update_new_accounts():
-    """添加新的cookie, 但是不刷新老账户
-    """
-    usernames = read_cookies().keys()
-    new_cred = []
-
-    for cred in TSDM_credentials:
-        if cred[0] not in usernames:
-            new_cred.append(cred)
-
-    print("添加", len(new_cred), "个新账户:")
-    refresh_all_cookies(new_cred)
-    return
-
-
 def write_error(prefix:str, content:str):
-    """prefix: 文件名前缀
+    """保存错误日志
+    prefix: 文件名前缀
     content: 错误日志内容
     """
-    with open(prefix + str(datetime.now()) + '.txt', 'w') as f:
+    my_date = prefix + datetime.today().strftime(' %Y-%m-%d %H%M %S.%f.log')
+    with open(my_date, "w") as f:
         f.write(content)
+    return

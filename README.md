@@ -43,7 +43,7 @@ optional arguments:
 ## 结构
 
 - `farmer.py`: 主程序
-- `actions.py`: 签到/打工相关函数
+- `actions.py`: cookie/工具类函数
 - `v1_selenium.py`: selenium方式相关函数
 - `v2_request.py`: post方式相关函数
 

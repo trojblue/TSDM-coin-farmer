@@ -1,24 +1,13 @@
 import argparse
-import sys
-
-import schedule
+import time, sys, schedule
 
 from v1_selenium import *
 from v2_request import *
+from credentials import TSDM_credentials
 
 
 def heartbeat():
     print("heartbeat: ", datetime.now())
-
-
-def work_all_post():
-    print(time.time(), "正在打工, 使用POST方式.......")
-    work_multi_post()
-
-
-def sign_all():
-    print(time.time(), "正在签到.......")
-    sign_multi_selenium()
 
 
 def do_parse():
@@ -59,8 +48,6 @@ def do_parse():
         else:
             work_multi_post()
             sign_multi_post()
-
-
 
 
 def do_schedule():

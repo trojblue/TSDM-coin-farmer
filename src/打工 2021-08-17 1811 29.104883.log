@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html id="tsdmlt">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>提示信息 -  天使动漫论坛 - 梦开始的地方  -  Powered by Discuz!</title>
+
+<link rel="dns-prefetch" href="//www.tsdmw.net">
+
+<link rel="dns-prefetch" href="//ww1.sinaimg.cn">
+<link rel="dns-prefetch" href="//ww2.sinaimg.cn">
+<link rel="dns-prefetch" href="//ww3.sinaimg.cn">
+<link rel="dns-prefetch" href="//ww4.sinaimg.cn">
+
+<meta name="keywords" content="" />
+<meta name="description" content=",天使动漫论坛 - 梦开始的地方 " />
+<meta name="generator" content="Discuz! X2" />
+<meta name="author" content="Discuz! Team and Comsenz UI Team" />
+<meta name="copyright" content="2001-2011 Comsenz Inc." />
+<meta name="MSSmartTagsPreventParsing" content="True" />
+<meta http-equiv="MSThemeCompatible" content="Yes" />
+<meta property="wb:webmaster" content="4ae88b62f035fa30" /><link rel="stylesheet" type="text/css" href="data/cache/style_5_common.css?6Kl" />
+<script type="text/javascript">var STYLEID = '5', STATICURL = 'static/', IMGDIR = 'static/image/common', VERHASH = '6Kl', charset = 'utf-8', discuz_uid = '0', cookiepre = 's_gkr8_f779_', cookiedomain = '.tsdm39.net', cookiepath = '/', smilepre = 'https://www.aqours.today/img02/smilies/' , showusercard = '1', attackevasive = '0', disallowfloat = 'newthread|viewvote', creditnotice = '1|威望|,2|天使币|,3|宣传|,4|天然|,5|腹黑|,6|精灵|,7|哞币|', defaultstyle = '', REPORTURL = 'aHR0cDovL3d3dy50c2RtMzkubmV0L3BsdWdpbi5waHA/aWQ9bnBfY2xpd29ya2R6Ondvcms=', SITEURL = 'https://www.tsdm39.net/', JSPATH = 'static/js/';</script>
+<script src="static/js/common.js?6Kl" type="text/javascript"></script>
+<script src="https://www.aqours.today/xz//static/kawayi/jquery-1.6.1.min.js" type="text/javascript"></script>
+<script src="https://www.aqours.today/xz//static/lib/xunlei.js" type="text/javascript"></script>
+<!--<script src="https://www.aqours.today/xz//static/kawayi/kawayi_js.js?v=1.1" type="text/javascript"></script>-->
+<script src="https://www.aqours.today/xz//static/kawayi/addon.js?v=1.1" type="text/javascript"></script>
+<script src="https://www.aqours.today/xz//static/lib/jquery.lazyload.min.js" type="text/javascript"></script>
+<script src="https://www.aqours.today/xz//static/lib/coverflow/coverflow.js?v=1.1" type="text/javascript"></script>
+<script src="https://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" type="text/javascript" charset="utf-8"></script>
+
+<script id="shimakaze">
+function ipad_s(adsName,adsUrl,sTime)
+{
+if(document.cookie.indexOf(adsName)==-1)
+{
+window.open(adsUrl,adsName);
+self.focus();
+var expireDate = new Date();
+var lefttime = 1000 * (60 * sTime);
+expireDate.setTime (expireDate.getTime() + lefttime);
+document.cookie = adsName +"=yes" + "; expires=" + expireDate.toGMTString() +  ";";
+}
+
+}
+</script>
+<style>.avatar_shell{ padding: 38px 1px 1px 39px;background:url("static/image/etc/halloween.png") center center no-repeat;background-size:cover}</style>
+<style>
+.ts_h_hat {background:url("static/image/etc/hat.png") no-repeat;width:120px;height:73px;position:absolute;margin-left: 70px;}
+.ts_h_bat {background:url("static/image/etc/bats.png") no-repeat;width:120px;height:73px;position:absolute;margin-left:2px;}
+.ts_h_pumpkin {background:url("static/image/etc/pumpkin.png") no-repeat;width:121px;height:90px;position:absolute;margin-top:-75px;}
+</style>
+<!--[if IE 6]>
+<script src="static/js/DD_belatedPNG.js" type="text/javascript" ></script>
+<script type="text/javascript">DD_belatedPNG.fix('#nv li.a,#nv li a:hover,.a9_wp_t_l,.a9_wp_t_r,.a9_wp_s,.a9_wp_s_l,.a9_wp_s_r');</script>
+<![endif]--><meta name="application-name" content="天使动漫论坛 - 梦开始的地方 " />
+<meta name="msapplication-tooltip" content="天使动漫论坛 - 梦开始的地方 " />
+<meta name="msapplication-task" content="name=论坛;action-uri=https://www.tsdm39.net/forum.php;icon-uri=https://www.tsdm39.net/static/image/common/bbs.ico" />
+</head>
+
+<body id="nv_plugin" class="pg_np_cliworkdz" onkeydown="if(event.keyCode==27) return false;">
+<div id="append_parent"></div><div id="ajaxwaitid"></div>
+
+<div class="a9_hd">
+<div id="toptb" class="cl">
+<div class="wp">
+<div class="z"><a href="music.htm" >背景音乐</a><script type="text/javascript">var _speedMark = new Date();</script></div>
+<div class="y">
+</div>
+</div>
+</div>
+
+
+<div id="qmenu_menu" class="p_pop blk" style="display: none;">
+<div class="ptm pbw hm">
+请 <a href="javascript:;" class="xi2" onclick="lsSubmit()"><strong>登录</strong></a> 后使用快捷导航<br />没有帐号？<a href="member.php?mod=register.php" class="xi2 xw1">注册</a>
+</div>
+</div>
+<div id="hd">
+<div class="wp">
+<div class="hdc cl tsdmhd"><script src="static/js/logging.js?6Kl" type="text/javascript"></script>
+<!--<form method="post" autocomplete="off" id="lsform" action="member.php?mod=logging&amp;action=login&amp;loginsubmit=yes&amp;infloat=yes&amp;lssubmit=yes" onsubmit="return lsSubmit()">-->
+<form method="post" autocomplete="off" id="lsform" action="member.php?mod=logging&amp;action=login" class="tsdm_simple_login">
+<div class="fastlg cl">
+<span id="return_ls" style="display:none"></span>
+<div class="y pns">
+<table cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<span class="ftid">
+<select name="fastloginfield" id="ls_fastloginfield" width="40" tabindex="900">
+<option value="username">用户名</option>
+<option value="uid">UID</option>
+<option value="email">Email</option>
+</select>
+</span>
+<script type="text/javascript">simulateSelect('ls_fastloginfield')</script>
+</td>
+<td><input type="text" name="username" id="ls_username" autocomplete="off" class="px vm" tabindex="901" /></td>
+<td class="fastlg_l"><label for="ls_cookietime"><input type="checkbox" name="cookietime" id="ls_cookietime" class="pc" value="2592000" tabindex="903" />自动登录</label></td>
+<td>&nbsp;<a href="javascript:;" onclick="showWindow('login', 'member.php?mod=logging&action=login&viewlostpw=1')">找回密码</a></td>
+</tr>
+<tr>
+<td><label for="ls_password" class="z psw_w">密码</label></td>
+<td><input type="password" name="password" id="ls_password" class="px vm" autocomplete="off" tabindex="902" /></td>
+<td class="fastlg_l"><button type="submit" class="pn vm" tabindex="904" style="width: 75px;"><em>登录</em></button></td>
+<td>&nbsp;<a href="member.php?mod=register.php" class="xi2 xw1">注册</a></td>
+</tr>
+</table>
+<input type="hidden" name="quickforward" value="yes" />
+<input type="hidden" name="handlekey" value="ls" />
+</div>
+<a href="https://api.weibo.com/oauth2/authorize?client_id=444463273&redirect_uri=https://www.tsdm39.net/plugin.php?id=tsdmweibo:callback&response_type=code"><img src="xwb/images/bgimg/sina_login_btn.png" /></a></div>
+</form>
+</div>
+
+<div id="nv"><div class="a9_nv_l"><div class="a9_nv_r">
+<a href="javascript:;" id="qmenu" onMouseOver="showMenu({'ctrlid':'qmenu','pos':'34!','ctrlclass':'a','duration':2});">快捷导航</a>
+<ul><li id="mn_forum" ><a jpname="" engname="test"  href="forum.php" hidefocus="true" title="BBS"  >论坛<span>BBS</span></a></li><li id="mn_N2d6e" ><a jpname="" engname=""  href="/plugin.php?id=Kahrpba:search" hidefocus="true" target="_blank"   style="font-weight: bold;">搜索</a></li><li id="mn_Nf909" onmouseover="showMenu({'ctrlid':this.id,'ctrlclass':'hover','duration':2})"><a jpname="" engname=""  href="/forumdisplay.php?fid=31" hidefocus="true"  >新闻</a></li><li id="mn_Nb66f" onmouseover="showMenu({'ctrlid':this.id,'ctrlclass':'hover','duration':2})"><a jpname="" engname=""  href="/viewthread.php?tid=136407" hidefocus="true"  >积分|银行|CP</a></li><li id="mn_N4464" onmouseover="showMenu({'ctrlid':this.id,'ctrlclass':'hover','duration':2})"><a jpname="" engname=""  href="/forum.php?mod=viewthread&tid=136407" hidefocus="true"  >勋章|牌|风格|</a></li><li id="mn_Na00d" ><a jpname="" engname=""  href="/forum.php?mod=viewthread&tid=1054590" hidefocus="true"   style="font-weight: bold;">萌战</a></li><li id="mn_Ne7a0" ><a jpname="" engname=""  href="/forum.php?mod=viewthread&tid=1013533" hidefocus="true"  >捐助</a></li><li id="mn_N1f6a" onmouseover="showMenu({'ctrlid':this.id,'ctrlclass':'hover','duration':2})"><a jpname="" engname=""  href="/forum.php?mod=viewthread&tid=597977" hidefocus="true"   style="font-weight: bold;">宠物</a></li><li id="mn_Nfded" onmouseover="showMenu({'ctrlid':this.id,'ctrlclass':'hover','duration':2})"><a jpname="" engname=""  href="/forum.php?mod=viewthread&tid=321479" hidefocus="true"  >签到打工</a></li><li id="mn_Nc742" ><a jpname="" engname=""  href="/forum.php?mod=viewthread&tid=537303" hidefocus="true"   style="font-weight: bold;">Q群</a></li><li id="mn_N4ed2" ><a jpname="" engname=""  href="http://www.ysjdm.com/" hidefocus="true" target="_blank"  >在线动漫</a></li>                        </ul>
+</div></div></div>
+<ul class="p_pop h_pop" id="plugin_menu" style="display: none">  <li><a id="mn_plink_bank" href="plugin.php?id=bank_ane:bank">社区银行</a></li>
+   <li><a id="mn_plink_memcp" href="plugin.php?id=background:memcp">帖子背景</a></li>
+   <li><a id="mn_plink_sign" href="plugin.php?id=dsu_paulsign:sign">每日签到</a></li>
+   <li><a id="mn_plink_work" href="plugin.php?id=np_cliworkdz:work">打工挣钱</a></li>
+   <li><a id="mn_plink_pokemon" href="plugin.php?id=pokemon:pokemon">神奇宝贝</a></li>
+ </ul>
+<ul class="p_pop h_pop" id="mn_Nf909_menu" style="display: none"><li><a href="/forum.php?mod=forumdisplay&fid=31" hidefocus="true" target="_blank"  style="font-weight: bold;color: green">动漫新闻</a></li><li><a href="/forum.php?mod=forumdisplay&fid=40" hidefocus="true"  style="font-weight: bold;color: blue">初音ミク新闻</a></li></ul><ul class="p_pop h_pop" id="mn_Nb66f_menu" style="display: none"><li><a href="forum.php?mod=viewthread&tid=380934" hidefocus="true" >天使币|威望|宣传点 兑换</a></li><li><a href="home.php?mod=spacecp&ac=credit&op=transfer" hidefocus="true" >积分兑换|转帐</a></li><li><a href="plugin.php?id=promotion_mmm:promotion_mmm" hidefocus="true" >宣传点获取</a></li><li><a href="plugin.php?id=tsdmcp" hidefocus="true" >CP成长插件</a></li><li><a href="plugin.php?id=bank_ane:bank" hidefocus="true" >社区银行</a></li><li><a href="plugin.php?id=background:memcp" hidefocus="true" >帖子背景</a></li><li><a href="plugin.php?id=tsdmpk" hidefocus="true" >名字PK</a></li><li><a href="	plugin.php?id=np_cliworkdz:work" hidefocus="true" >打工挣钱</a></li></ul><ul class="p_pop h_pop" id="mn_N4464_menu" style="display: none"><li><a href="/plugin.php?id=dsu_medalCenter:memcp" hidefocus="true" >动漫勋章购买</a></li><li><a href="plugin.php?id=tsdmtitle:tsdmtitle&action=shop" hidefocus="true" >第二牌子购买</a></li><li><a href="plugin.php?id=background:memcp" hidefocus="true" >帖子背景购买</a></li><li><a href="/forum.php?styleid=6" hidefocus="true" >【论坛风格】羽翼(奏天使)</a></li><li><a href="/forum.php?styleid=27" hidefocus="true" >【论坛风格】彩虹（简洁）</a></li><li><a href="/forum.php?styleid=11" hidefocus="true" >【论坛风格】圣诞</a></li><li><a href="/forum.php?styleid=5" hidefocus="true" >【论坛风格】爱丽丝</a></li><li><a href="/forum.php?styleid=4" hidefocus="true" >【论坛风格】水晶(初音)</a></li><li><a href="/forum.php?styleid=12" hidefocus="true" >【论坛风格】自由之翼</a></li><li><a href="/forum.php?styleid=13" hidefocus="true" >【论坛风格】旅行者(极简无图标)</a></li><li><a href="/forum.php?mod=viewthread&tid=310508" hidefocus="true" >风格错位恢复方法</a></li></ul><ul class="p_pop h_pop" id="mn_N1f6a_menu" style="display: none"><li><a href="/plugin.php?id=pokemon:pokemon" hidefocus="true" >宠物中心入口</a></li><li><a href="forum.php?mod=viewthread&tid=785415" hidefocus="true" >宠物区汇总贴（新手必看）</a></li><li><a href="forum.php?mod=viewthread&tid=799349" hidefocus="true" >宠物插件之攻略篇</a></li></ul><ul class="p_pop h_pop" id="mn_Nfded_menu" style="display: none"><li><a href="/forum.php?mod=viewthread&tid=321479" hidefocus="true" >打工</a></li><li><a href="/forum.php?mod=forumdisplay&fid=4" hidefocus="true" >签到</a></li></ul><div id="mu" class="cl">
+</div></div>
+</div>
+
+</div>
+<div id="wp" class="wp">
+    <div class="a9_wp">
+    <div class="a9_wp_t_l"><div class="a9_wp_t_r"></div></div>
+    <div class="a9_wp_l"><div class="a9_wp_r">
+    <div class="a9_wp_s_l"><div class="a9_wp_s_r"><div class="a9_wp_s"><div id="scbar" class="cl">
+<script type="text/javascript">
+function openSogou(){
+keyword = document.getElementById('scbar_txt').value;
+keyword = 'plugin.php?id=Kahrpba:search&query=' + keyword;
+window.open(keyword);
+}
+</script>
+<form id="scbar_form" method="post" autocomplete="off" onsubmit="return false;" action="" target="_blank">
+<input type="hidden" name="mod" id="scbar_mod" value="search" />
+<input type="hidden" name="formhash" value="8c8c3409" />
+<input type="hidden" name="srchtype" value="title" />
+<input type="hidden" name="srhfid" value="0" />
+<input type="hidden" name="srhlocality" value="plugin::np_cliworkdz" />
+<table cellspacing="0" cellpadding="0">
+<tr>
+<td class="scbar_type_td"><a href="http://www.kudm.net"><font color="#FFF">动漫∨</font></a></td>
+<td class="scbar_txt_td"><input type="text" name="srchtxt" id="scbar_txt" value="不搜一下的话，幸福会溜走哦" autocomplete="off" onclick="this.value=''" style="color:#CCC" onkeypress="if(event.keyCode==13){openSogou();}" /></td>
+<td class="scbar_btn_td"><!--<button type="button" name="searchsubmit" id="scbar_btn" class="pn pnc" value="true" onclick="openSogou();">&nbsp;</button>--><div id="scbar_btn" class="pn pnc" onclick="openSogou();"></div></td>
+
+<td class="scbar_hot_td">
+<div id="scbar_hot">
+<a href="viewthread.php?tid=521206" style="color:#090; font-weight: bold; float:left">[工作组招募]</a>
+        <a href="viewthread.php?tid=97530" style="color:#960;font-weight: bold; float:left">[搜索教程]</a>
+        <a href="viewthread.php?tid=961888" style="color:#4BA7CC;font-weight: bold; float:left">[7月新番版主招募]</a>
+</div>
+</td>
+</tr>
+</table>
+</form>
+</div>
+<ul id="scbar_type_menu" class="p_pop" style="display: none;"><li><a href="javascript:;" rel="forum">帖子</a></li><li><a href="javascript:;" rel="user">用户</a></li></ul>
+<div class="a9_cle"></div><div id="ct" class="wp cl w">
+<div class="nfl" id="main_succeed" style="display: none">
+<div class="f_c altw">
+<div class="alert_right">
+<p id="succeedmessage"></p>
+<p id="succeedlocation" class="alert_btnleft"></p>
+<p class="alert_btnleft"><a id="succeedmessage_href">如果你的浏览器没有自动跳转，请点击此链接</a></p>
+</div>
+</div>
+</div>
+<div class="nfl" id="main_message">
+<div class="f_c altw">
+<div id="messagetext" class="alert_info">
+<p>请先登录再进行点击任务</p>
+</div>
+<div id="messagelogin"></div>
+<script type="text/javascript">ajaxget('member.php?mod=logging&action=login&infloat=yes&frommessage', 'messagelogin');</script>
+</div>
+</div>
+</div>	</div>
+    <div class="a9_cle"></div>
+    </div></div></div></div></div></div></div></div>
+<div id="ft" class="wp cl">
+<div id="flk" class="y">
+<p><a href="archiver/" >Archiver</a><span class="pipe">|</span><a href="forum.php?mobile=yes" >手机版</a><span class="pipe">|</span><a href="/plugin.php?id=np_cliworkdz:work&mobile=yes">WAP</a><span class="pipe">|</span>
+<strong><a href="https://www.tsdm39.net/" target="_blank">天使动漫论坛</a></strong>
+<script type="text/javascript" src="https://js.users.51.la/5183328.js"></script>
+<p>声明：本站所有内容资源均来自网络&网友分享，仅供学习试用。如侵犯您的权益请告知,将会第一时间删除。广告联系<a href="mailto:tsdmtsdm@126.com">我的邮箱</a></p>
+</p>
+<p class="xs0">
+GMT+8, 2021-8-17 18:07<span id="debuginfo">
+, Processed in 0.036002 second(s), 0 queries
+, Gzip On, Memcache On.
+</span>
+</p>
+</div>
+<div id="frt">
+<p>Powered by <strong><a href="http://www.discuz.net" target="_blank">Discuz!</a></strong> <em>TSDM SP</em></p>
+<p class="xs0">&copy; 2010-2014 Style by chibimiku@TSDM</p>
+</div></script>
+<div class="a9_cle"></div>
+</div>
+<div id="g_upmine_menu" class="tip tip_3" style="display:none;">
+<div class="tip_c">
+积分 0, 距离下一级还需  积分
+</div>
+<div class="tip_horn"></div>
+</div>
+<script src="home.php?mod=misc&ac=sendmail&rand=1629194868" type="text/javascript"></script>
+<span id="scrolltop" onclick="window.scrollTo('0','0')">回顶部</span>
+<script type="text/javascript">_attachEvent(window, 'scroll', function(){showTopLink();});</script>
+<!--footer common start-->
+   
+    <style>
+        span#scrolltop{
+            background-image:none;
+            background-color:#eee;
+            line-height:30px;
+            font-size:13px;
+            height:30px;
+            width: 70px;
+            bottom: 0px;
+            right: 30px !important;
+            text-align:center;
+            border-top-right-radius: 3px;
+            border-top-left-radius: 3px;
+            box-shadow: 0 0 3px 0 rgba(0,0,0,0.4);
+            -webkit-box-shadow: 0 0 3px 0 rgba(0,0,0,0.4);
+        }
+        span#scrolltop:before{
+            content:"↑ ";
+        }
+
+        div#ts_sidebar_base{
+            font-family: Helvetica, Tahoma, Arial, STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑", SimSun, "宋体", Heiti, "黑体", sans-serif;
+            background:#F1EEEA;
+            position: fixed;
+            right:-460px; bottom: 60px;
+            height: 600px;
+            width:460px;
+            border-radius:4px;
+            box-shadow: 0 0 3px 0 rgba(0,0,0,0.30);
+            -webkit-box-shadow: 0 0 3px 0 rgba(0,0,0,0.30);
+            transition:0.5s;
+        }
+
+        div#ts_sidebar_base>div.kfleft{
+            top: 380px;
+            position:absolute;
+            font-size:18px;
+            line-height:20px;
+            text-align: center;
+            color:#ed145b;
+            background:#fafafa;
+            left:-31px;
+            margin-top: 5px;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            box-shadow: 0 0 3px 0 rgba(0,0,0,0.4);
+            -webkit-box-shadow: 0 0 3px 0 rgba(0,0,0,0.4);
+            transition:0.5s;
+        }
+        div#ts_sidebar_base>div.kfleft>div{
+            padding:20px 7px;
+            cursor:pointer;
+        }
+
+        div#ts_sidebar_base iframe.share_self{
+            height: 560px;
+            width: 230px;
+            display:block;
+        }
+
+        div#ts_weibo_wrapper{
+            width:560px; height:600px;
+            position:relative;
+            overflow-x:hidden;
+            overflow-y:hidden;
+        }
+
+        ul#ts_weibo_slide{
+            width:560px; height:100%;
+            display:block;
+            padding:0; margin:0;
+            position:absolute;
+            left:0px; transition:0.5s;
+        }
+        ul#ts_weibo_slide:after{
+            clear:both;
+            display:table;
+            content:"";
+        }
+
+        ul#ts_weibo_slide>li{
+            display:block;
+            list-style:none;
+            margin:0;
+            float:left;
+            height:100%;
+            width: 230px;
+        }
+
+        li#ts_weibo_frame{
+            background-color:#F1EEEA;
+            height:560px;
+            background-image: url("http://ww3.sinaimg.cn/large/6f3ec97bgw1exdge941ttj20780dwq3e.jpg");
+            background-position: center;
+            background-size: 70%;
+            background-repeat: no-repeat;
+        }
+
+        li#ts_weibo_frame iframe{
+            background-color: rgba(255,255,255,0.2);
+        }
+
+        li#ts_weibo_qrcode{
+            background-color:#C6EBF1;
+            height:560px;
+            text-align:center;
+        }
+
+        li#ts_weibo_qrcode div.ts_qrcode_tt>h2{
+            padding-top:20px;
+            margin-top:0;
+            margin-bottom: 10px;
+            color:#4D3B74;
+        }
+
+        ul#ts_weibo_slide>li .ts_sidebar_butt{
+            height:40px;
+            line-height:40px;
+            font-size: 20px;
+            text-align: center;
+            cursor:pointer;
+            font-size: 16px;
+            color:#9e0b0f;
+            background: #e5ded7;
+            transition: 0.5s;
+        }
+        ul#ts_weibo_slide>li .ts_sidebar_butt:hover{
+            color: #fafafa;
+            background-color: #00a5ce;
+            
+        }
+
+        div#ts_sidebar_block_1, div#ts_sidebar_block_2{
+            height:560px;
+        }
+
+        div#ts_sidebar_block_2{
+            overflow-y: scroll;
+        }
+        
+        div#ts_sidebar_block_2 h2{
+            font-size: 18px;
+        }
+
+        div#ts_sidebar_block_2 img{
+            border-radius:1px;
+            box-shadow: 0 0 4px 2px rgba(140,140,140,0.40);
+            margin-bottom: 10px;
+        }
+
+        
+
+
+
+        div#ts_sidebar_base>div#ts_weibo_wrapper>ul#ts_weibo_slide>li#ts_weibo_frame>#ts_sidebar_block_1{
+            left: 0px;
+        }
+
+        @-webkit-keyframes tsshakes {
+            from, 10% {
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+            }
+
+            1%, 3%, 5%, 7%{
+                -webkit-transform: translate3d(-10px, 0, 0);
+                transform: translate3d(-10px, 0, 0);
+            }
+
+            2%, 4%, 6%, 8% {
+                -webkit-transform: translate3d(10px, 0, 0);
+                transform: translate3d(10px, 0, 0);
+            }
+        }
+
+        @keyframes tsshakes {
+            from, 10% {
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+            }
+
+            1%, 3%, 5%, 7%{
+                -webkit-transform: translate3d(-10px, 0, 0);
+                transform: translate3d(-10px, 0, 0);
+            }
+
+            2%, 4%, 6%, 8% {
+                -webkit-transform: translate3d(10px, 0, 0);
+                transform: translate3d(10px, 0, 0);
+            }
+        }
+
+        .ts-but-shake{
+            -webkit-animation-name: tsshakes;
+            animation-name: tsshakes;
+            -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+            -webkit-animation-duration: 8s;
+            animation-duration: 8s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+    </style>
+
+    <div id="ts_sidebar_base">
+        <div id="ts_sidebar_swt" class="kfleft" title="点击查看动漫资讯">
+            <div id="ts_slide_open">最<br>新<br>动<br>漫<br>资<br>讯</div>
+            <div id="ts_slide_close" style="display: none;">关<br>闭<br>→</div>
+        </div>
+        <div id="ts_weibo_wrapper">
+            <ul id="ts_weibo_slide">
+                <li id="ts_weibo_frame">
+                    <div id="ts_sidebar_block_1">
+
+                      <!--<iframe class="share_self" frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&amp;width=230&amp;height=580&amp;fansRow=1&amp;ptype=1&amp;speed=0&amp;skin=1&amp;isTitle=0&amp;noborder=1&amp;isWeibo=1&amp;isFans=0&amp;uid=2155378037&amp;verifier=cd63d472&amp;dpc=1"></iframe>
+  -->
+  <iframe style="background:#FFFFFF" class="share_self" frameborder="0" src="weibo.html"></iframe>
+
+<!--<wb:topic topmid="z8ClGsZa8" column="n" border="n" title="%E5%A4%A9%E4%BD%BF%E5%8A%A8%E6%BC%AB%E8%AE%BA%E5%9D%9B" width="560" height="1190" tags="%E5%A4%A9%E4%BD%BF%E5%8A%A8%E6%BC%AB" language="zh_cn" version="base" appkey="IiJ6h" refer="y" footbar="y" filter="n" ></wb:topic>-->
+                    </div>
+                    <div class="ts_sidebar_butt" id="inner_to_right"><div class="ts-but-shake">客户端 &amp; 微信二维码<span style="margin-left:20px;">》</span></div></div>
+                </li>
+                <li id="ts_weibo_qrcode">
+                    <div id="ts_sidebar_block_2">
+                        <div class="ts_qrcode_tt"><h2>新浪微博</h2></div>
+                        <img src="http://ww4.sinaimg.cn/large/7044f931gw1ex4bpx9aj5j206y06y74i.jpg" alt="二维码" style="width:180px;height:auto">
+                        <div class="ts_qrcode_tt"><h2>微信公众号</h2></div>
+                        <img src="http://ww2.sinaimg.cn/large/7044f931gw1ex4bpwtdkzj206y07074n.jpg" alt="二维码" style="width:180px;height:auto">
+                        <div class="ts_qrcode_tt"><h2>客户端下载</h2></div>
+                        <img src="http://ww1.sinaimg.cn/large/c26b5ca9gw1ey37ih2im9j207s07sq2p.jpg" alt="二维码" style="width:180px;height:auto">
+                    </div>
+                    <div class="ts_sidebar_butt" id="inner_to_left"><div class="ts-but-shake"><span style="margin-right:20px;">《</span>返回论坛微博</div></div>
+                </li>    
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            var original_top;
+            var sideBase = document.getElementById('ts_sidebar_base');
+            var sideButt =  document.getElementById('ts_sidebar_swt');
+            var sideOpen = document.getElementById('ts_slide_open');
+            var sideClose = document.getElementById('ts_slide_close');
+            var sideSlider = document.getElementById('ts_weibo_slide');
+            var windowH = window.innerHeight;
+
+            function setLocal(st){
+                localStorage.setItem("local_sidebarOpen_tsdm", st);
+            }
+
+            function setLocalTime(){
+                localStorage.setItem("local_sidebarTime_tsdm", Date.now());
+            }
+
+            function opensUp(){
+                var positionB;
+                windowH = window.innerHeight;
+                if (windowH <= 660) {
+                    positionB = "390px";
+
+                } else {
+                    positionB = "0px";
+                }
+
+
+                original_top = document.getElementById('ts_sidebar_swt').style.top;
+                sideBase.style.right = "-230px";
+                sideButt.style.top = positionB;
+                sideOpen.style.display = "none";
+                sideClose.style.display = "block";
+                sideSlider.style.left = "0px";
+                setLocal("actived");
+            }
+
+            function closeUp(){
+                sideBase.style.right = "-460px";
+                sideButt.style.top = original_top;
+                sideOpen.style.display = "block";
+                sideClose.style.display = "none";
+                sideSlider.style.left = "0px";
+                setLocal("inactived");
+            }
+
+            
+            document.getElementById('ts_slide_close').addEventListener("click", function(){ 
+                closeUp();
+                setLocalTime();
+            });
+
+            document.getElementById('ts_slide_open').addEventListener("click", function(){
+                opensUp();
+            });
+
+            document.getElementById('inner_to_right').addEventListener("click", function(){
+                sideSlider.style.left = "-230px";
+            });
+
+            document.getElementById('inner_to_left').addEventListener("click", function(){
+                sideSlider.style.left = "0px";
+            });
+
+
+
+            var laTime = localStorage.getItem("local_sidebarTime_tsdm");
+            var cuStat = localStorage.getItem("local_sidebarOpen_tsdm");
+            var cuTime = Date.now();
+            var exet = cuTime - laTime;
+
+            if( exet<= 1000*3600*6 && cuStat=="inactived"){
+                closeUp();
+            }else {
+                opensUp();
+            }
+
+            console.log(" _(:3 」∠ )_ 欢迎访问TSDM.NET ");
+
+        })();
+    </script><script language="javascript">
+smjq("*").removeAttr("onload");
+smjq(".tspostm").removeAttr("onmouseover");
+if(typeof(checkHash) == "function"){
+checkHash();
+}
+//tsdm lazyload
+smjq("img.lazy").lazyload();
+</script>
+
+
+<script>
+if(typeof(navigator.appVersion) != null){
+if(navigator.appVersion.indexOf("Chrome/4") > 0){
+var tsdmflyele = document.getElementsByClassName('tsdmfly');
+for(var i=0;i<tsdmflyele.length;i++){
+tsdmflyele[i].behavior="scroll";
+}
+}
+}
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+
+function ChangeHref(){
+//fix tsdm.net to tsdm.me
+var arr=document.getElementsByTagName("a");
+for(var i=0;i<arr.length;i++){
+arr[i].href=arr[i].href.replace("tsdm.net","tsdm39.net");
+arr[i].href=arr[i].href.replace("tsdm.me","tsdm39.net");
+arr[i].href=arr[i].href.replace("tsdm.love","tsdm39.net");
+arr[i].href=arr[i].href.replace("tsdm.live","tsdm39.net");
+arr[i].href=arr[i].href.replace("http://www.tsdm.love","https://www.tsdm39.net");
+arr[i].href=arr[i].href.replace("http://www.tsdm.me","https://www.tsdm39.net");
+arr[i].href=arr[i].href.replace("http://www.tsdm.live","https://www.tsdm39.net");
+}
+}
+ChangeHref();
+</script>
+
+<script>
+if(document.URL.startsWith("https://www.tsdm.me")){
+window.location = window.location.href.replace("https://www.tsdm.me", "https://www.tsdm39.net");
+}
+
+if(document.URL.startsWith("https://www.tsdm.net")){
+window.location = window.location.href.replace("https://www.tsdm.net", "https://www.tsdm39.net");
+}
+
+if(document.URL.startsWith("https://www.tsdm.me")){
+window.location = window.location.href.replace("http://www.tsdm.love", "http://www.tsdm39.net");
+}
+
+if(document.URL.startsWith("https://www.tsdm.love")){
+window.location = window.location.href.replace("https://www.tsdm.love", "https://www.tsdm39.net");
+}
+
+if(document.URL.startsWith("https://www.tsdm.live")){
+window.location = window.location.href.replace("https://www.tsdm.live", "https://www.tsdm39.net");
+}
+</script>
+
+<script src="https://www.aqours.today/xz/static/lib/GB_BIG.js" type="text/javascript" type="text/javascript" /></script>
+<script src="static/js/clipboard.min.js" type="text/javascript"></script>
+<script>
+var clipboard = new ClipboardJS('.cpbtn');
+</script>
+
+<!--footer common end--></body>
+</html>

@@ -1,9 +1,12 @@
 """
 尝试用requests方式完成签到
 """
-import requests
+import requests, time, random
+from datetime import datetime
+from typing import List
 
-from actions import *
+from actions import write_error, read_cookies
+from actions import sign_url, work_url
 
 
 def work_single_post(cookie: List):
@@ -29,8 +32,16 @@ def work_single_post(cookie: List):
 
     for i in range(7):  # 总共6次打工, 实际打工8次保险
         ad_feedback = requests.post(work_url, data="act=clickad", headers=headers)
-        time.sleep(1)
-        print("点击广告: ", i + 1, end="\r")
+        time.sleep(random.uniform(1, 2))
+        print("点击广告: 第", i + 2, '次, 服务器标识:', ad_feedback.text, end="\r")
+
+        if int(ad_feedback.text) > 1629134400:
+            print("检测到作弊判定: ", ad_feedback.text, '  尝试规避')
+            time.sleep(random.uniform(4, 5))
+            # todo: 延时, 重试
+            break
+        elif int(ad_feedback.text) >= 6:    # 已点击6次, 停止
+            break
 
     getcre_response = requests.post(work_url, data="act=getcre", headers=headers)
 
@@ -39,8 +50,10 @@ def work_single_post(cookie: List):
     elif "作弊" in getcre_response.text:
         print("作弊判定, 打工失败, 重试...")
         # todo: 增加重试逻辑
+    elif "请先登录再进行点击任务" in getcre_response.text:
+        print("打工失败, cookie失效...")
     else:
-        print(datetime.now(), "======未知原因打工失败, 已保存log=======")
+        print(datetime.now(), "======未知原因打工失败, 已保存response=======")
         write_error("打工", getcre_response.text)
 
     return
@@ -91,7 +104,7 @@ def sign_single_post_v2(cookie):
         print(datetime.now(), "签到失败, 可能是formhash获取错误")
         write_error("签到", sign_response.text)
     else:
-        print(datetime.now(), "======未知原因签到失败=======")
+        print(datetime.now(), "======未知原因签到失败, 已保存response=======")
         write_error("签到", sign_response.text)
 
     return
@@ -103,6 +116,7 @@ def sign_multi_post():
     for user in cookies.keys():
         print(datetime.now(), "正在签到: ", user)
         sign_single_post_v2(cookies[user])
+        time.sleep(random.uniform(0.5, 1))
 
     print("POST方式: 全部签到完成")
     return
