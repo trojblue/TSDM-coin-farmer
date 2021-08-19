@@ -59,4 +59,5 @@ optional arguments:
 
 - selenium模式下可能会报各种warning, 能正常签到的话无视就好 
 
-- 因为某些神必原因post模式有时候会工作失败, 建议手动重试一次
+- 因为某些神必原因post模式打工有时候会工作失败, 建议手动重试一次, 或者用selenium
+
