@@ -51,7 +51,7 @@ def do_parse():
             sign_multi_post()
 
     # 需要s1功能的话取消下面的注释
-    # schedule.every(20).minutes.do(do_read_s1())
+    # schedule.every(20).minutes.do(do_read_s1)
 
 def do_schedule():
     print("正在运行计划任务, 每6小时签到一次")
