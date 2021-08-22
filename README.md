@@ -50,6 +50,18 @@ optional arguments:
 
 - `credentials.py`, `cookies.json`: 存储登录信息, ***请不要上传***
 
+
+## 更新
+2021.8.23: 增加stage1st的刷在线时间功能, 改一改可扩展成任意discuz论坛的刷在线时间功能
+
+使用方法: 在`credentials.py`增加变量`S1_CREDENTIALS`, 格式同tsdm
+
+获取cookie后在farmer.py, `do_parse()`里取消关于s1的注释行
+
+没打算做成正式功能所以不怎么正经
+
+不确定是否能刷时间, 得过几天看小时有没有增加
+
 ## 其他
 
 - 需要`urllib3==1.25.11`,

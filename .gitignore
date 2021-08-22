@@ -3,6 +3,7 @@ bin/
 src/__pycache__
 src/credentials.py
 src/testing.py
-src/cookies.json
 *.txt
 *.log
+*.json
+src/farmer2.py

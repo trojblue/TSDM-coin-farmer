@@ -4,6 +4,7 @@ import time, sys, schedule
 from v1_selenium import *
 from v2_request import *
 from credentials import TSDM_credentials
+from dlc_stage1st import do_read_s1
 
 
 def heartbeat():
@@ -49,6 +50,8 @@ def do_parse():
             work_multi_post()
             sign_multi_post()
 
+    # 需要s1功能的话取消下面的注释
+    # schedule.every(20).minutes.do(do_read_s1())
 
 def do_schedule():
     print("正在运行计划任务, 每6小时签到一次")
