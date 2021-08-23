@@ -1,4 +1,5 @@
 import argparse
+import random
 import time, sys, schedule
 
 from v1_selenium import *
@@ -21,6 +22,9 @@ def do_parse():
     parser.add_argument("-n", "--now", help="立刻运行打工和签到", action="store_true")
 
     args = parser.parse_args()
+    sign_hour = random.randint(9, 20)
+    sign_minute = random.randint(11, 55)
+    sign_time = str(sign_hour)+':'+str(sign_minute)
 
     if args.reset:
         print("刷新cookie")
@@ -29,14 +33,14 @@ def do_parse():
         sys.exit()
 
     elif args.selenium:
-        print("使用selenium模式运行")
+        print("使用selenium模式运行, 签到时间: ", sign_time)
         schedule.every(362).minutes.do(work_multi_selenium)
-        schedule.every().day.at("10:30").do(sign_multi_selenium)    # 每天 10:30 签到
+        schedule.every().day.at(sign_time).do(sign_multi_selenium)    # 每天 10:30 签到
 
     else:
-        print("默认: 使用post模式运行")
+        print("默认: 使用post模式运行, 签到时间: ", sign_time)
         schedule.every(362).minutes.do(work_multi_post)
-        schedule.every().day.at("10:30").do(sign_multi_post)
+        schedule.every().day.at(sign_time).do(sign_multi_post)
 
     if args.now:
         print("[-n] 立即进行:")

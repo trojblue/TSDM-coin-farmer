@@ -26,7 +26,7 @@ TSDM_credentials = [['user1', 'pswd1'],
 
 1. `python farmer.py -r` 刷新所有账户的cookie
 
-2. `python farmer.py`开始定时任务, 在6小时后开始第一轮打工, 每天10:30签到
+2. `python farmer.py`开始定时任务, 在6小时后开始第一轮打工, 每天随机时间签到
 
 3. 如果需要立刻打工/签到,可以使用`-n`参数
 
