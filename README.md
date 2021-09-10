@@ -9,7 +9,7 @@
 ```bash
 git clone https://github.com/Trojblue/TSDM-coin-farmer
 cd TSDM-coin-farmer
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 2. 在`src`文件夹新建`credentials.py`, 按照以下格式填好需要的账号密码:

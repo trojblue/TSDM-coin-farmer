@@ -7,7 +7,6 @@ import time
 import requests
 
 from actions import *
-from credentials import S1_CREDENTIALS
 
 s1_frontpage = "https://bbs.saraba1st.com/2b/forum.php"
 s1_sample_post = "https://bbs.saraba1st.com/2b/thread-2022232-1-1.html"
@@ -15,17 +14,23 @@ s1_sample_post = "https://bbs.saraba1st.com/2b/thread-2022232-1-1.html"
 def get_s1_cookie():
     """selenium获取cookie
     """
-
-    username, password = S1_CREDENTIALS[0][0], S1_CREDENTIALS[0][1]
-
     driver = get_webdriver()
     driver.get(s1_frontpage)
-
-    driver.find_element_by_id("ls_username").send_keys(username)
-    driver.find_element_by_id("ls_password").send_keys(password)
     driver.find_element_by_id("ls_cookietime").click()
-    time.sleep(2)
-    driver.find_element_by_xpath("//*[@id=\"lsform\"]/div/div/table/tbody/tr[2]/td[3]/button").click()
+
+    try:
+        # 存在S1_CREDENTIALS, 自动填入密码登录
+        from credentials import S1_CREDENTIALS
+        username, password = S1_CREDENTIALS[0][0], S1_CREDENTIALS[0][1]
+        driver.find_element_by_id("ls_username").send_keys(username)
+        driver.find_element_by_id("ls_password").send_keys(password)
+        time.sleep(2)
+        driver.find_element_by_xpath("//*[@id=\"lsform\"]/div/div/table/tbody/tr[2]/td[3]/button").click()
+
+    except ImportError:
+        print("刷新cookie: 未找到S1_CREDENTIALS, 想要自动获取cookie请按readme设置好该变量")
+        print("请填入账号密码, 点击登录后按回车")
+
 
     print("登录:")
     time.sleep(4)   # 增加延迟确保获得auth
