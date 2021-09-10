@@ -25,7 +25,7 @@ def get_webdriver():
     return driver
 
 
-def refresh_cookie(username: str, password: str):
+def refresh_cookie_tsdm(username: str, password: str):
     """selenium获取cookie
     """
     driver = get_webdriver()
@@ -64,12 +64,12 @@ def refresh_cookies_tsdm():
         # 多账户刷新
         from settings import TSDM_credentials
         for i in TSDM_credentials:
-            refresh_cookie(i[0], i[1])
+            refresh_cookie_tsdm(i[0], i[1])
 
     except ImportError:
         print("未找到TSDM_credentials, 为单个账户手动刷新cookie; \n"
               "如果需要多账户签到/自动填写密码, 请先按照readme设置好天使动漫的账户密码")
-        refresh_cookie("", "")
+        refresh_cookie_tsdm("", "")
 
     return
 
@@ -90,13 +90,22 @@ def get_cookies_all():
 
 def get_cookies_by_domain(domain:str):
     """从所有cookie里分离出指定域名的cookie
-    domain: cookie domain, eg. ".tsdm39.net"
+    domain: cookie domain, (".tsdm39.net")
     """
-    cookies_all = get_cookies_all()
+    cookies_all = get_cookies_all() #     { username: [cookie] }
     domain_cookies = {}
+
     for username in cookies_all.keys():
-        if cookies_all[username][0]['domain'] == domain: # 当前用户名下的第一个cookie的domain
-            domain_cookies[username] = cookies_all[username]
+        curr_user_cookies = cookies_all[username]
+        curr_user_cookies_domained = []
+
+        # 同一个用户名下可能有多个网站的cookie
+        for cookie in curr_user_cookies:
+            if cookie['domain'] == domain:
+                curr_user_cookies_domained.append(cookie)
+
+        if curr_user_cookies_domained != []:
+            domain_cookies[username] = curr_user_cookies_domained
 
     return domain_cookies
 
@@ -126,8 +135,6 @@ def simplify_cookie(cookie):
             simplified_cookie.append(i)
 
     return simplified_cookie
-
-
 
 
 

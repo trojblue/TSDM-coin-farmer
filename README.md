@@ -12,23 +12,14 @@ cd TSDM-coin-farmer
 pip install -r requirements.txt
 ```
 
-2. 在`src`文件夹新建`settings.py`, 按照以下格式填好需要的账号密码:
-
-```python
-TSDM_credentials = [['user1', 'pswd1'],
-                    ['user2', 'pswd2']
-                    ]
-```
-
-3. [配置selenium driver](https://selenium-python.readthedocs.io/installation.html#drivers)
+2. [配置selenium driver](https://selenium-python.readthedocs.io/installation.html#drivers) (用于获取cookie, 服务器上只进行挂机任务不需要这步)
 
 ## 使用
 
 1. `python farmer.py -r` 刷新所有账户的cookie
 
-2. `python farmer.py`开始定时任务, 在6小时后开始第一轮打工, 每天随机时间签到
+2. `python farmer.py -n` 立刻打工/签到并开始定时任务
 
-3. 如果需要立刻打工/签到,可以使用`-n`参数
 
 ```
 usage: farmer.py [-h] [-s | -r] [-n]
@@ -39,6 +30,27 @@ optional arguments:
   -r, --reset     刷新cookie
   -n, --now       立刻运行打工和签到
 ```
+
+## 高级使用
+**天使动漫 多账户打工/签到:**
+
+在`src`文件夹里`settings.py`, 按照以下格式填好需要的账号密码:
+
+```python
+TSDM_credentials = [['user1', 'pswd1'],
+                    ['user2', 'pswd2']
+                    ]
+```
+
+<br>
+
+**S1论坛 自动刷在线时间:**
+
+在`src`文件夹里`settings.py`,  把`enable_s1_read = False` 改成`True`
+
+
+
+
 
 ## 结构
 
@@ -98,3 +110,4 @@ TODO:
 3. 增加更多的except (稳定性)
 4. 增加文件型设置
 5. 合并所有cookies.json到同一个文件
+6. s1随机页面阅读

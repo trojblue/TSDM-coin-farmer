@@ -11,66 +11,72 @@ from actions import *
 s1_frontpage = "https://bbs.saraba1st.com/2b/forum.php"
 s1_sample_post = "https://bbs.saraba1st.com/2b/thread-2022232-1-1.html"
 
-def refresh_cookie_s1():
-    """selenium获取cookie
+def refresh_cookie_s1(username: str, password:str):
+    """selenium获取单个S1 cookie
     """
     driver = get_webdriver()
     driver.get(s1_frontpage)
     driver.find_element_by_id("ls_cookietime").click()
 
-    try:
+    if username and password:
         # 存在S1_CREDENTIALS, 自动填入密码登录
-        from settings import S1_CREDENTIALS
-        username, password = S1_CREDENTIALS[0][0], S1_CREDENTIALS[0][1]
         driver.find_element_by_id("ls_username").send_keys(username)
         driver.find_element_by_id("ls_password").send_keys(password)
         time.sleep(2)
         driver.find_element_by_xpath("//*[@id=\"lsform\"]/div/div/table/tbody/tr[2]/td[3]/button").click()
+        print("自动登录:")
+        time.sleep(4)  # 增加延迟确保获得auth
 
-    except ImportError:
+    else:
         print("刷新cookie: 未找到S1_CREDENTIALS, 想要自动获取cookie请按readme设置好该变量")
-        print("请填入账号密码, 点击登录后按回车")
+        wait_input = input("请填入账号密码, 点击登录后按回车")
 
-
-    print("登录:")
-    time.sleep(4)   # 增加延迟确保获得auth
+    if not username:
+        # 无s1_CREDENTIAL, 从浏览器获取用户名
+        my_username = driver.find_element_by_xpath("//*[@id='um']/p[1]/strong/a").text
+        assert my_username is not None
+    else:
+        my_username = username
 
     new_cookie = driver.get_cookies()
     driver.close()
 
-    write_new_cookie_s1(new_cookie, username)
+    print("正在写入cookie..")
+    write_new_cookie_s1(new_cookie, my_username)
     return new_cookie
+
+
+def refresh_cookies_s1():
+    """从credentials重新获取所有cookie
+    ===仅测试过单账户使用===
+    """
+    try:
+        # 多账户刷新
+        from settings import S1_CREDENTIALS
+        for i in S1_CREDENTIALS:
+            refresh_cookie_tsdm(i[0], i[1])
+
+    except ImportError:
+        print("未找到S1_credentials, 为单个账户手动刷新cookie; \n"
+              "如果需要多账户签到/自动填写密码, 请先按照readme设置好账户密码")
+        refresh_cookie_s1("", "")
+
+    return
 
 
 def write_new_cookie_s1(new_cookie: List, username: str) -> None:
     """向cookie文件写入新的用户cookie
     { username: [cookie] }
     """
-    simplified_new_cookie = simplify_cookie(new_cookie)
     cookies = get_cookies_all()
-    cookies[username] = simplified_new_cookie
+    cookies[username] = simplify_cookie(new_cookie)
 
     with open('cookies.json', 'w', encoding='utf-8') as json_file:
         json.dump(cookies, json_file, ensure_ascii=False, indent=4)
 
     print("write done")
 
-
-def get_cookies_s1():
-    """从文件读取cookies
-    { username: [cookie] }
-    """
-    try:
-        with open('cookies_s1.json', 'r', encoding='utf-8') as json_file:
-            data = json.load(json_file)
-            return data
-
-    except FileNotFoundError:  # 文件不存在
-        print("cookies.json不存在")
-        return {}
-
-
-def read_post(cookie:List):
+def do_read_s1_single(cookie:List):
     """浏览一个帖子
     """
     cookie_serialized = "; ".join([i['name'] + "=" + i['value'] for i in cookie])
@@ -87,15 +93,15 @@ def read_post(cookie:List):
     if ("动漫论坛 -  Stage1st") in read_response.text:
         print(datetime.now(), "S1: 状态正常")
     else:
-        print(datetime.now(), "S1: 状态异常")
+        print(datetime.now(), "====S1: 状态异常====")
 
 
-def do_read_s1():
-    s1_cookie = get_cookies_s1()
-    print("正在s1假装阅读...")
+def do_read_s1_all():
+    s1_cookie = get_cookies_by_domain(s1_domain)
+    print("正在s1刷在线时间...")
 
     for user in s1_cookie.keys():
         print(datetime.now(), "正在s1阅读: ", user)
-        read_post(s1_cookie[user])
+        do_read_s1_single(s1_cookie[user])
 
     print("s1阅读完成")

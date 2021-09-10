@@ -60,8 +60,8 @@ def do_parse():
             sign_multi_post()
 
     if enable_s1_read:
-        from dlc_stage1st import do_read_s1
-        schedule.every(20).minutes.do(do_read_s1)
+        from dlc_stage1st import do_read_s1_all
+        schedule.every(20).minutes.do(do_read_s1_all)
 
 def do_schedule():
     print("正在运行计划任务, 每6小时签到一次")
