@@ -7,6 +7,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from datetime import datetime
 
+from logger import *
+
 
 sign_url = 'https://www.tsdm39.net/plugin.php?id=dsu_paulsign:sign'
 work_url = 'https://www.tsdm39.net/plugin.php?id=np_cliworkdz:work'
@@ -29,6 +31,7 @@ def get_webdriver():
 def refresh_cookie_tsdm(username: str, password: str):
     """selenium获取cookie
     """
+    add_debug("刷新cookie")
     driver = get_webdriver()
     driver.get(login_url)
     driver.find_element_by_xpath("//*[starts-with(@id,'cookietime_')]").click()
@@ -37,10 +40,10 @@ def refresh_cookie_tsdm(username: str, password: str):
         driver.find_element_by_xpath("//*[starts-with(@id,'username_')]").send_keys(username)
         driver.find_element_by_xpath("//*[starts-with(@id,'password3_')]").send_keys(password)
         driver.find_element_by_name("tsdm_verify").click()
-        print("等待浏览器里填写验证码并登录:")
+        display_info("等待浏览器里填写验证码并登录:")
     else:
         # 无TSDM_CREDENTIAL, 手动填写信息
-        print("请手动填写信息后点击登录:")
+        display_warning("请手动填写信息后点击登录:")
 
     wait = WebDriverWait(driver, 100)
     wait.until(EC.title_contains("提示信息 - "))
@@ -68,7 +71,7 @@ def refresh_cookies_tsdm():
             refresh_cookie_tsdm(i[0], i[1])
 
     except ImportError:
-        print("未找到TSDM_credentials, 为单个账户手动刷新cookie; \n"
+        display_warning("未找到TSDM_credentials, 为单个账户手动刷新cookie; \n"
               "如果需要多账户签到/自动填写密码, 请先按照readme设置好天使动漫的账户密码")
         refresh_cookie_tsdm("", "")
 
@@ -85,7 +88,7 @@ def get_cookies_all():
             return data
 
     except FileNotFoundError:  # 文件不存在
-        print("cookies.json不存在")
+        display_warning("cookies.json不存在")
         return {}
 
 
@@ -123,7 +126,7 @@ def write_new_cookie(new_cookie: List, username: str) -> None:
     with open('cookies.json', 'w', encoding='utf-8') as json_file:
         json.dump(cookies, json_file, ensure_ascii=False, indent=4)
 
-    print("write done")
+    display_info("写入cookie文件完成")
 
 
 def simplify_cookie(cookie):
