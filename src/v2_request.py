@@ -8,6 +8,8 @@ from typing import List
 from actions import write_error, get_cookies_by_domain, tsdm_domain
 from actions import sign_url, work_url
 
+from logger import *
+
 def work_single_post(cookie: List):
     """用post方式为一个账户打工
     cookie: List[Dict]
@@ -29,23 +31,20 @@ def work_single_post(cookie: List):
 
     ad_feedback = requests.post(work_url, data="act=clickad", headers=headers)
     if "必须与上一次间隔" in ad_feedback.text:
-        print("该账户已经打工过")
+        display_error("该账户已经打工过")
         return
 
     for i in range(7):  # 总共6次打工, 实际打工8次保险
         ad_feedback = requests.post(work_url, data="act=clickad", headers=headers)
 
         wait_time = round(random.uniform(0.5, 1), 2)
-        print("点击广告: 第%s次, 等待%s秒, 服务器标识:%s"%(i+2, wait_time, ad_feedback.text), end="\r")
+        display_info("点击广告: 第%s次, 等待%s秒, 服务器标识:%s"%(i+2, wait_time, ad_feedback.text), end="\r")
         time.sleep(wait_time)
 
         if int(ad_feedback.text) > 1629134400:
-            evade_time = random.uniform(10, 12)
-            print("检测到作弊判定, 尝试重新运行"%(evade_time))
+            display_error("检测到作弊判定, 请尝试重新运行")
             break
-            time.sleep(evade_time)
             # todo: 延时, 重试
-            break
         elif int(ad_feedback.text) >= 6:    # 已点击6次, 停止
             break
         else:
@@ -54,16 +53,16 @@ def work_single_post(cookie: List):
     getcre_response = requests.post(work_url, data="act=getcre", headers=headers)
 
     if "您已经成功领取了奖励天使币" in getcre_response.text:
-        print("打工成功")
+        display_info("打工成功")
     elif "作弊" in getcre_response.text:
-        print("作弊判定, 打工失败, 重试...")
+        display_error("作弊判定, 打工失败, 重试...")
         # todo: 增加重试逻辑
     elif "请先登录再进行点击任务" in getcre_response.text:
-        print("打工失败, cookie失效...")
+        display_error("打工失败, cookie失效...")
     elif "服务器负荷较重" in getcre_response.text:
-        print("打工失败, TSDM:\"服务器负荷较重，操作超时\"...")
+        display_error("打工失败, TSDM:\"服务器负荷较重，操作超时\"...")
     else:
-        print(datetime.now(), "======未知原因打工失败, 已保存response=======")
+        display_error("======未知原因打工失败, 已保存response=======")
         write_error("打工", getcre_response.text)
 
     return
@@ -73,13 +72,13 @@ def work_multi_post():
     cookies = get_cookies_by_domain(tsdm_domain)
 
     for user in cookies.keys():
-        print(datetime.now(), "正在打工: ", user)
+        display_info("正在打工: ", user)
         try:
             work_single_post(cookies[user])
         except Exception as e:
-            print("====post打工出错:=====", e)
+            display_error("====post打工出错:=====", e)
 
-    print("POST方式: 全部打工完成")
+    display_info("POST方式: 全部打工完成")
     return
 
 
@@ -110,14 +109,16 @@ def sign_single_post_v2(cookie):
     sign_response = s.post(sign_page_with_param, data=sign_data, headers=headers)
 
     if "恭喜你签到成功!获得随机奖励" in sign_response.text:
-        print("签到成功")
+        display_info("签到成功")
     elif "您今日已经签到" in sign_response.text:
-        print("该账户已经签到过")
+        display_info("该账户已经签到过")
+    elif "已经过了签到时间段，明天请早点来" in sign_response.text:
+        display_warning("TSDM: \"已经过了签到时间段，明天请早点来\"")
     elif "未定义操作" in sign_response.text:
-        print(datetime.now(), "签到失败, 可能是formhash获取错误")
+        display_error("%s签到失败, 可能是formhash获取错误"%datetime.now())
         write_error("签到", sign_response.text)
     else:
-        print(datetime.now(), "======未知原因签到失败, 已保存response=======")
+        display_error("%s======未知原因签到失败, 已保存response======="%datetime.now())
         write_error("签到", sign_response.text)
 
     return
@@ -127,13 +128,13 @@ def sign_multi_post():
     cookies = get_cookies_by_domain(tsdm_domain)
 
     for user in cookies.keys():
-        print(datetime.now(), "正在签到: ", user)
+        display_info("%s正在签到: %s"%(datetime.now(), user))
         try:
             sign_single_post_v2(cookies[user])
         except Exception as e:
-            print("====post签到出错:=====", e)
+            display_error("%s====post签到出错: %s==="%(datetime.now(), e))
 
         time.sleep(random.uniform(0.5, 1))
 
-    print("POST方式: 全部签到完成")
+    display_info("POST方式: 全部签到完成")
     return
