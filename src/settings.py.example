@@ -1,5 +1,8 @@
-# 需要多账户/自动填写账号密码时, 取消这两行的注释
+# 样本settings.py, 需要修改的时候把文件后缀的.example去掉
 
+
+
+# 需要多账户/自动填写账号密码时, 取消这两行的注释
 # TSDM_CREDENTIALS = [['user1', 'password1'],
 #                     ['user2', 'password2']
 #                     ]

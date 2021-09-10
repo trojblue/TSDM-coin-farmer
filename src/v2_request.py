@@ -60,6 +60,8 @@ def work_single_post(cookie: List):
         # todo: 增加重试逻辑
     elif "请先登录再进行点击任务" in getcre_response.text:
         print("打工失败, cookie失效...")
+    elif "服务器负荷较重" in getcre_response.text:
+        print("打工失败, TSDM:\"服务器负荷较重，操作超时\"...")
     else:
         print(datetime.now(), "======未知原因打工失败, 已保存response=======")
         write_error("打工", getcre_response.text)

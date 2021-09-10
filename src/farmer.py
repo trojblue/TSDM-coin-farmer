@@ -3,7 +3,6 @@ import time, sys, schedule
 
 from v1_selenium import *
 from v2_request import *
-from settings import enable_s1_read
 def heartbeat():
     print("heartbeat: ", datetime.now())
 
@@ -59,9 +58,15 @@ def do_parse():
             work_multi_post()
             sign_multi_post()
 
-    if enable_s1_read:
-        from dlc_stage1st import do_read_s1_all
-        schedule.every(20).minutes.do(do_read_s1_all)
+    try:
+        # 万一有人没改settings.py, 也不会闪退
+        from settings import enable_s1_read
+        if enable_s1_read:
+            from dlc_stage1st import do_read_s1_all
+            schedule.every(20).minutes.do(do_read_s1_all)
+    except Exception:
+        print("====未发现settings.py, 使用默认设置运行===")
+        pass
 
 def do_schedule():
     print("正在运行计划任务, 每6小时签到一次")
