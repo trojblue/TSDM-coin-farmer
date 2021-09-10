@@ -2,7 +2,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 
 
-# 最大存储30m的log
+# 最大存储30m的log, 先试着以后改
 FILE_SIZE = 10*1024*1024
 FILE_COUNT = 3
 
