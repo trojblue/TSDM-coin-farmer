@@ -17,9 +17,11 @@ pip install -r requirements.txt
 
 **获取cookie:**
 
-- 在电脑上 [配置selenium driver](https://selenium-python.readthedocs.io/installation.html#drivers) (如果之前没配置过的话)
-- `python farmer.py -r` 刷新所有账户的cookie
-  - 这步需要填写验证码, 所以服务器上做不了
+1. 在电脑上 [配置selenium driver](https://selenium-python.readthedocs.io/installation.html#drivers) (如果之前没配置过的话)
+2. 填写`/src/settings.py`,例子见`settings.py.example` 
+   - 或者不填也行 手动输入账户密码
+3. `python farmer.py -r` 刷新所有账户的cookie
+   - 这步需要填写验证码, 所以服务器上做不了
 
 **部署:**
 
@@ -42,21 +44,16 @@ optional arguments:
 
 **多账户打工/签到:**
 
-在`src`文件夹里`settings.py`, 填好需要的账号密码:
+在`/src/settings.py`批量填好需要的账号密码, 刷新cookie后运行
 
-```python
-TSDM_CREDENTIALS = [['user1', 'pswd1'],
-                    ['user2', 'pswd2']] # 把变量TSDM_CREDENTIALS取消注释
-```
 
 <br>
 
 **S1论坛 自动刷在线时间:**
 
-在`src`文件夹里`settings.py`, 填好需要的账号密码:
+在`/src/settings.py`批量填好需要的账号密码
 ```python
 S1_CREDENTIALS = [["user1", "pswd1"]] # 把变量S1_CREDENTIALS取消注释
-
 enable_s1_read = True  # 把这行改成True
 ```
 
@@ -119,6 +116,10 @@ cookies.json:
 - selenium模式下可能会报各种warning, 能正常签到的话无视就好 
 
 - 因为某些神必原因post模式打工有时候会工作失败, 建议手动重试一次, 或者用selenium
+
+- 服务器上使用selenium模式打工, 需要先设置成headless模式: 在`/src/actions`中 `get_webdriver()`添加headless旗帜
+
+- 没有条件在pc上获取cookie的话, 可以尝试手动配置: 见`doc/cookies.json.example` 
 
 
 
