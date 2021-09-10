@@ -12,16 +12,14 @@
 ```bash
 git clone https://github.com/Trojblue/TSDM-coin-farmer
 cd TSDM-coin-farmer
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 **获取cookie:**
 
-1. 在电脑上 [配置selenium driver](https://selenium-python.readthedocs.io/installation.html#drivers) (如果之前没配置过的话)
-2. 填写`/src/settings.py`,例子见`settings.py.example` 
-   - 或者不填也行 手动输入账户密码
+1. 在电脑上[配置selenium driver](https://selenium-python.readthedocs.io/installation.html#drivers) (填写验证码需要图形界面)
+2. 在`src`文件夹新建`settings.py`, 例子见`/doc/settings.py.example` 
 3. `python farmer.py -r` 刷新所有账户的cookie
-   - 这步需要填写验证码, 所以服务器上做不了
 
 **部署:**
 
@@ -46,6 +44,9 @@ optional arguments:
 
 在`/src/settings.py`批量填好需要的账号密码, 刷新cookie后运行
 
+```python
+TSDM_CREDENTIALS = [["user1", "pswd1"], ["user2", "pswd2"]]
+```
 
 <br>
 
@@ -63,10 +64,16 @@ enable_s1_read = True  # 把这行改成True
 
 1. 在电脑上获取cookie+测试, 确认可以运行
 2. 在服务器上clone repo并安装所需库
-3. 复制`cookies.json`和`settings.py`到服务器同目录下
+3. 复制`cookies.json`和`settings.py`到服务器相同目录下
 4. `python farmer.py -n` 立刻打工/签到并开始定时任务
 
 <br>
+
+**手动填写cookie:**
+
+例子见`/doc/cookies.json.example`
+
+
 
 
 ## 结构
@@ -75,6 +82,7 @@ enable_s1_read = True  # 把这行改成True
 - `actions.py`: cookie/工具类函数
 - `v1_selenium.py`: selenium方式相关函数
 - `v2_request.py`: post方式相关函数
+- `dlc_xxx.py`: 各种额外功能
 
 
 - `settings.py`, `cookies.json`: 存储登录信息, ***请不要上传***
@@ -88,23 +96,21 @@ cookies.json:
         {cookie2},
         ....
       ],
-      
-"用户名2": [ ]
+"用户名2": [...]
 }
-
 ```
 
 
 ## 更新
 2021.8.23: 增加stage1st的刷在线时间功能, 改一改可扩展成任意discuz论坛的刷在线时间功能
 
-使用方法: 在`settings.py`增加变量`S1_CREDENTIALS`, 格式同tsdm
+使用方法见上, 没打算做成正式功能所以不怎么正经
 
-获取cookie后在farmer.py, `do_parse()`里取消关于s1的注释行
 
-没打算做成正式功能所以不怎么正经
 
-不确定是否能刷时间, 得过几天看小时有没有增加
+2021.9.10: 优化在服务器上使用的稳定性
+
+
 
 ## 其他
 

@@ -74,7 +74,10 @@ def work_multi_post():
 
     for user in cookies.keys():
         print(datetime.now(), "正在打工: ", user)
-        work_single_post(cookies[user])
+        try:
+            work_single_post(cookies[user])
+        except Exception as e:
+            print("====post打工出错:=====", e)
 
     print("POST方式: 全部打工完成")
     return
@@ -125,7 +128,11 @@ def sign_multi_post():
 
     for user in cookies.keys():
         print(datetime.now(), "正在签到: ", user)
-        sign_single_post_v2(cookies[user])
+        try:
+            sign_single_post_v2(cookies[user])
+        except Exception as e:
+            print("====post签到出错:=====", e)
+
         time.sleep(random.uniform(0.5, 1))
 
     print("POST方式: 全部签到完成")

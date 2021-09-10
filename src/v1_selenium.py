@@ -89,7 +89,10 @@ def sign_multi_selenium():
     all_cookies = get_cookies_all()
     for account in all_cookies.keys():
         print("正在签到账号: ", account)
-        sign_single(all_cookies[account])
+        try:
+            sign_single(all_cookies[account])
+        except Exception as e:
+            print("====selenium签到出错:=====", e)
 
     print("全部账号签到完成")
 
@@ -99,6 +102,9 @@ def work_multi_selenium():
     all_cookies = get_cookies_all()
     for account in all_cookies.keys():
         print("正在打工账号: ", account)
-        work_single(all_cookies[account])
+        try:
+            work_single(all_cookies[account])
+        except Exception as e:
+            print("====selenium打工出错:=====", e)
 
     print("全部账号打工完成")
