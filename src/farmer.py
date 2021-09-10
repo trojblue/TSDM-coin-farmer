@@ -42,13 +42,13 @@ def do_parse():
 
     elif args.selenium:
 
-        display_info("使用selenium模式运行, 签到时间: ", sign_time)
+        display_info("使用selenium模式运行, 签到时间: %s"%sign_time)
         schedule.every(362).minutes.do(work_multi_selenium)
         schedule.every().day.at(sign_time).do(sign_multi_selenium)  # 每天签到时间
 
     else:
 
-        display_info("默认: 使用post模式运行, 签到时间: ", sign_time)
+        display_info("默认: 使用post模式运行, 签到时间: %s"%sign_time)
         schedule.every(362).minutes.do(work_multi_post)
         schedule.every().day.at(sign_time).do(sign_multi_post)
 
@@ -68,8 +68,6 @@ def do_parse():
     if enable_s1_read:
         from dlc_stage1st import do_read_s1_all
         schedule.every(20).minutes.do(do_read_s1_all)
-    else:
-        schedule.every(20).minutes.do(heartbeat())
 
 
 def do_schedule():

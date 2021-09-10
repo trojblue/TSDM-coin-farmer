@@ -1,14 +1,17 @@
 """
 尝试用requests方式完成签到
 """
-import requests, time, random
 from datetime import datetime
 from typing import List
 
-from actions import write_error, get_cookies_by_domain, tsdm_domain
-from actions import sign_url, work_url
+import random
+import requests
+import time
 
+from actions import sign_url, work_url
+from actions import write_error, get_cookies_by_domain, tsdm_domain
 from logger import *
+
 
 def work_single_post(cookie: List):
     """用post方式为一个账户打工
@@ -38,14 +41,15 @@ def work_single_post(cookie: List):
         ad_feedback = requests.post(work_url, data="act=clickad", headers=headers)
 
         wait_time = round(random.uniform(0.5, 1), 2)
-        display_info("点击广告: 第%s次, 等待%s秒, 服务器标识:%s"%(i+2, wait_time, ad_feedback.text), end="\r")
+        print("点击广告: 第%s次, 等待%s秒, 服务器标识:%s" % (i + 2, wait_time, ad_feedback.text), end="\r")
+        add_debug("点击广告: 第%s次, 等待%s秒, 服务器标识:%s" % (i + 2, wait_time, ad_feedback.text))
         time.sleep(wait_time)
 
         if int(ad_feedback.text) > 1629134400:
             display_error("检测到作弊判定, 请尝试重新运行")
             break
             # todo: 延时, 重试
-        elif int(ad_feedback.text) >= 6:    # 已点击6次, 停止
+        elif int(ad_feedback.text) >= 6:  # 已点击6次, 停止
             break
         else:
             continue
@@ -72,17 +76,18 @@ def work_multi_post():
     cookies = get_cookies_by_domain(tsdm_domain)
 
     for user in cookies.keys():
-        display_info("正在打工: ", user)
+        display_info("正在打工: %s" % user)
         try:
             work_single_post(cookies[user])
         except Exception as e:
-            display_error("====post打工出错:=====", e)
+            display_error("====post打工出错: %s=====" % e)
 
     display_info("POST方式: 全部打工完成")
     return
 
 
-sign_page_with_param = 'https://www.tsdm39.net/plugin.php?id=dsu_paulsign:sign&operation=qiandao&infloat=1&sign_as=1&inajax=1'
+sign_page_with_param = \
+    'https://www.tsdm39.net/plugin.php?id=dsu_paulsign:sign&operation=qiandao&infloat=1&sign_as=1&inajax=1'
 
 
 def sign_single_post_v2(cookie):
@@ -112,13 +117,13 @@ def sign_single_post_v2(cookie):
         display_info("签到成功")
     elif "您今日已经签到" in sign_response.text:
         display_info("该账户已经签到过")
-    elif "已经过了签到时间段，明天请早点来" in sign_response.text:
-        display_warning("TSDM: \"已经过了签到时间段，明天请早点来\"")
+    elif "已经过了签到时间段" in sign_response.text or "签到时间还没有到" in sign_response.text:
+        display_error("签到失败: 目前不在签到时间段")
     elif "未定义操作" in sign_response.text:
-        display_error("%s签到失败, 可能是formhash获取错误"%datetime.now())
+        display_error("%s签到失败, 可能是formhash获取错误" % datetime.now())
         write_error("签到", sign_response.text)
     else:
-        display_error("%s======未知原因签到失败, 已保存response======="%datetime.now())
+        display_error("%s======未知原因签到失败, 已保存response=======" % datetime.now())
         write_error("签到", sign_response.text)
 
     return
@@ -128,11 +133,11 @@ def sign_multi_post():
     cookies = get_cookies_by_domain(tsdm_domain)
 
     for user in cookies.keys():
-        display_info("%s正在签到: %s"%(datetime.now(), user))
+        display_info("%s正在签到: %s" % (datetime.now(), user))
         try:
             sign_single_post_v2(cookies[user])
         except Exception as e:
-            display_error("%s====post签到出错: %s==="%(datetime.now(), e))
+            display_error("%s====post签到出错: %s===" % (datetime.now(), e))
 
         time.sleep(random.uniform(0.5, 1))
 
