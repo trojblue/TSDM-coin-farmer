@@ -8,29 +8,6 @@ from typing import List
 from actions import write_error, read_cookies
 from actions import sign_url, work_url
 
-
-def work_pseudo(cookie:List):
-    """解决作弊问题的狗皮膏药函数, 有空改
-    """
-    cookie_serialized = "; ".join([i['name'] + "=" + i['value'] for i in cookie])
-
-    # 必须要这个content-type, 否则没法接收
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko',
-        'cookie': cookie_serialized,
-        'connection': 'Keep-Alive',
-        'x-requested-with': 'XMLHttpRequest',
-        'referer': 'https://www.tsdm39.net/plugin.php?id=np_cliworkdz:work',
-        'content-type': 'application/x-www-form-urlencoded'
-    }
-
-    ad_feedback = requests.post(work_url, data="act=clickad", headers=headers)
-    time.sleep(random.uniform(0.5, 1))
-    getcre_response = requests.post(work_url, data="act=getcre", headers=headers)
-    time.sleep(random.uniform(0.5, 1))
-    return
-
-
 def work_single_post(cookie: List):
     """用post方式为一个账户打工
     cookie: List[Dict]
@@ -46,6 +23,9 @@ def work_single_post(cookie: List):
         'referer': 'https://www.tsdm39.net/plugin.php?id=np_cliworkdz:work',
         'content-type': 'application/x-www-form-urlencoded'
     }
+
+    # 打工之前必须访问过一次网页
+    page_feedback = requests.get(work_url, headers=headers)
 
     ad_feedback = requests.post(work_url, data="act=clickad", headers=headers)
     if "必须与上一次间隔" in ad_feedback.text:
@@ -89,10 +69,6 @@ def work_single_post(cookie: List):
 
 def work_multi_post():
     cookies = read_cookies()
-
-    for user in cookies.keys():
-        print(datetime.now(), "正在假打工防作弊检测: ", user)
-        work_pseudo(cookies[user])
 
     for user in cookies.keys():
         print(datetime.now(), "正在打工: ", user)
