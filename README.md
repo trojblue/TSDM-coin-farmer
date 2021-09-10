@@ -51,6 +51,21 @@ optional arguments:
 - `settings.py`, `cookies.json`: 存储登录信息, ***请不要上传***
 
 
+cookies.json:
+```
+{
+"用户名1": [
+        {cookie1},
+        {cookie2},
+        ....
+      ],
+      
+"用户名2": [ ]
+}
+
+```
+
+
 ## 更新
 2021.8.23: 增加stage1st的刷在线时间功能, 改一改可扩展成任意discuz论坛的刷在线时间功能
 
@@ -82,3 +97,4 @@ TODO:
 2. 增加文件日志
 3. 增加更多的except (稳定性)
 4. 增加文件型设置
+5. 合并所有cookies.json到同一个文件

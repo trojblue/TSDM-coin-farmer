@@ -6,4 +6,3 @@ src/testing.py
 *.txt
 *.log
 *.json
-src/farmer2.py

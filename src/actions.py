@@ -1,5 +1,5 @@
 import json
-from typing import List
+from typing import List, Dict
 
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
@@ -11,7 +11,9 @@ sign_url = 'https://www.tsdm39.net/plugin.php?id=dsu_paulsign:sign'
 work_url = 'https://www.tsdm39.net/plugin.php?id=np_cliworkdz:work'
 login_url = 'https://www.tsdm39.net/member.php?mod=logging&action=login'
 
-COOKIE_FILE = 'cookies.pickle'
+# cookie domain
+tsdm_domain = ".tsdm39.net"
+s1_domain = "bbs.saraba1st.com"
 
 def get_webdriver():
     """返回设置好参数的webdriver
@@ -23,30 +25,57 @@ def get_webdriver():
     return driver
 
 
-def get_cookie(username: str, password: str):
+def refresh_cookie(username: str, password: str):
     """selenium获取cookie
     """
     driver = get_webdriver()
     driver.get(login_url)
-
-    driver.find_element_by_xpath("//*[starts-with(@id,'username_')]").send_keys(username)
-    driver.find_element_by_xpath("//*[starts-with(@id,'password3_')]").send_keys(password)
     driver.find_element_by_xpath("//*[starts-with(@id,'cookietime_')]").click()
-    driver.find_element_by_name("tsdm_verify").click()
 
-    print("等待浏览器里填写验证码并登录:")
+    if username and password: # 账户密码非空
+        driver.find_element_by_xpath("//*[starts-with(@id,'username_')]").send_keys(username)
+        driver.find_element_by_xpath("//*[starts-with(@id,'password3_')]").send_keys(password)
+        driver.find_element_by_name("tsdm_verify").click()
+        print("等待浏览器里填写验证码并登录:")
+    else:
+        # 无TSDM_CREDENTIAL, 手动填写信息
+        print("请手动填写信息后点击登录:")
+
     wait = WebDriverWait(driver, 100)
     wait.until(EC.title_contains("提示信息 - "))
+
+    if not username:
+        # 无TSDM_CREDENTIAL, 从浏览器获取用户名
+        my_username = driver.find_element_by_xpath("//*[@id='um']/p[1]/strong/a").text
+        assert my_username is not None
+    else:
+        my_username = username
 
     new_cookie = driver.get_cookies()
     driver.close()
 
-    write_new_cookie(new_cookie, username)
+    write_new_cookie(new_cookie, my_username)
     return new_cookie
 
+def refresh_cookies_tsdm():
+    """从credentials重新获取所有cookie
+    """
+    try:
+        # 多账户刷新
+        from settings import TSDM_credentials
+        for i in TSDM_credentials:
+            refresh_cookie(i[0], i[1])
 
-def read_cookies():
-    """从文件读取cookies
+    except ImportError:
+        print("未找到TSDM_credentials, 为单个账户手动刷新cookie; \n"
+              "如果需要多账户签到/自动填写密码, 请先按照readme设置好天使动漫的账户密码")
+        refresh_cookie("", "")
+
+    return
+
+
+def get_cookies_all():
+    """从文件读取所有cookies
     { username: [cookie] }
     """
     try:
@@ -59,12 +88,26 @@ def read_cookies():
         return {}
 
 
+def get_cookies_by_domain(domain:str):
+    """从所有cookie里分离出指定域名的cookie
+    domain: cookie domain, eg. ".tsdm39.net"
+    """
+    cookies_all = get_cookies_all()
+    domain_cookies = {}
+    for username in cookies_all.keys():
+        if cookies_all[username][0]['domain'] == domain: # 当前用户名下的第一个cookie的domain
+            domain_cookies[username] = cookies_all[username]
+
+    return domain_cookies
+
+
+
 def write_new_cookie(new_cookie: List, username: str) -> None:
     """向cookie文件写入新的用户cookie
     { username: [cookie] }
     """
     simplified_new_cookie = simplify_cookie(new_cookie)
-    cookies = read_cookies()
+    cookies = get_cookies_all()
     cookies[username] = simplified_new_cookie
 
     with open('cookies.json', 'w', encoding='utf-8') as json_file:
@@ -85,12 +128,7 @@ def simplify_cookie(cookie):
     return simplified_cookie
 
 
-def refresh_all_cookies(credentials):
-    """从credentials重新获取所有cookie
-    """
-    for i in credentials:
-        get_cookie(i[0], i[1])
-    return
+
 
 
 def write_error(prefix:str, content:str):

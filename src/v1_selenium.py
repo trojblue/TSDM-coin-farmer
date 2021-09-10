@@ -86,7 +86,7 @@ def work_single(cookies):
 
 
 def sign_multi_selenium():
-    all_cookies = read_cookies()
+    all_cookies = get_cookies_all()
     for account in all_cookies.keys():
         print("正在签到账号: ", account)
         sign_single(all_cookies[account])
@@ -96,7 +96,7 @@ def sign_multi_selenium():
 
 def work_multi_selenium():
     print(time.time(), "正在打工, 使用selenium方式.......")
-    all_cookies = read_cookies()
+    all_cookies = get_cookies_all()
     for account in all_cookies.keys():
         print("正在打工账号: ", account)
         work_single(all_cookies[account])

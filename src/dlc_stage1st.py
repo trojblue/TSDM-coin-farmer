@@ -11,7 +11,7 @@ from actions import *
 s1_frontpage = "https://bbs.saraba1st.com/2b/forum.php"
 s1_sample_post = "https://bbs.saraba1st.com/2b/thread-2022232-1-1.html"
 
-def get_s1_cookie():
+def refresh_cookie_s1():
     """selenium获取cookie
     """
     driver = get_webdriver()
@@ -38,22 +38,36 @@ def get_s1_cookie():
     new_cookie = driver.get_cookies()
     driver.close()
 
-    write_new_s1_cookie(new_cookie, username)
+    write_new_cookie_s1(new_cookie, username)
     return new_cookie
 
 
-def write_new_s1_cookie(new_cookie: List, username: str) -> None:
+def write_new_cookie_s1(new_cookie: List, username: str) -> None:
     """向cookie文件写入新的用户cookie
     { username: [cookie] }
     """
     simplified_new_cookie = simplify_cookie(new_cookie)
-    cookies = {}
+    cookies = get_cookies_all()
     cookies[username] = simplified_new_cookie
 
-    with open('cookies_s1.json', 'w', encoding='utf-8') as json_file:
+    with open('cookies.json', 'w', encoding='utf-8') as json_file:
         json.dump(cookies, json_file, ensure_ascii=False, indent=4)
 
     print("write done")
+
+
+def get_cookies_s1():
+    """从文件读取cookies
+    { username: [cookie] }
+    """
+    try:
+        with open('cookies_s1.json', 'r', encoding='utf-8') as json_file:
+            data = json.load(json_file)
+            return data
+
+    except FileNotFoundError:  # 文件不存在
+        print("cookies.json不存在")
+        return {}
 
 
 def read_post(cookie:List):
@@ -75,22 +89,9 @@ def read_post(cookie:List):
     else:
         print(datetime.now(), "S1: 状态异常")
 
-def read_cookies_s1():
-    """从文件读取cookies
-    { username: [cookie] }
-    """
-    try:
-        with open('cookies_s1.json', 'r', encoding='utf-8') as json_file:
-            data = json.load(json_file)
-            return data
-
-    except FileNotFoundError:  # 文件不存在
-        print("cookies.json不存在")
-        return {}
-
 
 def do_read_s1():
-    s1_cookie = read_cookies_s1()
+    s1_cookie = get_cookies_s1()
     print("正在s1假装阅读...")
 
     for user in s1_cookie.keys():

@@ -5,7 +5,7 @@ import requests, time, random
 from datetime import datetime
 from typing import List
 
-from actions import write_error, read_cookies
+from actions import write_error, get_cookies_by_domain, tsdm_domain
 from actions import sign_url, work_url
 
 def work_single_post(cookie: List):
@@ -68,7 +68,7 @@ def work_single_post(cookie: List):
 
 
 def work_multi_post():
-    cookies = read_cookies()
+    cookies = get_cookies_by_domain(tsdm_domain)
 
     for user in cookies.keys():
         print(datetime.now(), "正在打工: ", user)
@@ -119,7 +119,7 @@ def sign_single_post_v2(cookie):
 
 
 def sign_multi_post():
-    cookies = read_cookies()
+    cookies = get_cookies_by_domain(tsdm_domain)
 
     for user in cookies.keys():
         print(datetime.now(), "正在签到: ", user)

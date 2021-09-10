@@ -27,13 +27,11 @@ def do_parse():
     sign_time = str(sign_hour)+':'+str(sign_minute)
 
     if args.reset:
-        try:
-            from settings import TSDM_credentials
-            print("刷新cookie")
-            refresh_all_cookies(TSDM_credentials)
-            print("所有cookie刷新完毕")
-        except ImportError:
-            print("刷新cookie: 未找到TSDM_credentials, 请先按照readme设置好天使动漫的账户密码")
+
+        print("刷新cookie")
+        refresh_cookies_tsdm()
+        # todo: 包含s1
+        print("所有cookie刷新完毕")
 
         sys.exit()
 
