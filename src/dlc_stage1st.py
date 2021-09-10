@@ -20,7 +20,7 @@ def get_s1_cookie():
 
     try:
         # 存在S1_CREDENTIALS, 自动填入密码登录
-        from credentials import S1_CREDENTIALS
+        from settings import S1_CREDENTIALS
         username, password = S1_CREDENTIALS[0][0], S1_CREDENTIALS[0][1]
         driver.find_element_by_id("ls_username").send_keys(username)
         driver.find_element_by_id("ls_password").send_keys(password)

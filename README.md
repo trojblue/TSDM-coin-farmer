@@ -12,7 +12,7 @@ cd TSDM-coin-farmer
 pip install -r requirements.txt
 ```
 
-2. 在`src`文件夹新建`credentials.py`, 按照以下格式填好需要的账号密码:
+2. 在`src`文件夹新建`settings.py`, 按照以下格式填好需要的账号密码:
 
 ```python
 TSDM_credentials = [['user1', 'pswd1'],
@@ -48,13 +48,13 @@ optional arguments:
 - `v2_request.py`: post方式相关函数
 
 
-- `credentials.py`, `cookies.json`: 存储登录信息, ***请不要上传***
+- `settings.py`, `cookies.json`: 存储登录信息, ***请不要上传***
 
 
 ## 更新
 2021.8.23: 增加stage1st的刷在线时间功能, 改一改可扩展成任意discuz论坛的刷在线时间功能
 
-使用方法: 在`credentials.py`增加变量`S1_CREDENTIALS`, 格式同tsdm
+使用方法: 在`settings.py`增加变量`S1_CREDENTIALS`, 格式同tsdm
 
 获取cookie后在farmer.py, `do_parse()`里取消关于s1的注释行
 
@@ -73,3 +73,12 @@ optional arguments:
 
 - 因为某些神必原因post模式打工有时候会工作失败, 建议手动重试一次, 或者用selenium
 
+
+
+
+
+TODO:
+1. 去掉文件依赖
+2. 增加文件日志
+3. 增加更多的except (稳定性)
+4. 增加文件型设置
