@@ -102,6 +102,9 @@ def do_read_s1_all():
 
     for user in s1_cookie.keys():
         print(datetime.now(), "正在s1阅读: ", user)
-        do_read_s1_single(s1_cookie[user])
+        try:
+            do_read_s1_single(s1_cookie[user])
+        except Exception:
+            print(datetime.now(), "====阅读失败, 继续运行===")
 
     print("s1阅读完成")

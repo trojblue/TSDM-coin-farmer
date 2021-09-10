@@ -35,7 +35,7 @@ def work_single_post(cookie: List):
     for i in range(7):  # 总共6次打工, 实际打工8次保险
         ad_feedback = requests.post(work_url, data="act=clickad", headers=headers)
 
-        wait_time = random.uniform(0.5, 1)
+        wait_time = round(random.uniform(0.5, 1), 2)
         print("点击广告: 第%s次, 等待%s秒, 服务器标识:%s"%(i+2, wait_time, ad_feedback.text), end="\r")
         time.sleep(wait_time)
 

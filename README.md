@@ -2,9 +2,12 @@
 
 天使动漫(tsdm39.net) 多账户自动签到+打工, 支持服务器部署或者锁屏运行
 
-## 安装
 
-1. 下载repo:
+
+
+## 部署
+
+下载repo:
 
 ```bash
 git clone https://github.com/Trojblue/TSDM-coin-farmer
@@ -12,13 +15,15 @@ cd TSDM-coin-farmer
 pip install -r requirements.txt
 ```
 
-2. [配置selenium driver](https://selenium-python.readthedocs.io/installation.html#drivers) (用于获取cookie, 服务器上只进行挂机任务不需要这步)
+**获取cookie:**
 
-## 使用
+- 在电脑上 [配置selenium driver](https://selenium-python.readthedocs.io/installation.html#drivers) (如果之前没配置过的话)
+- `python farmer.py -r` 刷新所有账户的cookie
+  - 这步需要填写验证码, 所以服务器上做不了
 
-1. `python farmer.py -r` 刷新所有账户的cookie
+**部署:**
 
-2. `python farmer.py -n` 立刻打工/签到并开始定时任务
+- `python farmer.py -n` 立刻打工/签到并开始定时任务
 
 
 ```
@@ -31,25 +36,40 @@ optional arguments:
   -n, --now       立刻运行打工和签到
 ```
 
-## 高级使用
-**天使动漫 多账户打工/签到:**
+<br>
 
-在`src`文件夹里`settings.py`, 按照以下格式填好需要的账号密码:
+### 高级使用
+
+**多账户打工/签到:**
+
+在`src`文件夹里`settings.py`, 填好需要的账号密码:
 
 ```python
-TSDM_credentials = [['user1', 'pswd1'],
-                    ['user2', 'pswd2']
-                    ]
+TSDM_CREDENTIALS = [['user1', 'pswd1'],
+                    ['user2', 'pswd2']] # 把变量TSDM_CREDENTIALS取消注释
 ```
 
 <br>
 
 **S1论坛 自动刷在线时间:**
 
-在`src`文件夹里`settings.py`,  把`enable_s1_read = False` 改成`True`
+在`src`文件夹里`settings.py`, 填好需要的账号密码:
+```python
+S1_CREDENTIALS = [["user1", "pswd1"]] # 把变量S1_CREDENTIALS取消注释
 
+enable_s1_read = True  # 把这行改成True
+```
 
+<br>
 
+**服务器部署:**
+
+1. 在电脑上获取cookie+测试, 确认可以运行
+2. 在服务器上clone repo并安装所需库
+3. 复制`cookies.json`和`settings.py`到服务器同目录下
+4. `python farmer.py -n` 立刻打工/签到并开始定时任务
+
+<br>
 
 
 ## 结构
@@ -108,6 +128,4 @@ TODO:
 1. 去掉文件依赖
 2. 增加文件日志
 3. 增加更多的except (稳定性)
-4. 增加文件型设置
-5. 合并所有cookies.json到同一个文件
 6. s1随机页面阅读

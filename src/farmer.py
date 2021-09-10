@@ -22,7 +22,7 @@ def do_parse():
 
     args = parser.parse_args()
 
-    sign_hour = random.randint(9, 20)
+    sign_hour = random.randint(10, 20)
     sign_minute = random.randint(11, 55)
     sign_time = str(sign_hour)+':'+str(sign_minute)
 

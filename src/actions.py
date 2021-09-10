@@ -62,8 +62,8 @@ def refresh_cookies_tsdm():
     """
     try:
         # 多账户刷新
-        from settings import TSDM_credentials
-        for i in TSDM_credentials:
+        from settings import TSDM_CREDENTIALS
+        for i in TSDM_CREDENTIALS:
             refresh_cookie_tsdm(i[0], i[1])
 
     except ImportError:
