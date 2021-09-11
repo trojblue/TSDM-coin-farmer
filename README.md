@@ -41,7 +41,7 @@ optional arguments:
 
 **多账户打工/签到:**
 
-在`/src`文件夹新建`settings.py`, 按照`/doc`文件夹里的例子进行修改, 刷新cookie后运行
+在`/src`文件夹新建`settings.py`, 按照`/doc`文件夹里的[例子](https://github.com/Trojblue/TSDM-coin-farmer/blob/main/doc/settings.py.example)进行修改, 刷新cookie后运行
 
 ```python
 TSDM_CREDENTIALS = [["user1", "pswd1"], ["user2", "pswd2"]]
@@ -82,7 +82,7 @@ options.add_argument('--disable-gpu')
 
 **手动填写cookie:**
 
-- 例子见`/doc/cookies.json.example`
+- 例子见[这里](https://github.com/Trojblue/TSDM-coin-farmer/blob/main/doc/cookies.json.example)
 
 <br>
 

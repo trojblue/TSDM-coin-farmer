@@ -11,9 +11,9 @@
 
 <br>
 
-然后在腾讯云新建一个函数服务: [链接](https://console.cloud.tencent.com/scf/list?rid=1&ns=default)
+然后在腾讯云新建一个函数服务: [这里](https://console.cloud.tencent.com/scf/list)
 
-1. 选择"自定义创建" → 依次选择: **事件函数, 代码部署, python3.6, 在线编辑**
+1. 选择"**自定义创建**" → 依次选择: **事件函数, 代码部署, python3.6, 在线编辑**
 2. 复制`SCF_sign.py` ([这里](https://github.com/Trojblue/TSDM-coin-farmer/blob/main/dist/SCF_sign.py)) 的内容到底下编辑器里的`index.py`中 
 3. 复制`cookies.json`到云函数同目录
 4. 高级配置不用动
