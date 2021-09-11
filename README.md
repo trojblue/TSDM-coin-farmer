@@ -1,11 +1,11 @@
 # TSDM-coin-farmer
 
-天使动漫(tsdm39.net) 多账户自动签到+打工, 支持服务器部署或者锁屏运行
+天使动漫(tsdm39.net) 多账户自动签到+打工, 支持PC/Server/腾讯云函数
 
-- serverless版: 见
+- 腾讯云函数版: 见 [这里](https://github.com/Trojblue/TSDM-coin-farmer/blob/main/doc/serverless_readme.md)
 
 
-## 部署
+## 使用
 
 从clone到签到完成需要约10分钟
 
@@ -17,16 +17,11 @@ cd TSDM-coin-farmer
 pip3 install -r requirements.txt
 ```
 
-**获取cookie:**
+**打工/签到:**
 
 1. 在电脑上[配置selenium driver](https://selenium-python.readthedocs.io/installation.html#drivers) (填写验证码需要图形界面)
-2. 在`/src`文件夹新建`settings.py`, 按照`/doc`文件夹里的例子进行修改 
-3. `python farmer.py -r` 刷新所有账户的cookie
-
-**部署:**
-
-- `python farmer.py -n` 立刻打工/签到并开始定时任务
-
+2. `python farmer.py -r` 刷新所有账户的cookie
+3. `python farmer.py -n` 立刻打工/签到并开始定时任务
 
 ```
 usage: farmer.py [-h] [-s | -r] [-n]
@@ -44,7 +39,7 @@ optional arguments:
 
 **多账户打工/签到:**
 
-在`/src/settings.py`批量填好需要的账号密码, 刷新cookie后运行
+在`/src`文件夹新建`settings.py`, 按照`/doc`文件夹里的例子进行修改, 刷新cookie后运行
 
 ```python
 TSDM_CREDENTIALS = [["user1", "pswd1"], ["user2", "pswd2"]]
@@ -54,7 +49,7 @@ TSDM_CREDENTIALS = [["user1", "pswd1"], ["user2", "pswd2"]]
 
 **S1论坛 自动刷在线时间:**
 
-在`/src/settings.py`批量填好需要的账号密码, 修改变量为`True`, 刷新cookie后运行
+在`/src/settings.py`批量填好需要的账号密码, 修改`enable_s1_read`变量为`True`, 刷新cookie后运行
 ```python
 S1_CREDENTIALS = [["user1", "pswd1"]] # 把变量S1_CREDENTIALS取消注释
 enable_s1_read = True  # 把这行改成True
@@ -71,9 +66,21 @@ enable_s1_read = True  # 把这行改成True
 
 <br>
 
+**Selenium模式:**
+- 用selenium模拟点击来签到/打工, 适用于post模式失效的情况 
+- `python farmer.py -s -n`
+- 也可以获取cookie后在设置headless参数, 来在无图形界面的服务器上运行↓
+- 服务器上运行的话添加这两行到`actions.py → get_webdriver()`:
+```python
+options.add_argument('--headless')
+options.add_argument('--disable-gpu')
+```
+
+<br>
+
 **手动填写cookie:**
 
-例子见`/doc/cookies.json.example`
+- 例子见`/doc/cookies.json.example`
 
 <br>
 
@@ -111,7 +118,11 @@ cookies.json:
 
 <br>
 
-2021.9.11: 增加日志记录, 优化在服务器上使用的稳定性
+2021.9.10: 增加日志记录, 优化在服务器上使用的稳定性
+
+<br>
+
+2021.9.11: 增加腾讯云函数支持
 
 <br>
 
@@ -120,22 +131,10 @@ cookies.json:
 - 需要`urllib3==1.25.11`,
   因为[这个bug](https://stackoverflow.com/questions/66642705/why-requests-raise-this-exception-check-hostname-requires-server-hostname)
 
-- `credentials.py`怕账户泄露也可以不用, 它只是登录的时候自动把账户密码填进输入框, 改一下代码自己手动填也一样
-
-- selenium模式下可能会报各种warning, 能正常签到的话无视就好 
-
-- 因为某些神必原因post模式打工有时候会工作失败, 建议手动重试一次, 或者用selenium
-
 - 服务器上使用selenium模式打工, 需要先设置成headless模式: 在`/src/actions`中 `get_webdriver()`添加headless旗帜
 
 - 没有条件在pc上获取cookie的话, 可以尝试手动配置: 见`doc/cookies.json.example`
 
 ## TODO
-1. 增加云函数适配
 2. 随机浏览s1页面
 3. s1和eatASMR自动签到
-
-
-- 打工: 增加一次时间显示
-- logging: 把关键部分回复到程序内的log
-- 增加selenium的介绍
