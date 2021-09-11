@@ -4,10 +4,10 @@
 
 <br>
 
-首先获取`cookie.json`: 
+首先获取`cookies.json`: 
 
 - 账户多推荐设置好`settings.py`后在电脑上执行`python farmer.py -r`, 见主页readme
-- 账户少可以在浏览器里获取`s_gkr8_xxx_auth` 和`s_gkr8_xxx_saltkey` 后手动填入`/doc/cookie.json.example`例子里
+- 账户少可以在浏览器里获取`s_gkr8_xxx_auth` 和`s_gkr8_xxx_saltkey` 后手动填入`/doc/cookies.json.example`例子里
 
 <br>
 
