@@ -34,7 +34,7 @@ def work_single_post(cookie: List):
 
     ad_feedback = requests.post(work_url, data="act=clickad", headers=headers)
     if "必须与上一次间隔" in ad_feedback.text:
-        display_error("该账户已经打工过")
+        display_info("该账户已经打工过")
         return
 
     for i in range(7):  # 总共6次打工, 实际打工8次保险

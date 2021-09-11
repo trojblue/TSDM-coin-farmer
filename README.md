@@ -54,7 +54,7 @@ TSDM_CREDENTIALS = [["user1", "pswd1"], ["user2", "pswd2"]]
 
 **S1论坛 自动刷在线时间:**
 
-在`/src/settings.py`批量填好需要的账号密码
+在`/src/settings.py`批量填好需要的账号密码, 修改变量为`True`, 刷新cookie后运行
 ```python
 S1_CREDENTIALS = [["user1", "pswd1"]] # 把变量S1_CREDENTIALS取消注释
 enable_s1_read = True  # 把这行改成True
@@ -134,3 +134,8 @@ cookies.json:
 1. 增加云函数适配
 2. 随机浏览s1页面
 3. s1和eatASMR自动签到
+
+
+- 打工: 增加一次时间显示
+- logging: 把关键部分回复到程序内的log
+- 增加selenium的介绍
