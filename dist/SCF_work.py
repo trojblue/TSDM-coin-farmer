@@ -104,6 +104,7 @@ def work_single_post(cookie: List):
 
     if "您已经成功领取了奖励天使币" in getcre_response.text:
         print("打工成功")
+        return True
     elif "作弊" in getcre_response.text:
         print("作弊判定, 打工失败, 重试...")
     elif "请先登录再进行点击任务" in getcre_response.text:
@@ -114,7 +115,7 @@ def work_single_post(cookie: List):
         print("======未知原因打工失败, 已保存response=======")
         print("打工", getcre_response.text)
 
-    return
+    return False
 
 
 def work_multi_post():

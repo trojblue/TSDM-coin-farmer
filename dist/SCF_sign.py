@@ -90,6 +90,7 @@ def sign_single_post_v2(cookie):
 
     if "恭喜你签到成功!获得随机奖励" in sign_response.text:
         print("签到成功")
+        return True
     elif "您今日已经签到" in sign_response.text:
         print("该账户已经签到过")
     elif "已经过了签到时间段" in sign_response.text or "签到时间还没有到" in sign_response.text:
@@ -101,7 +102,7 @@ def sign_single_post_v2(cookie):
         print("%s======未知原因签到失败, 已保存response=======" % datetime.now())
         print("签到", sign_response.text)
 
-    return
+    return False
 
 
 def sign_multi_post():
