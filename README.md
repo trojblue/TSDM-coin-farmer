@@ -20,7 +20,7 @@ pip3 install -r requirements.txt
 **打工/签到:**
 
 1. 在电脑上[配置selenium driver](https://selenium-python.readthedocs.io/installation.html#drivers) (填写验证码需要图形界面)
-2. `python farmer.py -r` 刷新所有账户的cookie
+2. `python farmer.py -r` 刷新cookie, 未配置`settings.py`时支持单个账户
 3. `python farmer.py -n` 立刻打工/签到并开始定时任务
 
 ```

@@ -6,8 +6,8 @@
 
 首先获取`cookie.json`: 
 
-- 账户多推荐设置好账密后在电脑上执行`python farmer.py -r`
-- 账户少也可以在浏览器里获取`s_gkr8_xxx_auth` 和`s_gkr8_xxx_saltkey` 后手动填入`/doc/cookie.json.example`例子里
+- 账户多推荐设置好`settings.py`后在电脑上执行`python farmer.py -r`, 见主页readme
+- 账户少可以在浏览器里获取`s_gkr8_xxx_auth` 和`s_gkr8_xxx_saltkey` 后手动填入`/doc/cookie.json.example`例子里
 
 <br>
 
@@ -32,12 +32,16 @@
 
 <br>
 
-回到刚才那页, 复制上面创建好的函数服务, 再用`SCF_work.py`([这里](https://github.com/Trojblue/TSDM-coin-farmer/blob/main/dist/SCF_work.py)) 的内容替换`index.py`原先代码
+回到[函数服务页](https://console.cloud.tencent.com/scf/list), 复制刚才创建好的函数服务, 再用`SCF_work.py`([这里](https://github.com/Trojblue/TSDM-coin-farmer/blob/main/dist/SCF_work.py)) 的内容替换`index.py`原有代码
 
 触发器配置: 其他不变, **修改触发周期**: 
 
 - 打工触发周期: ` 5 2,9,16 * * *` 
 - 每天3次, 2点9点16点; 受限于腾讯云的cron设置不支持每6小时5分钟运行一次, 只能这样了
+
+![](https://github.com/Trojblue/TSDM-coin-farmer/blob/main/doc/scf_3.png?raw=true)
+
+<br>
 
 配置完成, 运行情况可以在腾讯云 函数管理 - "日志查询"一栏看到
 
