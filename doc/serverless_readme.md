@@ -7,11 +7,11 @@
 首先获取`cookies.json`: 
 
 - 账户多推荐设置好`settings.py`后在电脑上执行`python farmer.py -r`, 见主页readme
-- 账户少可以在浏览器里获取`s_gkr8_xxx_auth` 和`s_gkr8_xxx_saltkey` 后手动填入`/doc/cookies.json.example`例子里
+- 账户少可以在浏览器里获取`s_gkr8_xxx_auth` 和`s_gkr8_xxx_saltkey` 后手动填入[这个](https://github.com/Trojblue/TSDM-coin-farmer/blob/main/doc/cookies.json.example)模板里
 
 <br>
 
-然后在腾讯云新建一个函数服务: [这里](https://console.cloud.tencent.com/scf/list)
+然后在腾讯云[新建一个函数服务](https://console.cloud.tencent.com/scf/list): 
 
 1. 选择"**自定义创建**" → 依次选择: **事件函数, 代码部署, python3.6, 在线编辑**
 2. 复制`SCF_sign.py` ([这里](https://github.com/Trojblue/TSDM-coin-farmer/blob/main/dist/SCF_sign.py)) 的内容到底下编辑器里的`index.py`中 
@@ -44,4 +44,11 @@
 <br>
 
 配置完成, 运行情况可以在腾讯云 函数管理 - "日志查询"一栏看到
+
+<br>
+
+### s1刷阅读:
+
+办法和上面的类似, 新建一个原函数, 复制`cookies.json`和`SCF_S1.py`进入, 触发周期按照需要自己调整, 我设置的是半小时一次;
+建议改掉`s1_sample_post`变量来自定义反复刷新的页面, 也可以自己写个List随机访问, 我这里是固定访问同一个网页
 
