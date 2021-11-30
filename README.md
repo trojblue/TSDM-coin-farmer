@@ -1,7 +1,7 @@
 # TSDM-coin-farmer
 天使动漫(tsdm39.net) 多账户自动签到+打工, 支持PC/Server/腾讯云函数
 新增s1刷在线时间支持
-![](https://github.com/Trojblue/TSDM-coin-farmer/blob/main/doc/farmer.png)
+![](https://github.com/Trojblue/TSDM-coin-farmer/blob/main/doc/farmer2.png)
 
 <br>
 
