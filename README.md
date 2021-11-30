@@ -2,15 +2,38 @@
 
 天使动漫(tsdm39.net) 多账户自动签到+打工, 支持PC/Server/腾讯云函数
 
+![](https://github.com/Trojblue/TSDM-coin-farmer/blob/main/doc/farmer.png?raw=true)
+
 <br>
+
+
+<p align="center">
+  <a href="https://github.com/Trojblue/TSDM-coin-farmer">
+    <img src="https://github.com/Trojblue/TSDM-coin-farmer/blob/main/doc/farmer.png?raw=true" alt="Logo" width="500" height="333">
+  </a>
+  <h1 align="center">TSDM-coin-farmer</h1>
+  <p align="center">
+    天使动漫(tsdm39.net) 多账户自动签到+打工 <br>
+    支持PC/Server/腾讯云函数 <br>
+    新增s1刷在线时间支持 <br>
+    <br />
+    <br />
+  </p>
+</p>
+
+<br>
+
 
 
 ## 使用
 
-1. 腾讯云函数版(天使动漫 & s1论坛): 见 [这里](https://github.com/Trojblue/TSDM-coin-farmer/blob/main/doc/serverless_readme.md), 相比本地运行更稳定, 比较推荐
-2. 本地(服务器/电脑/安卓手机):见[这里](https://github.com/Trojblue/TSDM-coin-farmer/blob/main/doc/server_readme.md)
+1. **腾讯云函数版**: 见 [这里](https://github.com/Trojblue/TSDM-coin-farmer/blob/main/doc/serverless_readme.md), 相比本地运行更稳定, *比较推荐*
 
+<br>
 
+2. **本地** (服务器/电脑/安卓手机): 见[这里](https://github.com/Trojblue/TSDM-coin-farmer/blob/main/doc/server_readme.md)
+
+<br>
 
 ## 结构
 
