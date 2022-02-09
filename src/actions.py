@@ -17,6 +17,7 @@ login_url = 'https://www.tsdm39.net/member.php?mod=logging&action=login'
 # cookie domain
 tsdm_domain = ".tsdm39.net"
 s1_domain = "bbs.saraba1st.com"
+eatasmr_domain = "eatasmr.com"
 
 def get_webdriver():
     """返回设置好参数的webdriver
@@ -121,7 +122,23 @@ def write_new_cookie(new_cookie: List, username: str) -> None:
     """
     simplified_new_cookie = simplify_cookie(new_cookie)
     cookies = get_cookies_all()
+
+    # TODO: 相同名称的直接覆盖, 不同站点的用不同cookie文件, 或者机制检测
     cookies[username] = simplified_new_cookie
+
+    with open('cookies.json', 'w', encoding='utf-8') as json_file:
+        json.dump(cookies, json_file, ensure_ascii=False, indent=4)
+
+    display_info("写入cookie文件完成")
+
+
+def write_new_cookie_all(new_cookie: List, username: str) -> None:
+    """写入所有新的用户cookie
+    { username: [cookie] }
+    """
+    cookies = get_cookies_all()
+    # TODO: 相同名称的直接覆盖, 不同站点的用不同cookie文件, 或者机制检测
+    cookies[username] = new_cookie
 
     with open('cookies.json', 'w', encoding='utf-8') as json_file:
         json.dump(cookies, json_file, ensure_ascii=False, indent=4)
@@ -133,7 +150,8 @@ def simplify_cookie(cookie):
     """只保存登录需要的2个cookie: saltkey, auth
     """
     simplified_cookie = []
-    login_word = ['_saltkey', '_auth']
+    login_word = ['_saltkey', '_auth', 'EATSESSID',
+                  'wordpress_logged_in_bbae6ecd47232ff70d42a5fbe3863254']
     for i in cookie:
         if any(word in i['name'] for word in login_word):
             simplified_cookie.append(i)
