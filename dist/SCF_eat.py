@@ -107,6 +107,5 @@ def do_read_eat_all():
 
     print("eatASMR签到完成")
 
-if __name__ == '__main__':
+def main_handler(event, context):
     do_read_eat_all()
-    # refresh_cookies_eatasmr()

@@ -19,6 +19,10 @@
 
 <br>
 
+3. DLC (s1阅读, eatasmr): 见[这里](https://github.com/Trojblue/TSDM-coin-farmer/blob/main/doc/dlc_readme.md)
+
+<br>
+
 ## 结构
 
 - `farmer.py`: 主程序
