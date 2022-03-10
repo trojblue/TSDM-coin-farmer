@@ -4,6 +4,7 @@ __pycache__
 src/privates
 src/settings.py
 src/testing.py
+src/testing2.py
 
 *.txt
 *.log

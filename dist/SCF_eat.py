@@ -10,7 +10,7 @@ eatasmr_domain = "eatasmr.com"
 
 def get_cookies_all():
     """从文件读取所有cookies
-    { username: [cookie] }
+    { username: [cookie_list] }
     """
     try:
         with open('cookies.json', 'r', encoding='utf-8') as json_file:
@@ -23,7 +23,7 @@ def get_cookies_all():
 
 def write_new_cookie_all(new_cookie: List, username: str) -> None:
     """写入所有新的用户cookie
-    { username: [cookie] }
+    { username: [cookie_list] }
     """
     cookies = get_cookies_all()
     # TODO: 相同名称的直接覆盖, 不同站点的用不同cookie文件, 或者机制检测
@@ -37,9 +37,9 @@ def write_new_cookie_all(new_cookie: List, username: str) -> None:
 
 def get_cookies_by_domain(domain:str):
     """从所有cookie里分离出指定域名的cookie
-    domain: cookie domain, (".tsdm39.net")
+    domain: cookie_list domain, (".tsdm39.net")
     """
-    cookies_all = get_cookies_all() #     { username: [cookie] }
+    cookies_all = get_cookies_all() #     { username: [cookie_list] }
     domain_cookies = {}
 
     for username in cookies_all.keys():
@@ -69,7 +69,7 @@ def do_sign_eat_single(cookie:List):
 
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko',
-        'cookie': cookie_serialized,
+        'cookie_list': cookie_serialized,
         'connection': 'Keep-Alive',
         'referer': 'https://eatasmr.com/tasks/attendance',
         'accept': "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",

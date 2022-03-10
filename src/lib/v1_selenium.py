@@ -1,5 +1,8 @@
 import time
+
+from lib.cookie import get_cookies_all
 from lib.model import *
+from lib.model import tsdm_sign_url
 
 """
 selenium方式的签到/打工
@@ -12,11 +15,11 @@ def sign_single(cookies):
     """
     driver = get_webdriver()
 
-    driver.get(sign_url)  # selenium: 必须先访问一次来获取cookie domain
+    driver.get(tsdm_sign_url)  # selenium: 必须先访问一次来获取cookie domain
     for cookie in cookies:
         driver.add_cookie(cookie)
 
-    driver.get(sign_url)  # 回到签到页
+    driver.get(tsdm_sign_url)  # 回到签到页
     print("返回签到页....")
     time.sleep(0.5)
 

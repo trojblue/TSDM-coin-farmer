@@ -19,7 +19,7 @@ s1_sample_post = "https://bbs.saraba1st.com/2b/thread-2039915-1-4.html"
 
 def get_cookies_all():
     """从文件读取所有cookies
-    { username: [cookie] }
+    { username: [cookie_list] }
     """
     try:
         with open('cookies.json', 'r', encoding='utf-8') as json_file:
@@ -33,9 +33,9 @@ def get_cookies_all():
 
 def get_cookies_by_domain(domain:str):
     """从所有cookie里分离出指定域名的cookie
-    domain: cookie domain, (".tsdm39.net")
+    domain: cookie_list domain, (".tsdm39.net")
     """
-    cookies_all = get_cookies_all() #     { username: [cookie] }
+    cookies_all = get_cookies_all() #     { username: [cookie_list] }
     domain_cookies = {}
 
     for username in cookies_all.keys():
@@ -63,7 +63,7 @@ def do_read_s1_single(cookie:List):
 
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko',
-        'cookie': cookie_serialized,
+        'cookie_list': cookie_serialized,
         'connection': 'Keep-Alive',
         'referer': 'https://bbs.saraba1st.com/2b/forum-6-1.html',
     }
