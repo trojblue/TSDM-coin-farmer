@@ -7,8 +7,28 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from datetime import datetime
 
-from logger import *
+from lib.logger import *
 
+
+# Local path
+COOKIE_PATH = './privates/cookies.json'
+
+
+# Header
+
+
+
+HEADER_TSDM_WORK = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko',
+        'cookie': "===CHANGE ME===",
+        'connection': 'Keep-Alive',
+        'x-requested-with': 'XMLHttpRequest',
+        'referer': 'https://www.tsdm39.net/plugin.php?id=np_cliworkdz:work',
+        'content-type': 'application/x-www-form-urlencoded'
+}
+
+
+# URL
 
 sign_url = 'https://www.tsdm39.net/plugin.php?id=dsu_paulsign:sign'
 work_url = 'https://www.tsdm39.net/plugin.php?id=np_cliworkdz:work'
@@ -79,12 +99,12 @@ def refresh_cookies_tsdm():
     return
 
 
-def get_cookies_all():
+def get_cookies_all(path:str) -> Dict:
     """从文件读取所有cookies
     { username: [cookie] }
     """
     try:
-        with open('cookies.json', 'r', encoding='utf-8') as json_file:
+        with open(path, 'r', encoding='utf-8') as json_file:
             data = json.load(json_file)
             return data
 
@@ -97,7 +117,7 @@ def get_cookies_by_domain(domain:str):
     """从所有cookie里分离出指定域名的cookie
     domain: cookie domain, (".tsdm39.net")
     """
-    cookies_all = get_cookies_all() #     { username: [cookie] }
+    cookies_all = get_cookies_all(COOKIE_PATH) #     { username: [cookie] }
     domain_cookies = {}
 
     for username in cookies_all.keys():
@@ -121,12 +141,12 @@ def write_new_cookie(new_cookie: List, username: str) -> None:
     { username: [cookie] }
     """
     simplified_new_cookie = simplify_cookie(new_cookie)
-    cookies = get_cookies_all()
+    cookies = get_cookies_all(COOKIE_PATH)
 
     # TODO: 相同名称的直接覆盖, 不同站点的用不同cookie文件, 或者机制检测
     cookies[username] = simplified_new_cookie
 
-    with open('cookies.json', 'w', encoding='utf-8') as json_file:
+    with open('../privates/cookies.json', 'w', encoding='utf-8') as json_file:
         json.dump(cookies, json_file, ensure_ascii=False, indent=4)
 
     display_info("写入cookie文件完成")
@@ -136,11 +156,11 @@ def write_new_cookie_all(new_cookie: List, username: str) -> None:
     """写入所有新的用户cookie
     { username: [cookie] }
     """
-    cookies = get_cookies_all()
+    cookies = get_cookies_all(COOKIE_PATH)
     # TODO: 相同名称的直接覆盖, 不同站点的用不同cookie文件, 或者机制检测
     cookies[username] = new_cookie
 
-    with open('cookies.json', 'w', encoding='utf-8') as json_file:
+    with open('../privates/cookies.json', 'w', encoding='utf-8') as json_file:
         json.dump(cookies, json_file, ensure_ascii=False, indent=4)
 
     display_info("写入cookie文件完成")

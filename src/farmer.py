@@ -1,9 +1,9 @@
 import argparse
-import time, sys, schedule
+import sys, schedule
 
-from v1_selenium import *
-from v2_request import *
-from logger import *
+from lib.v1_selenium import *
+from lib.v2_request import *
+from lib.logger import *
 
 
 def do_parse():
@@ -66,7 +66,7 @@ def do_parse():
 
 
     if enable_s1_read:
-        from dlc_stage1st import do_read_s1_all
+        from lib.dlc_stage1st import do_read_s1_all
         schedule.every(20).minutes.do(do_read_s1_all)
 
 

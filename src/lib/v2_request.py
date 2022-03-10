@@ -4,14 +4,12 @@
 from datetime import datetime
 from typing import List
 
-import random
-import requests
-import time
+import random, requests, time
 
-from actions import sign_url, work_url
-from actions import write_error, get_cookies_by_domain, tsdm_domain
-from logger import *
-from models import *
+from lib.model import *
+from lib.logger import *
+from lib.model import *
+
 
 def work_single_post(cookie: List):
     """用post方式为一个账户打工

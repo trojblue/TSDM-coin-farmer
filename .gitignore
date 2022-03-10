@@ -1,8 +1,10 @@
 bin/
 .idea/
-src/__pycache__
+__pycache__
+src/privates
 src/settings.py
 src/testing.py
+
 *.txt
 *.log
 *.json

@@ -1,8 +1,7 @@
-from v1_selenium import *
-from v2_request import *
-from logger import *
+from lib.v1_selenium import *
+from lib.v2_request import *
+from lib.logger import *
 from settings import EAT_CREDENTIALS
-import time
 
 eat_login_url = "https://eatasmr.com/community"
 eat_attendance_url = "https://eatasmr.com/tasks/attendance"
