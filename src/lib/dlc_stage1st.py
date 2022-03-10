@@ -8,11 +8,9 @@ import requests
 from lib.model import *
 from lib.logger import *
 
-s1_frontpage = "https://bbs.saraba1st.com/2b/forum.php"
-s1_sample_post = "https://bbs.saraba1st.com/2b/thread-2022232-1-1.html"
 
 def refresh_cookie_s1(username: str, password:str):
-    """selenium获取单个S1 cookie
+    """selenium获取单个S1 cookie_list
     """
     driver = get_webdriver()
     driver.get(s1_frontpage)
@@ -66,7 +64,7 @@ def refresh_cookies_s1():
 
 def write_new_cookie_s1(new_cookie: List, username: str) -> None:
     """向cookie文件写入新的用户cookie
-    { username: [cookie] }
+    { username: [cookie_list] }
     """
     cookies = get_cookies_all(COOKIE_PATH)
     cookies[username] = simplify_cookie(new_cookie)
@@ -79,15 +77,7 @@ def write_new_cookie_s1(new_cookie: List, username: str) -> None:
 def do_read_s1_single(cookie:List):
     """浏览一个帖子
     """
-    cookie_serialized = get_serialized_cookie(cookie)
-
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko',
-        'cookie': cookie_serialized,
-        'connection': 'Keep-Alive',
-        'referer': 'https://bbs.saraba1st.com/2b/forum-6-1.html',
-    }
-
+    headers = get_headers(cookie, HEADER_S1_READ)
     read_response = requests.get(s1_sample_post, headers=headers)
 
     if ("动漫论坛 -  Stage1st") in read_response.text:

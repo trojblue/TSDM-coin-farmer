@@ -13,13 +13,9 @@ from lib.model import *
 
 def work_single_post(cookie: List):
     """用post方式为一个账户打工
-    cookie: List[Dict]
+    cookie_list: List[Dict]
     """
-    cookie_serialized = get_serialized_cookie(cookie)
-
-    # 必须要这个content-type, 否则没法接收
-    headers = HEADER_TSDM_WORK
-    headers['cookie'] = cookie_serialized
+    headers = get_headers(cookie, HEADER_TSDM_WORK)
 
     # 打工之前必须访问过一次网页
     page_feedback = requests.get(work_url, headers=headers)
@@ -83,10 +79,10 @@ def sign_single_post_v2(cookie):
 
     # 必须要这个content-type, 否则没法接收
     headers = HEADER_TSDM_SIGN
-    headers['cookie'] = cookie_serialized
+    headers['cookie_list'] = cookie_serialized
 
     s = requests.session()
-    sign_response = s.get(sign_url, headers=headers).text
+    sign_response = s.get(tsdm_sign_url, headers=headers).text
 
     form_start = sign_response.find("formhash=") + 9  # 此处9个字符
     formhash = sign_response[form_start:form_start + 8]  # formhash 8位

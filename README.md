@@ -72,6 +72,8 @@ cookies.json:
 
 - 没有条件在pc上获取cookie的话, 可以尝试手动配置: 见`doc/cookies.json.example`
 
+- 使用IDE时, 把'/src'标记为source root; 把'/dist'标记为excluded
+
 ## TODO
 2. 随机浏览s1页面
 3. s1和eatASMR自动签到

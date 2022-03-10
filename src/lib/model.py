@@ -13,12 +13,11 @@ from lib.cookie import *
 # Local path
 COOKIE_PATH = './privates/cookies.json'
 
-
 # Header
 
 HEADER_TSDM_WORK = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko',
-        'cookie': "===CHANGE ME===",
+        'cookie_list': "===CHANGE ME===",
         'connection': 'Keep-Alive',
         'x-requested-with': 'XMLHttpRequest',
         'referer': 'https://www.tsdm39.net/plugin.php?id=np_cliworkdz:work',
@@ -28,21 +27,43 @@ HEADER_TSDM_WORK = {
 HEADER_TSDM_SIGN = {
     'accept': 'text/html, application/xhtml+xml, image/jxr, */*',
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko',
-    'cookie': "===CHANGE ME===",
+    'cookie_list': "===CHANGE ME===",
     'connection': 'Keep-Alive',
     'referer': 'https://www.tsdm39.net/home.php?mod=space&do=pm',
     'content-type': 'application/x-www-form-urlencoded'
 }
 
+HEADER_S1_READ = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko',
+        'cookie_list': "===CHANGE ME===",
+        'connection': 'Keep-Alive',
+        'referer': 'https://bbs.saraba1st.com/2b/forum-6-1.html',
+}
+
+
+HEADER_EAT_SIGN = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko',
+        'cookie_list': "===CHANGE ME===",
+        'connection': 'Keep-Alive',
+        'referer': 'https://eatasmr.com/tasks/attendance',
+        'accept': "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+        'content-type': "application/x-www-form-urlencoded",
+        'origin': "https://eatasmr.com"
+    }
+
+
 # URL
 
-sign_url = 'https://www.tsdm39.net/plugin.php?id=dsu_paulsign:sign'
+tsdm_sign_url = 'https://www.tsdm39.net/plugin.php?id=dsu_paulsign:sign'
 sign_url_with_param = 'https://www.tsdm39.net/plugin.php?id=dsu_paulsign:sign&operation=qiandao&infloat=1&sign_as=1&inajax=1'
 
 work_url = 'https://www.tsdm39.net/plugin.php?id=np_cliworkdz:work'
 login_url = 'https://www.tsdm39.net/member.php?mod=logging&action=login'
 
-# cookie domain
+s1_frontpage = "https://bbs.saraba1st.com/2b/forum.php"
+s1_sample_post = "https://bbs.saraba1st.com/2b/thread-2022232-1-1.html"
+
+# cookie_list domain
 tsdm_domain = ".tsdm39.net"
 s1_domain = "bbs.saraba1st.com"
 eatasmr_domain = "eatasmr.com"
@@ -56,13 +77,25 @@ def get_webdriver():
     driver = webdriver.Chrome(chrome_options=options)
     return driver
 
-def get_serialized_cookie(cookie):
-    return "; ".join([i['name'] + "=" + i['value'] for i in cookie])
+def get_serialized_cookie(cookie_list:List):
+    return "; ".join([i['name'] + "=" + i['value'] for i in cookie_list])
 
+
+def get_headers(cookie_list:List, header:Dict) -> Dict:
+    """读取 <cookie_list>, 添加到 <header>
+    :param cookie_list: get_cookies_by_domain()
+    :param header: 在model.py设置
+    :return: 完整cookie
+    """
+    cookie_serialized = get_serialized_cookie(cookie_list)
+
+    headers = header
+    headers['cookie_list'] = cookie_serialized
+    return headers
 
 def write_new_cookie(new_cookie: List, username: str) -> None:
     """向cookie文件写入新的用户cookie
-    { username: [cookie] }
+    { username: [cookie_list] }
     """
     simplified_new_cookie = simplify_cookie(new_cookie)
     cookies = get_cookies_all(COOKIE_PATH)
@@ -78,7 +111,7 @@ def write_new_cookie(new_cookie: List, username: str) -> None:
 
 def write_new_cookie_all(new_cookie: List, username: str) -> None:
     """写入所有新的用户cookie
-    { username: [cookie] }
+    { username: [cookie_list] }
     """
     cookies = get_cookies_all(COOKIE_PATH)
     # TODO: 相同名称的直接覆盖, 不同站点的用不同cookie文件, 或者机制检测

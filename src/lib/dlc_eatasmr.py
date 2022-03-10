@@ -38,17 +38,7 @@ def refresh_cookie_eatasmr(username: str):
 def do_sign_eat_single(cookie:List):
     """浏览一个帖子
     """
-    cookie_serialized = get_serialized_cookie(cookie)
-
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko',
-        'cookie': cookie_serialized,
-        'connection': 'Keep-Alive',
-        'referer': 'https://eatasmr.com/tasks/attendance',
-        'accept': "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-        'content-type': "application/x-www-form-urlencoded",
-        'origin': "https://eatasmr.com"
-    }
+    headers = get_headers(cookie, HEADER_EAT_SIGN)
     s = requests.session()
 
     sign_response = s.get(eat_attendance_url, headers=headers).text

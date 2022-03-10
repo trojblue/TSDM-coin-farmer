@@ -25,7 +25,7 @@ s1_domain = "bbs.saraba1st.com"
 
 def get_cookies_all():
     """从文件读取所有cookies
-    { username: [cookie] }
+    { username: [cookie_list] }
     """
     try:
         with open('cookies.json', 'r', encoding='utf-8') as json_file:
@@ -39,9 +39,9 @@ def get_cookies_all():
 
 def get_cookies_by_domain(domain:str):
     """从所有cookie里分离出指定域名的cookie
-    domain: cookie domain, (".tsdm39.net")
+    domain: cookie_list domain, (".tsdm39.net")
     """
-    cookies_all = get_cookies_all() #     { username: [cookie] }
+    cookies_all = get_cookies_all() #     { username: [cookie_list] }
     domain_cookies = {}
 
     for username in cookies_all.keys():
@@ -72,7 +72,7 @@ def sign_single_post_v2(cookie):
     headers = {
         'accept': 'text/html, application/xhtml+xml, image/jxr, */*',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko',
-        'cookie': cookie_serialized,
+        'cookie_list': cookie_serialized,
         'connection': 'Keep-Alive',
         'referer': 'https://www.tsdm39.net/home.php?mod=space&do=pm',
         'content-type': 'application/x-www-form-urlencoded'

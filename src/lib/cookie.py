@@ -1,3 +1,6 @@
+from lib.v1_selenium import *
+from lib.logger import *
+
 
 def refresh_cookie_tsdm(username: str, password: str):
     """selenium获取cookie
@@ -51,7 +54,7 @@ def refresh_cookies_tsdm():
 
 def get_cookies_all(path:str) -> Dict:
     """从文件读取所有cookies
-    { username: [cookie] }
+    { username: [cookie_list] }
     """
     try:
         with open(path, 'r', encoding='utf-8') as json_file:
@@ -65,9 +68,9 @@ def get_cookies_all(path:str) -> Dict:
 
 def get_cookies_by_domain(domain:str):
     """从所有cookie里分离出指定域名的cookie
-    domain: cookie domain, (".tsdm39.net")
+    domain: cookie_list domain, (".tsdm39.net")
     """
-    cookies_all = get_cookies_all(COOKIE_PATH) #     { username: [cookie] }
+    cookies_all = get_cookies_all(COOKIE_PATH) #     { username: [cookie_list] }
     domain_cookies = {}
 
     for username in cookies_all.keys():
