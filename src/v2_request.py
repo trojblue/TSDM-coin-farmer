@@ -11,7 +11,7 @@ import time
 from actions import sign_url, work_url
 from actions import write_error, get_cookies_by_domain, tsdm_domain
 from logger import *
-
+from models import *
 
 def work_single_post(cookie: List):
     """用post方式为一个账户打工
@@ -20,14 +20,8 @@ def work_single_post(cookie: List):
     cookie_serialized = "; ".join([i['name'] + "=" + i['value'] for i in cookie])
 
     # 必须要这个content-type, 否则没法接收
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko',
-        'cookie': cookie_serialized,
-        'connection': 'Keep-Alive',
-        'x-requested-with': 'XMLHttpRequest',
-        'referer': 'https://www.tsdm39.net/plugin.php?id=np_cliworkdz:work',
-        'content-type': 'application/x-www-form-urlencoded'
-    }
+    headers = HEADER_TSDM_WORK
+    headers['cookie'] = cookie_serialized
 
     # 打工之前必须访问过一次网页
     page_feedback = requests.get(work_url, headers=headers)
