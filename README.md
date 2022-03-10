@@ -48,6 +48,8 @@ cookies.json:
 
 2022.3.9: 重构代码, 之前的教程可能没有更新, 注意分辨
 
+<br>
+
 2022.2.10: 增加eatASMR的自动签到 (本地&云函数)DLC
 
 2021.12.1: 增加s1刷阅读的云函数版本
@@ -75,5 +77,7 @@ cookies.json:
 - 使用IDE时, 把'/src'标记为source root; 把'/dist'标记为excluded
 
 ## TODO
-2. 随机浏览s1页面
-3. s1和eatASMR自动签到
+- [ x ] 随机浏览s1页面
+- [ x ] eatASMR自动签到
+- [ ] tsdm自动提取页面
+- [ ] tsdm批量提取页面

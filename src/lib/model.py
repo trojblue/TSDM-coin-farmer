@@ -68,6 +68,10 @@ tsdm_domain = ".tsdm39.net"
 s1_domain = "bbs.saraba1st.com"
 eatasmr_domain = "eatasmr.com"
 
+
+# re相关
+re_URL = "(?P<url>https?://[^\s]+)"
+
 def get_webdriver():
     """返回设置好参数的webdriver
     """
