@@ -15,7 +15,7 @@ def work_single_post(cookie: List):
     """用post方式为一个账户打工
     cookie: List[Dict]
     """
-    cookie_serialized = "; ".join([i['name'] + "=" + i['value'] for i in cookie])
+    cookie_serialized = get_serialized_cookie(cookie)
 
     # 必须要这个content-type, 否则没法接收
     headers = HEADER_TSDM_WORK
@@ -78,22 +78,12 @@ def work_multi_post():
     return
 
 
-sign_page_with_param = \
-    'https://www.tsdm39.net/plugin.php?id=dsu_paulsign:sign&operation=qiandao&infloat=1&sign_as=1&inajax=1'
-
-
 def sign_single_post_v2(cookie):
-    cookie_serialized = "; ".join([i['name'] + "=" + i['value'] for i in cookie])
+    cookie_serialized = get_serialized_cookie(cookie)
 
     # 必须要这个content-type, 否则没法接收
-    headers = {
-        'accept': 'text/html, application/xhtml+xml, image/jxr, */*',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko',
-        'cookie': cookie_serialized,
-        'connection': 'Keep-Alive',
-        'referer': 'https://www.tsdm39.net/home.php?mod=space&do=pm',
-        'content-type': 'application/x-www-form-urlencoded'
-    }
+    headers = HEADER_TSDM_SIGN
+    headers['cookie'] = cookie_serialized
 
     s = requests.session()
     sign_response = s.get(sign_url, headers=headers).text
@@ -103,7 +93,7 @@ def sign_single_post_v2(cookie):
 
     sign_data = "formhash=" + formhash + "&qdxq=wl&qdmode=3&todaysay=&fastreply=1"  # formhash, 签到心情, 签到模式(不发言)
 
-    sign_response = s.post(sign_page_with_param, data=sign_data, headers=headers)
+    sign_response = s.post(sign_url_with_param, data=sign_data, headers=headers)
 
     if "恭喜你签到成功!获得随机奖励" in sign_response.text:
         display_info("签到成功")

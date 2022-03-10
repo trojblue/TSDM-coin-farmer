@@ -38,7 +38,7 @@ def refresh_cookie_eatasmr(username: str):
 def do_sign_eat_single(cookie:List):
     """浏览一个帖子
     """
-    cookie_serialized = "; ".join([i['name'] + "=" + i['value'] for i in cookie])
+    cookie_serialized = get_serialized_cookie(cookie)
 
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko',

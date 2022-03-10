@@ -71,7 +71,7 @@ def write_new_cookie_s1(new_cookie: List, username: str) -> None:
     cookies = get_cookies_all(COOKIE_PATH)
     cookies[username] = simplify_cookie(new_cookie)
 
-    with open('../privates/cookies.json', 'w', encoding='utf-8') as json_file:
+    with open(COOKIE_PATH, 'w', encoding='utf-8') as json_file:
         json.dump(cookies, json_file, ensure_ascii=False, indent=4)
 
     display_info("write done")
@@ -79,7 +79,7 @@ def write_new_cookie_s1(new_cookie: List, username: str) -> None:
 def do_read_s1_single(cookie:List):
     """浏览一个帖子
     """
-    cookie_serialized = "; ".join([i['name'] + "=" + i['value'] for i in cookie])
+    cookie_serialized = get_serialized_cookie(cookie)
 
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko',
