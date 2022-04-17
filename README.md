@@ -9,6 +9,9 @@
 <br>
 
 
+**最近比较忙, 本地版改到一半还没搞好. 要用本地版可以看下历史commit, 里面有能直接用的版本. 云函数目前正常**
+
+
 ## 使用
 
 1. **腾讯云函数版**: 见 [这里](https://github.com/Trojblue/TSDM-coin-farmer/blob/main/doc/serverless_readme.md), 相比本地运行更稳定, *比较推荐*
