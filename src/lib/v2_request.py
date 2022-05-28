@@ -44,6 +44,7 @@ def work_single_post(cookie: List):
         ad_feedback = requests.post(work_url, data="act=clickad", headers=headers)
 
         wait_time = round(random.uniform(0.5, 1), 2)
+        # todo: 这里会打印整行feedback
         print("点击广告: 第%s次, 等待%s秒, 服务器标识:%s" % (i + 2, wait_time, ad_feedback.text), end="\r")
         add_debug("点击广告: 第%s次, 等待%s秒, 服务器标识:%s" % (i + 2, wait_time, ad_feedback.text))
         time.sleep(wait_time)

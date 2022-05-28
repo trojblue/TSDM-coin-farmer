@@ -79,7 +79,7 @@ def get_cookie_tsdm(username: str, password: str):
         driver.find_element_by_xpath("//*[starts-with(@id,'username_')]").send_keys(username)
         driver.find_element_by_xpath("//*[starts-with(@id,'password3_')]").send_keys(password)
         driver.find_element_by_name("tsdm_verify").click()
-        display_info("等待浏览器里填写验证码并登录:")
+        display_info("在浏览器内填写验证码后点击登录:")
     else:
         # 无TSDM_CREDENTIAL, 手动填写信息
         display_warning("请手动填写信息后点击登录:")
@@ -117,12 +117,12 @@ def get_cookies_tsdm_all():
     return
 
 
-def get_cookies_all(path:str) -> Dict:
+def get_cookies_all() -> Dict:
     """从文件读取所有cookies
     { username: [cookie_list] }
     """
     try:
-        with open(path, 'r', encoding='utf-8') as json_file:
+        with open(COOKIE_PATH, 'r', encoding='utf-8') as json_file:
             data = json.load(json_file)
             return data
 
@@ -135,7 +135,7 @@ def get_cookies_by_domain(domain:str):
     """从所有cookie里分离出指定域名的cookie
     domain: cookie_list domain, (".tsdm39.net")
     """
-    cookies_all = get_cookies_all(COOKIE_PATH) #     { username: [cookie_list] }
+    cookies_all = get_cookies_all() #     { username: [cookie_list] }
     domain_cookies = {}
 
     for username in cookies_all.keys():
@@ -157,7 +157,7 @@ def write_new_cookie(new_cookie: List, username: str) -> None:
     { username: [cookie_list] }
     """
     simplified_new_cookie = simplify_cookie(new_cookie)
-    cookies = get_cookies_all(COOKIE_PATH)
+    cookies = get_cookies_all()
 
     # TODO: 相同名称的直接覆盖, 不同站点的用不同cookie文件, 或者机制检测
     cookies[username] = simplified_new_cookie

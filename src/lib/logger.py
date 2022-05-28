@@ -19,7 +19,7 @@ def set_logger():
     logHandler = RotatingFileHandler('./private/farmer.log', maxBytes=FILE_SIZE, backupCount=FILE_COUNT, encoding='UTF-8')
 
     logHandler.setFormatter(log_formatter)
-    logHandler.setLevel(logging.INFO)
+    logHandler.setLevel(logging.WARNING)
     logger.addHandler(logHandler)
     logger.info("farmer.py: 开始运行")
 
