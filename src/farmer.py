@@ -34,7 +34,7 @@ def do_parse():
     if args.reset:
 
         display_info("刷新cookie")
-        refresh_cookies_tsdm()
+        get_cookies_tsdm_all()
         # todo: 包含s1
         display_info("所有cookie刷新完毕")
 

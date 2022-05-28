@@ -7,6 +7,7 @@ import requests
 
 from lib.model import *
 from lib.logger import *
+from lib.v2_request import get_headers
 
 
 def refresh_cookie_s1(username: str, password:str):
@@ -52,7 +53,7 @@ def refresh_cookies_s1():
         # 多账户刷新
         from settings import S1_CREDENTIALS
         for i in S1_CREDENTIALS:
-            refresh_cookie_tsdm(i[0], i[1])
+            get_cookie_tsdm(i[0], i[1])
 
     except ImportError:
         display_warning("未找到S1_credentials, 为单个账户手动刷新cookie; \n"

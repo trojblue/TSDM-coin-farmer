@@ -73,7 +73,7 @@ re_URL = "(?P<url>https?://[^\s]+)"
 
 
 # ========= COOKIES =======
-def refresh_cookie_tsdm(username: str, password: str):
+def get_cookie_tsdm(username: str, password: str):
     """selenium获取cookie
     """
     add_debug("刷新cookie")
@@ -106,19 +106,19 @@ def refresh_cookie_tsdm(username: str, password: str):
     write_new_cookie(new_cookie, my_username)
     return new_cookie
 
-def refresh_cookies_tsdm():
+def get_cookies_tsdm_all():
     """从credentials重新获取所有cookie
     """
     try:
         # 多账户刷新
         from private.settings import TSDM_CREDENTIALS
         for i in TSDM_CREDENTIALS:
-            refresh_cookie_tsdm(i[0], i[1])
+            get_cookie_tsdm(i[0], i[1])
 
     except ImportError:
         display_warning("未找到TSDM_credentials, 为单个账户手动刷新cookie; \n"
               "如果需要多账户签到/自动填写密码, 请先按照readme设置好天使动漫的账户密码")
-        refresh_cookie_tsdm("", "")
+        get_cookie_tsdm("", "")
 
     return
 
@@ -214,19 +214,6 @@ def get_webdriver():
 
 def get_serialized_cookie(cookie_list:List):
     return "; ".join([i['name'] + "=" + i['value'] for i in cookie_list])
-
-
-def get_headers(cookie_list:List, header:Dict) -> Dict:
-    """读取 <cookie_list>, 添加到 <header>
-    :param cookie_list: get_cookies_by_domain()
-    :param header: 在model.py设置
-    :return: 完整cookie
-    """
-    cookie_serialized = get_serialized_cookie(cookie_list)
-
-    headers = header
-    headers['cookie_list'] = cookie_serialized
-    return headers
 
 def write_error(prefix:str, content:str):
     """保存错误日志

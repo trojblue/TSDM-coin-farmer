@@ -10,6 +10,18 @@ from lib.model import *
 from lib.logger import *
 from lib.model import *
 
+def get_headers(cookie_list:List, header:Dict) -> Dict:
+    """读取 <cookie_list>, 添加到 <header>
+    :param cookie_list: get_cookies_by_domain()
+    :param header: 在model.py设置
+    :return: 完整cookie
+    """
+    cookie_serialized = get_serialized_cookie(cookie_list)
+
+    headers = header
+    headers['cookie_list'] = cookie_serialized
+    return headers
+
 
 def work_single_post(cookie: List):
     """用post方式为一个账户打工
