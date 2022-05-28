@@ -10,6 +10,7 @@ from lib.model import *
 from lib.logger import *
 from lib.model import *
 
+
 def get_headers(cookie_list:List, header:Dict) -> Dict:
     """读取 <cookie_list>, 添加到 <header>
     :param cookie_list: get_cookies_by_domain()
@@ -17,9 +18,11 @@ def get_headers(cookie_list:List, header:Dict) -> Dict:
     :return: 完整cookie
     """
     cookie_serialized = get_serialized_cookie(cookie_list)
-
-    headers = header
+    headers = HEADER_UNIVERSAL
+    for k in header.keys():
+        headers[k] = header[k]
     headers['cookie_list'] = cookie_serialized
+
     return headers
 
 

@@ -51,7 +51,7 @@ def refresh_cookies_s1():
     """
     try:
         # 多账户刷新
-        from settings import S1_CREDENTIALS
+        from private.settings import S1_CREDENTIALS
         for i in S1_CREDENTIALS:
             get_cookie_tsdm(i[0], i[1])
 

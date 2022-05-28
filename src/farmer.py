@@ -10,10 +10,9 @@ def do_parse():
     """
     命令行读取参数
     """
-
     try:
         # 万一有人没改settings.py, 也不会闪退
-        from settings import enable_s1_read
+        from private.settings import enable_s1_read
     except ImportError:
         display_warning("====未发现settings.py, 使用默认设置运行===")
         enable_s1_read = False

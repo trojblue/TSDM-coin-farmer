@@ -14,10 +14,14 @@ COOKIE_PATH = './private/cookies.json'
 
 # ======= Header =========
 
+# 通用header, 如果相同会被下面的其他header覆盖
+HEADER_UNIVERSAL = {
+    'cookie_list': "===CHANGE ME===",
+    'connection': 'Keep-Alive',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko',
+}
+
 HEADER_TSDM_WORK = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko',
-        'cookie_list': "===CHANGE ME===",
-        'connection': 'Keep-Alive',
         'x-requested-with': 'XMLHttpRequest',
         'referer': 'https://www.tsdm39.net/plugin.php?id=np_cliworkdz:work',
         'content-type': 'application/x-www-form-urlencoded'
@@ -25,25 +29,15 @@ HEADER_TSDM_WORK = {
 
 HEADER_TSDM_SIGN = {
     'accept': 'text/html, application/xhtml+xml, image/jxr, */*',
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko',
-    'cookie_list': "===CHANGE ME===",
-    'connection': 'Keep-Alive',
     'referer': 'https://www.tsdm39.net/home.php?mod=space&do=pm',
     'content-type': 'application/x-www-form-urlencoded'
 }
 
 HEADER_S1_READ = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko',
-        'cookie_list': "===CHANGE ME===",
-        'connection': 'Keep-Alive',
         'referer': 'https://bbs.saraba1st.com/2b/forum-6-1.html',
 }
 
-
 HEADER_EAT_SIGN = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko',
-        'cookie_list': "===CHANGE ME===",
-        'connection': 'Keep-Alive',
         'referer': 'https://eatasmr.com/tasks/attendance',
         'accept': "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
         'content-type': "application/x-www-form-urlencoded",
