@@ -39,6 +39,13 @@ def work_single_post(cookie: List):
     if "必须与上一次间隔" in ad_feedback.text:
         display_info("该账户已经打工过")
         return
+    elif "请先登录" in ad_feedback.text:
+        display_info("登录信息失效")
+        return
+    elif len(ad_feedback.text) > 100: # 失败, 返回未error check的网页
+        display_info("其他原因打工错误")
+        return
+
 
     for i in range(7):  # 总共6次打工, 实际打工8次保险
         ad_feedback = requests.post(work_url, data="act=clickad", headers=headers)
