@@ -1,6 +1,6 @@
 import time
+from typing import Dict
 
-from lib.cookie import get_cookies_all
 from lib.model import *
 from lib.model import tsdm_sign_url
 

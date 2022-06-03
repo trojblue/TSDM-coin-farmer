@@ -1,4 +1,5 @@
 import logging
+import os
 from logging.handlers import RotatingFileHandler
 
 
@@ -13,11 +14,12 @@ def set_logger():
     logger = logging.getLogger('farmer')
     logger.setLevel(logging.INFO)
 
+    os.makedirs(os.path.dirname('./private/farmer.log'), exist_ok=True)
     log_formatter = logging.Formatter('%(asctime)s %(levelname)s %(funcName)s(%(lineno)d) %(message)s')
-    logHandler = RotatingFileHandler('../privates/farmer.log', maxBytes=FILE_SIZE, backupCount=FILE_COUNT, encoding='UTF-8')
+    logHandler = RotatingFileHandler('./private/farmer.log', maxBytes=FILE_SIZE, backupCount=FILE_COUNT, encoding='UTF-8')
 
     logHandler.setFormatter(log_formatter)
-    logHandler.setLevel(logging.INFO)
+    logHandler.setLevel(logging.WARNING)
     logger.addHandler(logHandler)
     logger.info("farmer.py: 开始运行")
 

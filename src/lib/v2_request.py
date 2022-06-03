@@ -11,6 +11,21 @@ from lib.logger import *
 from lib.model import *
 
 
+def get_headers(cookie_list:List, header:Dict) -> Dict:
+    """读取 <cookie_list>, 添加到 <header>
+    :param cookie_list: get_cookies_by_domain()
+    :param header: 在model.py设置
+    :return: 完整cookie
+    """
+    cookie_serialized = get_serialized_cookie(cookie_list)
+    headers = HEADER_UNIVERSAL
+    for k in header.keys():
+        headers[k] = header[k]
+    headers['cookie_list'] = cookie_serialized
+
+    return headers
+
+
 def work_single_post(cookie: List):
     """用post方式为一个账户打工
     cookie_list: List[Dict]
@@ -24,11 +39,19 @@ def work_single_post(cookie: List):
     if "必须与上一次间隔" in ad_feedback.text:
         display_info("该账户已经打工过")
         return
+    elif "请先登录" in ad_feedback.text:
+        display_info("登录信息失效")
+        return
+    elif len(ad_feedback.text) > 100: # 失败, 返回未error check的网页
+        display_info("其他原因打工错误")
+        return
+
 
     for i in range(7):  # 总共6次打工, 实际打工8次保险
         ad_feedback = requests.post(work_url, data="act=clickad", headers=headers)
 
         wait_time = round(random.uniform(0.5, 1), 2)
+        # todo: 这里会打印整行feedback
         print("点击广告: 第%s次, 等待%s秒, 服务器标识:%s" % (i + 2, wait_time, ad_feedback.text), end="\r")
         add_debug("点击广告: 第%s次, 等待%s秒, 服务器标识:%s" % (i + 2, wait_time, ad_feedback.text))
         time.sleep(wait_time)
