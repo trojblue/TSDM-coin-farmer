@@ -2,7 +2,7 @@
 
 
 # 天使动漫:
-TSDM_CREDENTIALS = [['dfmjndm', '7438dfmjndm']]
+TSDM_CREDENTIALS = [['', '']]
 
 
 # Stage1st:
