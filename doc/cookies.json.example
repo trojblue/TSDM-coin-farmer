@@ -18,45 +18,5 @@
             "secure": true,
             "value": "61RA153P"
         }
-    ],
-    "user2": [
-        {
-            "domain": ".tsdm39.net",
-            "expiry": 1533687412,
-            "httpOnly": true,
-            "name": "s_gkr8_f719_auth",
-            "path": "/",
-            "secure": true,
-            "value": "3q1dilPKxzPoo6pjaTVkE3DcLo9bpyPYPJuwzOJbEnlXNEGQM241jeJMEDgTcJmau6NE31lvfSfCGpj32HW1M8FiYfxlX78KVe"
-        },
-        {
-            "domain": ".tsdm39.net",
-            "expiry": 1533687403,
-            "httpOnly": true,
-            "name": "s_gkr8_f719_saltkey",
-            "path": "/",
-            "secure": true,
-            "value": "PpWi3Qds"
-        }
-    ],
-    "user3": [
-        {
-            "domain": "bbs.saraba1st.com",
-            "expiry": 1533875252,
-            "httpOnly": true,
-            "name": "B7Y9_2132_auth",
-            "path": "/",
-            "secure": true,
-            "value": "4e8AfQYcEuuMtT4lZY07mQitxu36pykdKVtRjKdCs3udxdOAjqc1tRcGYOtVLcF9yIZZ2CvWnr6jPtcFbvy21Vi4Yr6hvdtkwk"
-        },
-        {
-            "domain": "bbs.saraba1st.com",
-            "expiry": 1533875214,
-            "httpOnly": true,
-            "name": "B7Y9_2132_saltkey",
-            "path": "/",
-            "secure": true,
-            "value": "TS4HFgSa"
-        }
     ]
 }

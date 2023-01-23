@@ -8,7 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from datetime import datetime
 
 from lib.logger import *
-
+from selenium.webdriver.common.by import By
 # Local path
 COOKIE_PATH = './private/cookies.json'
 
@@ -73,12 +73,17 @@ def get_cookie_tsdm(username: str, password: str):
     add_debug("刷新cookie")
     driver = get_webdriver()
     driver.get(login_url)
-    driver.find_element_by_xpath("//*[starts-with(@id,'cookietime_')]").click()
+    # driver.find_element_by_xpath("//*[starts-with(@id,'cookietime_')]").click()
+    driver.find_element(By.XPATH, "//*[starts-with(@id,'cookietime_')]").click()
+
 
     if username and password: # 账户密码非空
-        driver.find_element_by_xpath("//*[starts-with(@id,'username_')]").send_keys(username)
-        driver.find_element_by_xpath("//*[starts-with(@id,'password3_')]").send_keys(password)
-        driver.find_element_by_name("tsdm_verify").click()
+        # driver.find_element_by_xpath("//*[starts-with(@id,'username_')]").send_keys(username)
+        driver.find_element(By.XPATH, "//*[starts-with(@id,'username_')]").send_keys(username)
+        # driver.find_element_by_xpath("//*[starts-with(@id,'password3_')]").send_keys(password)
+        driver.find_element(By.XPATH, "//*[starts-with(@id,'password3_')]").send_keys(password)
+        # driver.find_element_by_name("tsdm_verify").click()
+        driver.find_element(By.NAME, "tsdm_verify").click()
         display_info("在浏览器内填写验证码后点击登录:")
     else:
         # 无TSDM_CREDENTIAL, 手动填写信息
@@ -89,7 +94,8 @@ def get_cookie_tsdm(username: str, password: str):
 
     if not username:
         # 无TSDM_CREDENTIAL, 从浏览器获取用户名
-        my_username = driver.find_element_by_xpath("//*[@id='um']/p[1]/strong/a").text
+        # my_username = driver.find_element_by_xpath("//*[@id='um']/p[1]/strong/a").text
+        my_username = driver.find_element(By.XPATH, "//*[@id='um']/p[1]/strong/a").text
         assert my_username is not None
     else:
         my_username = username
@@ -117,25 +123,39 @@ def get_cookies_tsdm_all():
     return
 
 
-def get_cookies_all() -> Dict:
+# def get_cookies_all() -> Dict:
+#     """从文件读取所有cookies
+#     { username: [cookie_list] }
+#     """
+#     try:
+#         with open(COOKIE_PATH, 'r', encoding='utf-8') as json_file:
+#             data = json.load(json_file)
+#             return data
+
+#     except FileNotFoundError:  # 文件不存在
+#         display_warning("cookies.json不存在")
+#         return {}
+
+def get_cookies_all(path: str) -> Dict:
     """从文件读取所有cookies
     { username: [cookie_list] }
     """
     try:
-        with open(COOKIE_PATH, 'r', encoding='utf-8') as json_file:
+        with open(path, 'r', encoding='utf-8') as json_file:
             data = json.load(json_file)
             return data
 
-    except FileNotFoundError:  # 文件不存在
+    except FileNotFoundError: 
         display_warning("cookies.json不存在")
         return {}
+
 
 
 def get_cookies_by_domain(domain:str):
     """从所有cookie里分离出指定域名的cookie
     domain: cookie_list domain, (".tsdm39.net")
     """
-    cookies_all = get_cookies_all() #     { username: [cookie_list] }
+    cookies_all = get_cookies_all(COOKIE_PATH) #     { username: [cookie_list] }
     domain_cookies = {}
 
     for username in cookies_all.keys():
@@ -201,6 +221,9 @@ def get_webdriver():
     """返回设置好参数的webdriver
     """
     options = webdriver.ChromeOptions()
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--headless')
     options.add_argument("disable-software-rasterizer")
     options.add_argument("log-level=3")
     driver = webdriver.Chrome(chrome_options=options)
